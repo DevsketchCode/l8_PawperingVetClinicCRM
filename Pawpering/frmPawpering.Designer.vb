@@ -43,6 +43,8 @@ Partial Class frmPawpering
         Me.lnkEditPet = New System.Windows.Forms.LinkLabel()
         Me.grpPetsList = New System.Windows.Forms.GroupBox()
         Me.lbxPetsList = New System.Windows.Forms.ListBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblCustomerEmail = New System.Windows.Forms.Label()
         Me.mnuMain.SuspendLayout()
         Me.grpCustomer.SuspendLayout()
         Me.grpPetInfo.SuspendLayout()
@@ -69,19 +71,19 @@ Partial Class frmPawpering
         '
         Me.mstNewCustomerToolStripMenuItem.Name = "mstNewCustomerToolStripMenuItem"
         Me.mstNewCustomerToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
-        Me.mstNewCustomerToolStripMenuItem.Text = "New Customer"
+        Me.mstNewCustomerToolStripMenuItem.Text = "New &Customer"
         '
         'mstNewPetToolStripMenuItem
         '
         Me.mstNewPetToolStripMenuItem.Name = "mstNewPetToolStripMenuItem"
         Me.mstNewPetToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
-        Me.mstNewPetToolStripMenuItem.Text = "New Pet"
+        Me.mstNewPetToolStripMenuItem.Text = "New &Pet"
         '
         'mstSearchToolStripMenuItem
         '
         Me.mstSearchToolStripMenuItem.Name = "mstSearchToolStripMenuItem"
         Me.mstSearchToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
-        Me.mstSearchToolStripMenuItem.Text = "Search Customer/Pet"
+        Me.mstSearchToolStripMenuItem.Text = "&Search Customer/Pet"
         '
         'AboutToolStripMenuItem
         '
@@ -105,7 +107,7 @@ Partial Class frmPawpering
         'lblCustomerName
         '
         Me.lblCustomerName.AutoSize = True
-        Me.lblCustomerName.Location = New System.Drawing.Point(6, 20)
+        Me.lblCustomerName.Location = New System.Drawing.Point(15, 20)
         Me.lblCustomerName.Name = "lblCustomerName"
         Me.lblCustomerName.Size = New System.Drawing.Size(38, 13)
         Me.lblCustomerName.TabIndex = 1
@@ -113,6 +115,8 @@ Partial Class frmPawpering
         '
         'grpCustomer
         '
+        Me.grpCustomer.Controls.Add(Me.lblCustomerEmail)
+        Me.grpCustomer.Controls.Add(Me.Label1)
         Me.grpCustomer.Controls.Add(Me.lblCustomerPhone2)
         Me.grpCustomer.Controls.Add(Me.lblCustomerZip)
         Me.grpCustomer.Controls.Add(Me.lblCustomerState)
@@ -131,7 +135,7 @@ Partial Class frmPawpering
         'lblCustomerPhone2
         '
         Me.lblCustomerPhone2.AutoSize = True
-        Me.lblCustomerPhone2.Location = New System.Drawing.Point(128, 102)
+        Me.lblCustomerPhone2.Location = New System.Drawing.Point(129, 104)
         Me.lblCustomerPhone2.Name = "lblCustomerPhone2"
         Me.lblCustomerPhone2.Size = New System.Drawing.Size(56, 13)
         Me.lblCustomerPhone2.TabIndex = 8
@@ -140,7 +144,7 @@ Partial Class frmPawpering
         'lblCustomerZip
         '
         Me.lblCustomerZip.AutoSize = True
-        Me.lblCustomerZip.Location = New System.Drawing.Point(204, 77)
+        Me.lblCustomerZip.Location = New System.Drawing.Point(191, 83)
         Me.lblCustomerZip.Name = "lblCustomerZip"
         Me.lblCustomerZip.Size = New System.Drawing.Size(25, 13)
         Me.lblCustomerZip.TabIndex = 7
@@ -149,7 +153,7 @@ Partial Class frmPawpering
         'lblCustomerState
         '
         Me.lblCustomerState.AutoSize = True
-        Me.lblCustomerState.Location = New System.Drawing.Point(128, 77)
+        Me.lblCustomerState.Location = New System.Drawing.Point(109, 83)
         Me.lblCustomerState.Name = "lblCustomerState"
         Me.lblCustomerState.Size = New System.Drawing.Size(35, 13)
         Me.lblCustomerState.TabIndex = 6
@@ -158,7 +162,7 @@ Partial Class frmPawpering
         'lblCustomerCity
         '
         Me.lblCustomerCity.AutoSize = True
-        Me.lblCustomerCity.Location = New System.Drawing.Point(6, 71)
+        Me.lblCustomerCity.Location = New System.Drawing.Point(15, 83)
         Me.lblCustomerCity.Name = "lblCustomerCity"
         Me.lblCustomerCity.Size = New System.Drawing.Size(27, 13)
         Me.lblCustomerCity.TabIndex = 5
@@ -167,7 +171,7 @@ Partial Class frmPawpering
         'lblCustomerPhone1
         '
         Me.lblCustomerPhone1.AutoSize = True
-        Me.lblCustomerPhone1.Location = New System.Drawing.Point(6, 102)
+        Me.lblCustomerPhone1.Location = New System.Drawing.Point(15, 104)
         Me.lblCustomerPhone1.Name = "lblCustomerPhone1"
         Me.lblCustomerPhone1.Size = New System.Drawing.Size(41, 13)
         Me.lblCustomerPhone1.TabIndex = 4
@@ -186,7 +190,7 @@ Partial Class frmPawpering
         'lblCustomerAddress
         '
         Me.lblCustomerAddress.AutoSize = True
-        Me.lblCustomerAddress.Location = New System.Drawing.Point(6, 46)
+        Me.lblCustomerAddress.Location = New System.Drawing.Point(15, 41)
         Me.lblCustomerAddress.Name = "lblCustomerAddress"
         Me.lblCustomerAddress.Size = New System.Drawing.Size(48, 13)
         Me.lblCustomerAddress.TabIndex = 2
@@ -230,6 +234,24 @@ Partial Class frmPawpering
         Me.lbxPetsList.Size = New System.Drawing.Size(200, 147)
         Me.lbxPetsList.TabIndex = 0
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(15, 62)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(48, 13)
+        Me.Label1.TabIndex = 9
+        Me.Label1.Text = "Address:"
+        '
+        'lblCustomerEmail
+        '
+        Me.lblCustomerEmail.AutoSize = True
+        Me.lblCustomerEmail.Location = New System.Drawing.Point(15, 125)
+        Me.lblCustomerEmail.Name = "lblCustomerEmail"
+        Me.lblCustomerEmail.Size = New System.Drawing.Size(41, 13)
+        Me.lblCustomerEmail.TabIndex = 10
+        Me.lblCustomerEmail.Text = "E-mail: "
+        '
         'frmPawpering
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -241,7 +263,8 @@ Partial Class frmPawpering
         Me.Controls.Add(Me.mnuMain)
         Me.MainMenuStrip = Me.mnuMain
         Me.Name = "frmPawpering"
-        Me.Text = "Pawpering Pet Clinic"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.Text = "Pawpering Pet Clinic CRM"
         Me.mnuMain.ResumeLayout(False)
         Me.mnuMain.PerformLayout()
         Me.grpCustomer.ResumeLayout(False)
@@ -275,4 +298,6 @@ Partial Class frmPawpering
     Friend WithEvents lnkEditPet As LinkLabel
     Friend WithEvents grpPetsList As GroupBox
     Friend WithEvents lbxPetsList As ListBox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents lblCustomerEmail As Label
 End Class

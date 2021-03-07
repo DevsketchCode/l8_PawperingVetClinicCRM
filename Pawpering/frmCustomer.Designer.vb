@@ -37,13 +37,17 @@ Partial Class frmCustomer
         Me.txtAddress1 = New System.Windows.Forms.TextBox()
         Me.txtAddress2 = New System.Windows.Forms.TextBox()
         Me.txtCity = New System.Windows.Forms.TextBox()
-        Me.TextBox6 = New System.Windows.Forms.TextBox()
-        Me.TextBox7 = New System.Windows.Forms.TextBox()
-        Me.TextBox8 = New System.Windows.Forms.TextBox()
+        Me.txtZipCode = New System.Windows.Forms.TextBox()
+        Me.txtPhoneNumber1 = New System.Windows.Forms.TextBox()
+        Me.txtPhoneNumber2 = New System.Windows.Forms.TextBox()
         Me.dteCustomerSince = New System.Windows.Forms.DateTimePicker()
         Me.cboState = New System.Windows.Forms.ComboBox()
         Me.grpCustomer = New System.Windows.Forms.GroupBox()
-        Me.btnSave = New System.Windows.Forms.Button()
+        Me.txtEmail = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.btnSaveAndClose = New System.Windows.Forms.Button()
+        Me.btnSaveAndLoad = New System.Windows.Forms.Button()
+        Me.btnClear = New System.Windows.Forms.Button()
         Me.grpCustomer.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -131,7 +135,7 @@ Partial Class frmCustomer
         'lblCustomerSince
         '
         Me.lblCustomerSince.AutoSize = True
-        Me.lblCustomerSince.Location = New System.Drawing.Point(13, 259)
+        Me.lblCustomerSince.Location = New System.Drawing.Point(13, 291)
         Me.lblCustomerSince.Name = "lblCustomerSince"
         Me.lblCustomerSince.Size = New System.Drawing.Size(87, 13)
         Me.lblCustomerSince.TabIndex = 9
@@ -140,7 +144,7 @@ Partial Class frmCustomer
         'txtFirstName
         '
         Me.txtFirstName.Location = New System.Drawing.Point(120, 32)
-        Me.txtFirstName.MaxLength = 55
+        Me.txtFirstName.MaxLength = 50
         Me.txtFirstName.Name = "txtFirstName"
         Me.txtFirstName.Size = New System.Drawing.Size(343, 20)
         Me.txtFirstName.TabIndex = 1
@@ -148,7 +152,7 @@ Partial Class frmCustomer
         'txtLastName
         '
         Me.txtLastName.Location = New System.Drawing.Point(120, 64)
-        Me.txtLastName.MaxLength = 55
+        Me.txtLastName.MaxLength = 50
         Me.txtLastName.Name = "txtLastName"
         Me.txtLastName.Size = New System.Drawing.Size(343, 20)
         Me.txtLastName.TabIndex = 2
@@ -172,39 +176,42 @@ Partial Class frmCustomer
         'txtCity
         '
         Me.txtCity.Location = New System.Drawing.Point(120, 160)
-        Me.txtCity.MaxLength = 55
+        Me.txtCity.MaxLength = 50
         Me.txtCity.Name = "txtCity"
         Me.txtCity.Size = New System.Drawing.Size(343, 20)
         Me.txtCity.TabIndex = 5
         '
-        'TextBox6
+        'txtZipCode
         '
-        Me.TextBox6.Location = New System.Drawing.Point(353, 192)
-        Me.TextBox6.Name = "TextBox6"
-        Me.TextBox6.Size = New System.Drawing.Size(110, 20)
-        Me.TextBox6.TabIndex = 7
+        Me.txtZipCode.Location = New System.Drawing.Point(353, 192)
+        Me.txtZipCode.MaxLength = 10
+        Me.txtZipCode.Name = "txtZipCode"
+        Me.txtZipCode.Size = New System.Drawing.Size(110, 20)
+        Me.txtZipCode.TabIndex = 7
         '
-        'TextBox7
+        'txtPhoneNumber1
         '
-        Me.TextBox7.Location = New System.Drawing.Point(120, 224)
-        Me.TextBox7.Name = "TextBox7"
-        Me.TextBox7.Size = New System.Drawing.Size(110, 20)
-        Me.TextBox7.TabIndex = 8
+        Me.txtPhoneNumber1.Location = New System.Drawing.Point(120, 224)
+        Me.txtPhoneNumber1.MaxLength = 20
+        Me.txtPhoneNumber1.Name = "txtPhoneNumber1"
+        Me.txtPhoneNumber1.Size = New System.Drawing.Size(110, 20)
+        Me.txtPhoneNumber1.TabIndex = 8
         '
-        'TextBox8
+        'txtPhoneNumber2
         '
-        Me.TextBox8.Location = New System.Drawing.Point(353, 224)
-        Me.TextBox8.Name = "TextBox8"
-        Me.TextBox8.Size = New System.Drawing.Size(110, 20)
-        Me.TextBox8.TabIndex = 9
+        Me.txtPhoneNumber2.Location = New System.Drawing.Point(353, 224)
+        Me.txtPhoneNumber2.MaxLength = 20
+        Me.txtPhoneNumber2.Name = "txtPhoneNumber2"
+        Me.txtPhoneNumber2.Size = New System.Drawing.Size(110, 20)
+        Me.txtPhoneNumber2.TabIndex = 9
         '
         'dteCustomerSince
         '
-        Me.dteCustomerSince.Location = New System.Drawing.Point(120, 256)
+        Me.dteCustomerSince.Location = New System.Drawing.Point(120, 288)
         Me.dteCustomerSince.MinDate = New Date(1900, 1, 1, 0, 0, 0, 0)
         Me.dteCustomerSince.Name = "dteCustomerSince"
         Me.dteCustomerSince.Size = New System.Drawing.Size(200, 20)
-        Me.dteCustomerSince.TabIndex = 10
+        Me.dteCustomerSince.TabIndex = 11
         Me.dteCustomerSince.Value = New Date(2021, 3, 6, 21, 33, 23, 0)
         '
         'cboState
@@ -218,17 +225,20 @@ Partial Class frmCustomer
         '
         'grpCustomer
         '
-        Me.grpCustomer.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.grpCustomer.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.grpCustomer.Controls.Add(Me.txtEmail)
+        Me.grpCustomer.Controls.Add(Me.Label1)
         Me.grpCustomer.Controls.Add(Me.cboState)
         Me.grpCustomer.Controls.Add(Me.lblFirstName)
         Me.grpCustomer.Controls.Add(Me.dteCustomerSince)
         Me.grpCustomer.Controls.Add(Me.lblLastName)
-        Me.grpCustomer.Controls.Add(Me.TextBox8)
+        Me.grpCustomer.Controls.Add(Me.txtPhoneNumber2)
         Me.grpCustomer.Controls.Add(Me.lblAddress1)
-        Me.grpCustomer.Controls.Add(Me.TextBox7)
+        Me.grpCustomer.Controls.Add(Me.txtPhoneNumber1)
         Me.grpCustomer.Controls.Add(Me.lblAddress2)
-        Me.grpCustomer.Controls.Add(Me.TextBox6)
+        Me.grpCustomer.Controls.Add(Me.txtZipCode)
         Me.grpCustomer.Controls.Add(Me.lblCity)
         Me.grpCustomer.Controls.Add(Me.txtCity)
         Me.grpCustomer.Controls.Add(Me.lblState)
@@ -242,28 +252,69 @@ Partial Class frmCustomer
         Me.grpCustomer.Controls.Add(Me.lblCustomerSince)
         Me.grpCustomer.Location = New System.Drawing.Point(12, 12)
         Me.grpCustomer.Name = "grpCustomer"
-        Me.grpCustomer.Size = New System.Drawing.Size(492, 290)
+        Me.grpCustomer.Size = New System.Drawing.Size(492, 323)
         Me.grpCustomer.TabIndex = 11
         Me.grpCustomer.TabStop = False
         Me.grpCustomer.Text = "New Customer"
         '
-        'btnSave
+        'txtEmail
         '
-        Me.btnSave.Location = New System.Drawing.Point(411, 314)
-        Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(93, 23)
-        Me.btnSave.TabIndex = 12
-        Me.btnSave.Text = "Save"
-        Me.btnSave.UseVisualStyleBackColor = True
+        Me.txtEmail.Location = New System.Drawing.Point(120, 256)
+        Me.txtEmail.MaxLength = 20
+        Me.txtEmail.Name = "txtEmail"
+        Me.txtEmail.Size = New System.Drawing.Size(343, 20)
+        Me.txtEmail.TabIndex = 10
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(59, 259)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(41, 13)
+        Me.Label1.TabIndex = 11
+        Me.Label1.Text = "E-mail: "
+        '
+        'btnSaveAndClose
+        '
+        Me.btnSaveAndClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnSaveAndClose.Location = New System.Drawing.Point(411, 347)
+        Me.btnSaveAndClose.Name = "btnSaveAndClose"
+        Me.btnSaveAndClose.Size = New System.Drawing.Size(93, 23)
+        Me.btnSaveAndClose.TabIndex = 13
+        Me.btnSaveAndClose.Text = "Save And Close"
+        Me.btnSaveAndClose.UseVisualStyleBackColor = True
+        '
+        'btnSaveAndLoad
+        '
+        Me.btnSaveAndLoad.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnSaveAndLoad.Location = New System.Drawing.Point(312, 347)
+        Me.btnSaveAndLoad.Name = "btnSaveAndLoad"
+        Me.btnSaveAndLoad.Size = New System.Drawing.Size(93, 23)
+        Me.btnSaveAndLoad.TabIndex = 12
+        Me.btnSaveAndLoad.Text = "Save And Load"
+        Me.btnSaveAndLoad.UseVisualStyleBackColor = True
+        '
+        'btnClear
+        '
+        Me.btnClear.Location = New System.Drawing.Point(12, 347)
+        Me.btnClear.Name = "btnClear"
+        Me.btnClear.Size = New System.Drawing.Size(75, 23)
+        Me.btnClear.TabIndex = 14
+        Me.btnClear.Text = "Clear"
+        Me.btnClear.UseVisualStyleBackColor = True
         '
         'frmCustomer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(516, 349)
-        Me.Controls.Add(Me.btnSave)
+        Me.ClientSize = New System.Drawing.Size(516, 382)
+        Me.Controls.Add(Me.btnClear)
+        Me.Controls.Add(Me.btnSaveAndLoad)
+        Me.Controls.Add(Me.btnSaveAndClose)
         Me.Controls.Add(Me.grpCustomer)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "frmCustomer"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Customer"
         Me.grpCustomer.ResumeLayout(False)
         Me.grpCustomer.PerformLayout()
@@ -286,11 +337,15 @@ Partial Class frmCustomer
     Friend WithEvents txtAddress1 As TextBox
     Friend WithEvents txtAddress2 As TextBox
     Friend WithEvents txtCity As TextBox
-    Friend WithEvents TextBox6 As TextBox
-    Friend WithEvents TextBox7 As TextBox
-    Friend WithEvents TextBox8 As TextBox
+    Friend WithEvents txtZipCode As TextBox
+    Friend WithEvents txtPhoneNumber1 As TextBox
+    Friend WithEvents txtPhoneNumber2 As TextBox
     Friend WithEvents dteCustomerSince As DateTimePicker
     Friend WithEvents cboState As ComboBox
     Friend WithEvents grpCustomer As GroupBox
-    Friend WithEvents btnSave As Button
+    Friend WithEvents btnSaveAndClose As Button
+    Friend WithEvents btnSaveAndLoad As Button
+    Friend WithEvents txtEmail As TextBox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents btnClear As Button
 End Class

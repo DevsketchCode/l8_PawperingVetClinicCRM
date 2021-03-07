@@ -14,7 +14,7 @@ Public Class frmPawpering
             frmCustomer.Focus()
         Else
             'Create and show the form
-            frmCustomer.Show()
+            frmCustomer.Show(Me)
         End If
     End Sub
 

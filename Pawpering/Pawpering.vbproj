@@ -88,6 +88,8 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="clsCustomer.vb" />
+    <Compile Include="clsDBConnection.vb" />
     <Compile Include="frmCustomer.Designer.vb">
       <DependentUpon>frmCustomer.vb</DependentUpon>
     </Compile>
