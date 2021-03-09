@@ -117,7 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="mnuMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
+  <metadata name="StatusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>124, 17</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/5lsUP+ZbP7/mWyeAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgE02IoBNNgWATTYW/5lszv+ZbP//mWz//5ls/4BN
+        Ni4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/5ls//+ZbP//mWz//5ls//+ZbP//mWz//5ls//+Z
+        bP//mWzfAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/5lsdP+ZbP//mWz//5ls//+ZbP//mWz//5ls//+Z
+        bP//mWz//5lswwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBNNhz/mWz//5ls//+ZbP//mWz//5ls//+Z
+        bP//mWz//5ls/4BNNj8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/5ls//+ZbP//mWz//5ls//+Z
+        bP//mWz//5ls//+ZbIeATTYj/5ls//+ZbP8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/mWz//5ls//+Z
+        bP//mWz//5ls/YBNNlYAAAAAgE02Bf+ZbP//mWz//5ls/wAAAAAAAAAAAAAAAAAAAAD/mWzAAAAAAAAA
+        AAAAAAAAgE02AQAAAAD/mWzm/5ls/4BNNgH/mWz//5ls//+ZbP8AAAAAAAAAAAAAAAD/mWw//5ls//+Z
+        bP8AAAAA/5ls/f+ZbP+ATTYO/5ls//+ZbP//mWz/AAAAAIBNNhUAAAAAAAAAAAAAAAAAAAAA/5lsrP+Z
+        bP//mWz/AAAAAP+ZbP//mWz//5lsq/+ZbL3/mWz//5ls/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBN
+        Ngn/mWz//5lsiwAAAAD/mWz//5ls//+ZbFEAAAAA/5lskP+ZbJQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAA/5lsHv+ZbKkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAA//8AAP//AAD/nwAA/h8AAOAPAADgDwAA4B8AAOATAADwcQAA75EAAOSPAADEDwAA5M8AAP7/
+        AAD//wAA//8AAA==
+</value>
+  </data>
 </root>

@@ -3,6 +3,8 @@
 ' Purpose: (CVTC) VB.NET Final Project: Develop your own.
 ' Date: 03/06/2021
 
+' The Customer Class
+
 Option Strict On
 Option Explicit On
 Public Class clsCustomer
@@ -20,6 +22,7 @@ Public Class clsCustomer
     Private mstrPhoneNumber2 As String
     Private mstrEmail As String
     Private mstrCustomerSince As Date
+    Private mstrActive As Boolean
 
     ' Generate a Default Constructor
     Public Sub New()
@@ -35,13 +38,14 @@ Public Class clsCustomer
         mstrPhoneNumber2 = String.Empty
         mstrEmail = String.Empty
         mstrCustomerSince = Date.Now()
+        mstrActive = True
     End Sub
 
     ' Generate an Overloaded Constructor
     Public Sub New(msterCustomerID As Integer, mstrFirstName As String, mstrLastName As String,
                    mstrAddress1 As String, mstrAddress2 As String, mstrCity As String,
                    mstrState As String, mstrZipCode As String, mstrPhoneNumber1 As String,
-                   mstrPhoneNumber2 As String, mstrEmail As String, mstrCustomerSince As Date)
+                   mstrPhoneNumber2 As String, mstrEmail As String, mstrCustomerSince As Date, mstrActive As Boolean)
         Me.msterCustomerID = msterCustomerID
         Me.mstrFirstName = mstrFirstName
         Me.mstrLastName = mstrLastName
@@ -54,6 +58,7 @@ Public Class clsCustomer
         Me.mstrPhoneNumber2 = mstrPhoneNumber2
         Me.mstrEmail = mstrEmail
         Me.mstrCustomerSince = mstrCustomerSince
+        Me.mstrActive = mstrActive
     End Sub
 
     ' Getter and Setter Methods
@@ -165,6 +170,15 @@ Public Class clsCustomer
         End Set
     End Property
 
+    Public Property Active As Boolean
+        Get
+            Return mstrActive
+        End Get
+        Set(value As Boolean)
+            mstrActive = value
+        End Set
+    End Property
+
     ' Methods
     Public Function Full_Name() As String
         Return mstrFirstName & " " & mstrLastName
@@ -175,7 +189,10 @@ Public Class clsCustomer
     End Function
 
     ' Calculate how many years have passed since the customer was entered in the system
-    Public Sub Calculate_Years(ByVal strCustomerDate As String, ByRef intYears As Integer)
-        intYears = CInt(DateDiff(DateInterval.Year, CDate(strCustomerDate), Date.Now))
-    End Sub
+    Public Function Calculate_Years(ByVal strCustomerDate As Date) As Integer
+
+        Dim intYears As Integer = CInt(DateDiff(DateInterval.Year, CDate(strCustomerDate), Date.Now))
+
+        Return intYears
+    End Function
 End Class

@@ -14,13 +14,16 @@ Public Class frmCustomer
         Me.CenterToParent()
 
         ' Populate the US States combo box
-        cboState.DataSource = PopulateStates()
+
+
+        cboState.DisplayMember = "Key"
+        cboState.ValueMember = "Value"
+        cboState.DataSource = New BindingSource(PopulateStates(), Nothing)
     End Sub
 
-    Private Function PopulateStates() As Collection
+    Private Function PopulateStates() As Dictionary(Of String, String)
         ' Create collection of all the states of the U.S.
-        Dim colStates As Collection
-        colStates = New Collection
+        Dim colStates As New Dictionary(Of String, String)
         colStates.Add("Alabama", "AL")
         colStates.Add("Alaska", "AK")
         colStates.Add("Arizona", "AZ")
@@ -80,29 +83,31 @@ Public Class frmCustomer
         'Validate text fields to make sure they have data
         If ValidateTextBoxes() Then
             'Populate customer object with data from user
-            Dim newCustomer As clsCustomer = PopulateCustomer()
+            objCustomer = PopulateCustomer()
 
-            MessageBox.Show(PopulateCustomer().Full_Name)
+            'Create object to connect to the database
+            Dim newConnection As clsDBConnection = New clsDBConnection
 
-            'Create object to connect tot he database
-            Dim newConnection As clsDBConnection
-            newConnection = New clsDBConnection
+            If objCustomer.CustomerID = 0 Then
+                ' Insert the data from the form into the database
+                newConnection.InsertCustomer(objCustomer)
+            Else
+                newConnection.UpdateCustomer(objCustomer)
+            End If
 
-            ' Open the db connection
-            Dim dbConn = newConnection.OpenDBConnection()
+            'Load the Main Pawpering Form with the new customer data
+            Dim frmPawperingMain = DirectCast(Me.Owner, frmPawperingMain)
+                frmPawperingMain.LoadCustomer(objCustomer)
 
-            ' Insert the data from the form into the database
-            newConnection.InsertCustomer(newCustomer)
+                ' Close this form
+                Me.Close()
 
-            ' Close the database
-            dbConn.Close()
-
-        Else
-            MessageBox.Show("Please fill out every field." & Environment.NewLine & "Address2 and Alternate Number are not required.", "Incomplete Form", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            Else
+            MessageBox.Show("Please fill out every field." & Environment.NewLine & Environment.NewLine & "Address2 and Alternate Number are not required.", "Incomplete Form", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         End If
 
-
     End Sub
+
 
 
     Private Function ValidateTextBoxes() As Boolean
@@ -125,12 +130,13 @@ Public Class frmCustomer
         objCustomer.Address1 = txtAddress1.Text
         objCustomer.Address2 = txtAddress2.Text
         objCustomer.City = txtCity.Text
-        objCustomer.State = cboState.SelectedItem.ToString
+        objCustomer.State = cboState.SelectedValue.ToString
         objCustomer.ZipCode = txtZipCode.Text
         objCustomer.PhoneNumber1 = txtPhoneNumber1.Text
         objCustomer.PhoneNumber2 = txtPhoneNumber2.Text
         objCustomer.Email = txtEmail.Text
         objCustomer.CustomerSince = dteCustomerSince.Value
+        objCustomer.Active = chkActive.Checked
 
         Return objCustomer
     End Function
@@ -149,6 +155,116 @@ Public Class frmCustomer
         txtPhoneNumber2.Text = ""
         txtEmail.Text = ""
         dteCustomerSince.Value = Now()
+        chkActive.Checked = True
+
+    End Sub
+
+    Public Sub FillFormWithSelectedCustomer(ByVal objSelectedCustomer As clsCustomer, ByVal strAction As String)
+
+        'Set the customer forms object with the current selected customer
+        objCustomer = objSelectedCustomer
+
+        ' Only make the edit adjustmetns if a customer is selected
+        If objCustomer.CustomerID > 0 Then
+
+            'Populate fields to edit customer
+            grpCustomer.Text = "Customer: " & objCustomer.Full_Name
+            txtCustomerID.Text = objCustomer.CustomerID.ToString
+            txtFirstName.Text = objCustomer.FirstName
+            txtLastName.Text = objCustomer.LastName
+            txtAddress1.Text = objCustomer.Address1
+            txtAddress2.Text = objCustomer.Address2
+            txtCity.Text = objCustomer.City
+            cboState.SelectedItem = objCustomer.State
+            txtZipCode.Text = objCustomer.ZipCode
+            txtPhoneNumber1.Text = objCustomer.PhoneNumber1
+            txtPhoneNumber2.Text = objCustomer.PhoneNumber2
+            txtEmail.Text = objCustomer.Email
+            dteCustomerSince.Value = objCustomer.CustomerSince
+            chkActive.Checked = objCustomer.Active
+
+            chkActive.Enabled = True
+
+            If strAction = "Delete" Then
+
+                'Disable Entry Fields on Customer Form
+                txtFirstName.Enabled = False
+                txtLastName.Enabled = False
+                txtAddress1.Enabled = False
+                txtAddress2.Enabled = False
+                txtCity.Enabled = False
+                cboState.Enabled = False
+                txtZipCode.Enabled = False
+                txtPhoneNumber1.Enabled = False
+                txtPhoneNumber2.Enabled = False
+                txtEmail.Enabled = False
+                dteCustomerSince.Enabled = False
+                chkActive.Enabled = False
+
+                ' Hide all buttons except the Delete button where it stands out.
+                btnClear.Visible = False
+                btnSaveAndLoad.Visible = False
+                btnDeleteCustomer.Visible = True
+
+            ElseIf strAction = "Edit" Then
+
+                'Disable Entry Fields on Customer Form
+                txtFirstName.Enabled = True
+                txtLastName.Enabled = True
+                txtAddress1.Enabled = True
+                txtAddress2.Enabled = True
+                txtCity.Enabled = True
+                cboState.Enabled = True
+                txtZipCode.Enabled = True
+                txtPhoneNumber1.Enabled = True
+                txtPhoneNumber2.Enabled = True
+                txtEmail.Enabled = True
+                dteCustomerSince.Enabled = True
+                chkActive.Enabled = True
+
+                ' Show the clear and save button, but hide the delete button
+                btnClear.Visible = True
+                btnSaveAndLoad.Visible = True
+                btnDeleteCustomer.Visible = False
+
+            End If
+        Else
+            MessageBox.Show("No Customer selected.  Loading New Customer Form.", "No Customer Found", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End If
+
+    End Sub
+
+    Private Sub btnDeleteCustomer_Click(sender As Object, e As EventArgs) Handles btnDeleteCustomer.Click
+
+        'Populate customer object with data from user
+        objCustomer = PopulateCustomer()
+
+        'Create object to connect to the database
+        Dim newConnection As clsDBConnection = New clsDBConnection
+
+        If objCustomer.CustomerID > 0 Then
+            'Prompt User to Confirm
+            Dim diaResult As DialogResult = MessageBox.Show("Are you sure you want to delete this Customer? " & Environment.NewLine & Environment.NewLine &
+                                                            "Customer #: " & objCustomer.CustomerID & " - " &
+                                                            objCustomer.Full_Name, "DELETE CUSTOMER", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+
+            If diaResult = DialogResult.Yes Then
+                ' Insert the data from the form into the database
+                newConnection.DeleteCustomer(objCustomer)
+
+                'Load the Main Pawpering Form with the new customer data
+                Dim frmPawperingMain = DirectCast(Me.Owner, frmPawperingMain)
+                frmPawperingMain.ClearForm()
+            Else
+                MessageBox.Show("Deletion Canceled. No changes have been made.")
+            End If
+
+        Else
+            MessageBox.Show("No Customer ID Found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
+
+        ' Close this form
+        Me.Close()
 
     End Sub
 End Class

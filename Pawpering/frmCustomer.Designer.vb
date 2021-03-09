@@ -22,6 +22,7 @@ Partial Class frmCustomer
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmCustomer))
         Me.lblFirstName = New System.Windows.Forms.Label()
         Me.lblLastName = New System.Windows.Forms.Label()
         Me.lblAddress1 = New System.Windows.Forms.Label()
@@ -43,18 +44,21 @@ Partial Class frmCustomer
         Me.dteCustomerSince = New System.Windows.Forms.DateTimePicker()
         Me.cboState = New System.Windows.Forms.ComboBox()
         Me.grpCustomer = New System.Windows.Forms.GroupBox()
+        Me.chkActive = New System.Windows.Forms.CheckBox()
         Me.txtEmail = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.btnSaveAndClose = New System.Windows.Forms.Button()
         Me.btnSaveAndLoad = New System.Windows.Forms.Button()
         Me.btnClear = New System.Windows.Forms.Button()
+        Me.txtCustomerID = New System.Windows.Forms.TextBox()
+        Me.lblCustomerID = New System.Windows.Forms.Label()
+        Me.btnDeleteCustomer = New System.Windows.Forms.Button()
         Me.grpCustomer.SuspendLayout()
         Me.SuspendLayout()
         '
         'lblFirstName
         '
         Me.lblFirstName.AutoSize = True
-        Me.lblFirstName.Location = New System.Drawing.Point(37, 35)
+        Me.lblFirstName.Location = New System.Drawing.Point(38, 61)
         Me.lblFirstName.Name = "lblFirstName"
         Me.lblFirstName.Size = New System.Drawing.Size(63, 13)
         Me.lblFirstName.TabIndex = 0
@@ -63,7 +67,7 @@ Partial Class frmCustomer
         'lblLastName
         '
         Me.lblLastName.AutoSize = True
-        Me.lblLastName.Location = New System.Drawing.Point(36, 67)
+        Me.lblLastName.Location = New System.Drawing.Point(37, 93)
         Me.lblLastName.Name = "lblLastName"
         Me.lblLastName.Size = New System.Drawing.Size(64, 13)
         Me.lblLastName.TabIndex = 1
@@ -72,7 +76,7 @@ Partial Class frmCustomer
         'lblAddress1
         '
         Me.lblAddress1.AutoSize = True
-        Me.lblAddress1.Location = New System.Drawing.Point(43, 99)
+        Me.lblAddress1.Location = New System.Drawing.Point(44, 125)
         Me.lblAddress1.Name = "lblAddress1"
         Me.lblAddress1.Size = New System.Drawing.Size(57, 13)
         Me.lblAddress1.TabIndex = 2
@@ -81,7 +85,7 @@ Partial Class frmCustomer
         'lblAddress2
         '
         Me.lblAddress2.AutoSize = True
-        Me.lblAddress2.Location = New System.Drawing.Point(43, 131)
+        Me.lblAddress2.Location = New System.Drawing.Point(44, 157)
         Me.lblAddress2.Name = "lblAddress2"
         Me.lblAddress2.Size = New System.Drawing.Size(57, 13)
         Me.lblAddress2.TabIndex = 3
@@ -90,7 +94,7 @@ Partial Class frmCustomer
         'lblCity
         '
         Me.lblCity.AutoSize = True
-        Me.lblCity.Location = New System.Drawing.Point(70, 163)
+        Me.lblCity.Location = New System.Drawing.Point(71, 189)
         Me.lblCity.Name = "lblCity"
         Me.lblCity.Size = New System.Drawing.Size(30, 13)
         Me.lblCity.TabIndex = 4
@@ -99,7 +103,7 @@ Partial Class frmCustomer
         'lblState
         '
         Me.lblState.AutoSize = True
-        Me.lblState.Location = New System.Drawing.Point(62, 195)
+        Me.lblState.Location = New System.Drawing.Point(63, 221)
         Me.lblState.Name = "lblState"
         Me.lblState.Size = New System.Drawing.Size(38, 13)
         Me.lblState.TabIndex = 5
@@ -108,7 +112,7 @@ Partial Class frmCustomer
         'lblZipCode
         '
         Me.lblZipCode.AutoSize = True
-        Me.lblZipCode.Location = New System.Drawing.Point(291, 195)
+        Me.lblZipCode.Location = New System.Drawing.Point(291, 221)
         Me.lblZipCode.Name = "lblZipCode"
         Me.lblZipCode.Size = New System.Drawing.Size(56, 13)
         Me.lblZipCode.TabIndex = 6
@@ -117,7 +121,7 @@ Partial Class frmCustomer
         'lblPhone1
         '
         Me.lblPhone1.AutoSize = True
-        Me.lblPhone1.Location = New System.Drawing.Point(16, 227)
+        Me.lblPhone1.Location = New System.Drawing.Point(17, 253)
         Me.lblPhone1.Name = "lblPhone1"
         Me.lblPhone1.Size = New System.Drawing.Size(84, 13)
         Me.lblPhone1.TabIndex = 7
@@ -126,7 +130,7 @@ Partial Class frmCustomer
         'lblPhone2
         '
         Me.lblPhone2.AutoSize = True
-        Me.lblPhone2.Location = New System.Drawing.Point(252, 227)
+        Me.lblPhone2.Location = New System.Drawing.Point(252, 253)
         Me.lblPhone2.Name = "lblPhone2"
         Me.lblPhone2.Size = New System.Drawing.Size(95, 13)
         Me.lblPhone2.TabIndex = 8
@@ -135,7 +139,7 @@ Partial Class frmCustomer
         'lblCustomerSince
         '
         Me.lblCustomerSince.AutoSize = True
-        Me.lblCustomerSince.Location = New System.Drawing.Point(13, 291)
+        Me.lblCustomerSince.Location = New System.Drawing.Point(14, 317)
         Me.lblCustomerSince.Name = "lblCustomerSince"
         Me.lblCustomerSince.Size = New System.Drawing.Size(87, 13)
         Me.lblCustomerSince.TabIndex = 9
@@ -143,7 +147,7 @@ Partial Class frmCustomer
         '
         'txtFirstName
         '
-        Me.txtFirstName.Location = New System.Drawing.Point(120, 32)
+        Me.txtFirstName.Location = New System.Drawing.Point(120, 58)
         Me.txtFirstName.MaxLength = 50
         Me.txtFirstName.Name = "txtFirstName"
         Me.txtFirstName.Size = New System.Drawing.Size(343, 20)
@@ -151,7 +155,7 @@ Partial Class frmCustomer
         '
         'txtLastName
         '
-        Me.txtLastName.Location = New System.Drawing.Point(120, 64)
+        Me.txtLastName.Location = New System.Drawing.Point(120, 90)
         Me.txtLastName.MaxLength = 50
         Me.txtLastName.Name = "txtLastName"
         Me.txtLastName.Size = New System.Drawing.Size(343, 20)
@@ -159,7 +163,7 @@ Partial Class frmCustomer
         '
         'txtAddress1
         '
-        Me.txtAddress1.Location = New System.Drawing.Point(120, 96)
+        Me.txtAddress1.Location = New System.Drawing.Point(120, 122)
         Me.txtAddress1.MaxLength = 55
         Me.txtAddress1.Name = "txtAddress1"
         Me.txtAddress1.Size = New System.Drawing.Size(343, 20)
@@ -167,7 +171,7 @@ Partial Class frmCustomer
         '
         'txtAddress2
         '
-        Me.txtAddress2.Location = New System.Drawing.Point(120, 128)
+        Me.txtAddress2.Location = New System.Drawing.Point(120, 154)
         Me.txtAddress2.MaxLength = 55
         Me.txtAddress2.Name = "txtAddress2"
         Me.txtAddress2.Size = New System.Drawing.Size(343, 20)
@@ -175,7 +179,7 @@ Partial Class frmCustomer
         '
         'txtCity
         '
-        Me.txtCity.Location = New System.Drawing.Point(120, 160)
+        Me.txtCity.Location = New System.Drawing.Point(120, 186)
         Me.txtCity.MaxLength = 50
         Me.txtCity.Name = "txtCity"
         Me.txtCity.Size = New System.Drawing.Size(343, 20)
@@ -183,7 +187,7 @@ Partial Class frmCustomer
         '
         'txtZipCode
         '
-        Me.txtZipCode.Location = New System.Drawing.Point(353, 192)
+        Me.txtZipCode.Location = New System.Drawing.Point(353, 218)
         Me.txtZipCode.MaxLength = 10
         Me.txtZipCode.Name = "txtZipCode"
         Me.txtZipCode.Size = New System.Drawing.Size(110, 20)
@@ -191,7 +195,7 @@ Partial Class frmCustomer
         '
         'txtPhoneNumber1
         '
-        Me.txtPhoneNumber1.Location = New System.Drawing.Point(120, 224)
+        Me.txtPhoneNumber1.Location = New System.Drawing.Point(120, 250)
         Me.txtPhoneNumber1.MaxLength = 20
         Me.txtPhoneNumber1.Name = "txtPhoneNumber1"
         Me.txtPhoneNumber1.Size = New System.Drawing.Size(110, 20)
@@ -199,7 +203,7 @@ Partial Class frmCustomer
         '
         'txtPhoneNumber2
         '
-        Me.txtPhoneNumber2.Location = New System.Drawing.Point(353, 224)
+        Me.txtPhoneNumber2.Location = New System.Drawing.Point(353, 250)
         Me.txtPhoneNumber2.MaxLength = 20
         Me.txtPhoneNumber2.Name = "txtPhoneNumber2"
         Me.txtPhoneNumber2.Size = New System.Drawing.Size(110, 20)
@@ -207,7 +211,7 @@ Partial Class frmCustomer
         '
         'dteCustomerSince
         '
-        Me.dteCustomerSince.Location = New System.Drawing.Point(120, 288)
+        Me.dteCustomerSince.Location = New System.Drawing.Point(120, 314)
         Me.dteCustomerSince.MinDate = New Date(1900, 1, 1, 0, 0, 0, 0)
         Me.dteCustomerSince.Name = "dteCustomerSince"
         Me.dteCustomerSince.Size = New System.Drawing.Size(200, 20)
@@ -218,7 +222,7 @@ Partial Class frmCustomer
         '
         Me.cboState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboState.FormattingEnabled = True
-        Me.cboState.Location = New System.Drawing.Point(120, 192)
+        Me.cboState.Location = New System.Drawing.Point(120, 218)
         Me.cboState.Name = "cboState"
         Me.cboState.Size = New System.Drawing.Size(146, 21)
         Me.cboState.TabIndex = 6
@@ -228,6 +232,9 @@ Partial Class frmCustomer
         Me.grpCustomer.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.grpCustomer.Controls.Add(Me.lblCustomerID)
+        Me.grpCustomer.Controls.Add(Me.txtCustomerID)
+        Me.grpCustomer.Controls.Add(Me.chkActive)
         Me.grpCustomer.Controls.Add(Me.txtEmail)
         Me.grpCustomer.Controls.Add(Me.Label1)
         Me.grpCustomer.Controls.Add(Me.cboState)
@@ -252,15 +259,29 @@ Partial Class frmCustomer
         Me.grpCustomer.Controls.Add(Me.lblCustomerSince)
         Me.grpCustomer.Location = New System.Drawing.Point(12, 12)
         Me.grpCustomer.Name = "grpCustomer"
-        Me.grpCustomer.Size = New System.Drawing.Size(492, 323)
+        Me.grpCustomer.Size = New System.Drawing.Size(492, 352)
         Me.grpCustomer.TabIndex = 11
         Me.grpCustomer.TabStop = False
         Me.grpCustomer.Text = "New Customer"
         '
+        'chkActive
+        '
+        Me.chkActive.AutoSize = True
+        Me.chkActive.Checked = True
+        Me.chkActive.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkActive.Enabled = False
+        Me.chkActive.Location = New System.Drawing.Point(407, 316)
+        Me.chkActive.Name = "chkActive"
+        Me.chkActive.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chkActive.Size = New System.Drawing.Size(56, 17)
+        Me.chkActive.TabIndex = 12
+        Me.chkActive.Text = "Active"
+        Me.chkActive.UseVisualStyleBackColor = True
+        '
         'txtEmail
         '
-        Me.txtEmail.Location = New System.Drawing.Point(120, 256)
-        Me.txtEmail.MaxLength = 20
+        Me.txtEmail.Location = New System.Drawing.Point(120, 282)
+        Me.txtEmail.MaxLength = 50
         Me.txtEmail.Name = "txtEmail"
         Me.txtEmail.Size = New System.Drawing.Size(343, 20)
         Me.txtEmail.TabIndex = 10
@@ -268,51 +289,74 @@ Partial Class frmCustomer
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(59, 259)
+        Me.Label1.Location = New System.Drawing.Point(60, 285)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(41, 13)
         Me.Label1.TabIndex = 11
         Me.Label1.Text = "E-mail: "
         '
-        'btnSaveAndClose
-        '
-        Me.btnSaveAndClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnSaveAndClose.Location = New System.Drawing.Point(411, 347)
-        Me.btnSaveAndClose.Name = "btnSaveAndClose"
-        Me.btnSaveAndClose.Size = New System.Drawing.Size(93, 23)
-        Me.btnSaveAndClose.TabIndex = 13
-        Me.btnSaveAndClose.Text = "Save And Close"
-        Me.btnSaveAndClose.UseVisualStyleBackColor = True
-        '
         'btnSaveAndLoad
         '
         Me.btnSaveAndLoad.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnSaveAndLoad.Location = New System.Drawing.Point(312, 347)
+        Me.btnSaveAndLoad.Location = New System.Drawing.Point(365, 376)
         Me.btnSaveAndLoad.Name = "btnSaveAndLoad"
-        Me.btnSaveAndLoad.Size = New System.Drawing.Size(93, 23)
+        Me.btnSaveAndLoad.Size = New System.Drawing.Size(139, 23)
         Me.btnSaveAndLoad.TabIndex = 12
-        Me.btnSaveAndLoad.Text = "Save And Load"
+        Me.btnSaveAndLoad.Text = "Save And Load Customer"
         Me.btnSaveAndLoad.UseVisualStyleBackColor = True
         '
         'btnClear
         '
-        Me.btnClear.Location = New System.Drawing.Point(12, 347)
+        Me.btnClear.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnClear.Location = New System.Drawing.Point(12, 376)
         Me.btnClear.Name = "btnClear"
         Me.btnClear.Size = New System.Drawing.Size(75, 23)
         Me.btnClear.TabIndex = 14
         Me.btnClear.Text = "Clear"
         Me.btnClear.UseVisualStyleBackColor = True
         '
+        'txtCustomerID
+        '
+        Me.txtCustomerID.Enabled = False
+        Me.txtCustomerID.Location = New System.Drawing.Point(120, 24)
+        Me.txtCustomerID.Name = "txtCustomerID"
+        Me.txtCustomerID.Size = New System.Drawing.Size(100, 20)
+        Me.txtCustomerID.TabIndex = 13
+        '
+        'lblCustomerID
+        '
+        Me.lblCustomerID.AutoSize = True
+        Me.lblCustomerID.Enabled = False
+        Me.lblCustomerID.Location = New System.Drawing.Point(30, 27)
+        Me.lblCustomerID.Name = "lblCustomerID"
+        Me.lblCustomerID.Size = New System.Drawing.Size(71, 13)
+        Me.lblCustomerID.TabIndex = 14
+        Me.lblCustomerID.Text = "Customer ID: "
+        '
+        'btnDeleteCustomer
+        '
+        Me.btnDeleteCustomer.BackColor = System.Drawing.Color.Firebrick
+        Me.btnDeleteCustomer.ForeColor = System.Drawing.SystemColors.ControlLight
+        Me.btnDeleteCustomer.Location = New System.Drawing.Point(191, 373)
+        Me.btnDeleteCustomer.Name = "btnDeleteCustomer"
+        Me.btnDeleteCustomer.Size = New System.Drawing.Size(119, 29)
+        Me.btnDeleteCustomer.TabIndex = 15
+        Me.btnDeleteCustomer.Text = "Delete Customer"
+        Me.btnDeleteCustomer.UseVisualStyleBackColor = False
+        Me.btnDeleteCustomer.Visible = False
+        '
         'frmCustomer
         '
+        Me.AcceptButton = Me.btnSaveAndLoad
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(516, 382)
+        Me.ClientSize = New System.Drawing.Size(516, 411)
+        Me.Controls.Add(Me.btnDeleteCustomer)
         Me.Controls.Add(Me.btnClear)
         Me.Controls.Add(Me.btnSaveAndLoad)
-        Me.Controls.Add(Me.btnSaveAndClose)
         Me.Controls.Add(Me.grpCustomer)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmCustomer"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Customer"
@@ -343,9 +387,12 @@ Partial Class frmCustomer
     Friend WithEvents dteCustomerSince As DateTimePicker
     Friend WithEvents cboState As ComboBox
     Friend WithEvents grpCustomer As GroupBox
-    Friend WithEvents btnSaveAndClose As Button
     Friend WithEvents btnSaveAndLoad As Button
     Friend WithEvents txtEmail As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents btnClear As Button
+    Friend WithEvents chkActive As CheckBox
+    Friend WithEvents lblCustomerID As Label
+    Friend WithEvents txtCustomerID As TextBox
+    Friend WithEvents btnDeleteCustomer As Button
 End Class

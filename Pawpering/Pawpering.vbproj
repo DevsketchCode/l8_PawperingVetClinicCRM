@@ -62,6 +62,9 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Pawperingicon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -96,17 +99,24 @@
     <Compile Include="frmCustomer.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmPawpering.vb">
+    <Compile Include="frmCustomerSearch.Designer.vb">
+      <DependentUpon>frmCustomerSearch.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmCustomerSearch.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmPawpering.Designer.vb">
-      <DependentUpon>frmPawpering.vb</DependentUpon>
+    <Compile Include="frmPawperingMain.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPawperingMain.Designer.vb">
+      <DependentUpon>frmPawperingMain.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -123,8 +133,11 @@
     <EmbeddedResource Include="frmCustomer.resx">
       <DependentUpon>frmCustomer.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmPawpering.resx">
-      <DependentUpon>frmPawpering.vb</DependentUpon>
+    <EmbeddedResource Include="frmCustomerSearch.resx">
+      <DependentUpon>frmCustomerSearch.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPawperingMain.resx">
+      <DependentUpon>frmPawperingMain.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -143,12 +156,12 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pawpering.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Pawperingicon.ico" />
     <Content Include="Pawpering_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>Pawpering.mdf</DependentUpon>
