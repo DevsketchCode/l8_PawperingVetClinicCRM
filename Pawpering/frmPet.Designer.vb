@@ -52,6 +52,7 @@ Partial Class frmPet
         Me.btnSaveAndLoad = New System.Windows.Forms.Button()
         Me.btnClearForm = New System.Windows.Forms.Button()
         Me.ofdOpenFileDialog = New System.Windows.Forms.OpenFileDialog()
+        Me.btnDeletePet = New System.Windows.Forms.Button()
         Me.grpPet.SuspendLayout()
         CType(Me.picPetPhoto, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -342,7 +343,7 @@ Partial Class frmPet
         'btnClearForm
         '
         Me.btnClearForm.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnClearForm.Location = New System.Drawing.Point(12, 456)
+        Me.btnClearForm.Location = New System.Drawing.Point(12, 457)
         Me.btnClearForm.Name = "btnClearForm"
         Me.btnClearForm.Size = New System.Drawing.Size(75, 23)
         Me.btnClearForm.TabIndex = 2
@@ -353,12 +354,25 @@ Partial Class frmPet
         '
         Me.ofdOpenFileDialog.FileName = "OpenFileDialog"
         '
+        'btnDeletePet
+        '
+        Me.btnDeletePet.BackColor = System.Drawing.Color.Firebrick
+        Me.btnDeletePet.ForeColor = System.Drawing.SystemColors.ControlLight
+        Me.btnDeletePet.Location = New System.Drawing.Point(263, 453)
+        Me.btnDeletePet.Name = "btnDeletePet"
+        Me.btnDeletePet.Size = New System.Drawing.Size(119, 31)
+        Me.btnDeletePet.TabIndex = 16
+        Me.btnDeletePet.Text = "Delete Pet"
+        Me.btnDeletePet.UseVisualStyleBackColor = False
+        Me.btnDeletePet.Visible = False
+        '
         'frmPet
         '
         Me.AcceptButton = Me.btnSaveAndLoad
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(644, 492)
+        Me.Controls.Add(Me.btnDeletePet)
         Me.Controls.Add(Me.btnClearForm)
         Me.Controls.Add(Me.btnSaveAndLoad)
         Me.Controls.Add(Me.grpPet)
@@ -404,4 +418,5 @@ Partial Class frmPet
     Friend WithEvents cboStatus As ComboBox
     Friend WithEvents btnSelectImage As Button
     Friend WithEvents ofdOpenFileDialog As OpenFileDialog
+    Friend WithEvents btnDeletePet As Button
 End Class

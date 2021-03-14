@@ -16,6 +16,8 @@ Public Class frmCustomerSearch
         tipCustomerSearch.SetToolTip(lblCustomerID, "Customer ID MUST be numeric")
         tipCustomerSearch.SetToolTip(txtCustomerID, "Customer ID MUST be numeric")
 
+        ' Run the Search Customers Procedure to populate the datagrid
+        SearchCustomers()
 
         'Select on the first search field
         Me.txtCustomerID.Select()

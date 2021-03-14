@@ -75,7 +75,7 @@ Public Class frmPawperingMain
             frmCustomer.Show(Me)
         End If
 
-        'frmCustomer = DirectCast(Me.Owner, frmCustomer)
+        ' Fill the customer form with the selected Customer, set to Edit
         frmCustomer.FillFormWithSelectedCustomer(objSelectedCustomer, "Edit")
     End Sub
 
@@ -97,6 +97,9 @@ Public Class frmPawperingMain
         lblCustomerSince.Text = objSelectedCustomer.CustomerSince.ToLongDateString & " (" & objSelectedCustomer.Calculate_Years(objSelectedCustomer.CustomerSince) & " years)"
         chkCustomerActive.Checked = objSelectedCustomer.Active
 
+        ' Load the owners of the selected pet
+        LoadPetsList()
+
     End Sub
 
     Public Sub LoadPet(ByVal objPet As clsPet)
@@ -109,9 +112,11 @@ Public Class frmPawperingMain
 
         lblPetID.Text = objSelectedPet.PetID.ToString
         lblPName.Text = objSelectedPet.Name
+
         ' Retrieve Species Name and Species Breed from the database
         lblPSpecies.Text = dbConnection.GetSpeciesName(objSelectedPet.SpeciesID)
         lblPBreed.Text = dbConnection.GetBreedName(objSelectedPet.BreedID)
+
         lblPColor.Text = objSelectedPet.Color
         lblPBirthDate.Text = objSelectedPet.BirthDate.ToString
         lblPStatus.Text = objSelectedPet.Status.ToString
@@ -124,6 +129,7 @@ Public Class frmPawperingMain
         Else
             lblPDeceasedLabel.Visible = False
             lblPDeceased.Visible = False
+            lblPDeceased.Text = ""
         End If
 
 
@@ -135,26 +141,51 @@ Public Class frmPawperingMain
         strAppPath = strAppPath.Substring(0, intPathLength - 9)
 
         ' Load the pet picture if there is one
-        If Not objPet.Photo = Nothing Then
+        If Not objPet.Photo = "" Then
             Try
                 picPetPhoto.ImageLocation = strAppPath & "Images\" & objPet.Photo
             Catch e As Exception
                 MessageBox.Show("Unable to load the pet image." & Environment.NewLine & e.Message)
             End Try
+        Else
+            ' Pet does not have a picture
+            picPetPhoto.ImageLocation = strAppPath & "Images\" & "_NoImage.png"
         End If
+
+        ' Load the owners of the selected pet
+        LoadOwners()
 
     End Sub
 
     ' TODO: Upload Pets and Owners into list boxes from SQL
-    Public Sub LoadOwners()
-        'Loads all the owners for the Pet
-        'If One of the owners is already selected, then select it in the listbox
-        'If no owners are selected, load it
-        'If owners is selected, prompt before load over it
-        'Get Owners for pet in datatable
-
+    Public Sub LoadPetsList()
         Dim dbConnection As New clsDBConnection
-            Dim strQuery As String
+        Dim strQuery As String
+        Dim dtPets As DataTable
+
+        strQuery = " SELECT [Ownership].PetID, CONCAT([Ownership].PetID, ' ', Pet.Name) As IdAndName " &
+                    "FROM [Ownership] INNER JOIN Pet ON [Ownership].PetID = Pet.PetID " &
+                    "WHERE [Ownership].CustomerID = " & objSelectedCustomer.CustomerID & " " &
+                    "ORDER BY [Ownership].PetID;"
+
+        ' Get the results form the query into a DataTable
+        dtPets = dbConnection.GetSearchTable(strQuery)
+
+        ' If the datatable has records, attach it to the listbox
+        If dtPets.Rows.Count > 0 Then
+            lbxPetsList.DataSource = New BindingSource(dtPets, Nothing)
+            lbxPetsList.DisplayMember = "IdAndName"
+            lbxPetsList.ValueMember = "PetID"
+        Else
+            lbxPetsList.DataSource = Nothing
+        End If
+    End Sub
+
+    Public Sub LoadOwners()
+
+        'Get Owners for pet in datatable
+        Dim dbConnection As New clsDBConnection
+        Dim strQuery As String
         Dim dtOwners As DataTable
 
         strQuery = " SELECT [Ownership].CustomerID, CONCAT(Customer.FirstName, ' ', Customer.LastName) As FullName " &
@@ -162,14 +193,10 @@ Public Class frmPawperingMain
                     "WHERE [Ownership].PetID = " & objSelectedPet.PetID & " " &
                     "ORDER BY [Ownership].CustomerID;"
 
+       ' Get all the owners for the pet from the results of the Query
         dtOwners = dbConnection.GetSearchTable(strQuery)
-        Dim selectedRow As DataRow = dtOwners.Rows.Item(lbxPOwners.SelectedIndex + 1)
 
-        'TODO: Finish filling in the objSelectedCustomer - might need to get rid of this
-        'objSelectedCustomer.CustomerID = CInt(selectedRow.Item("CustomerID"))
-
-
-
+        ' Populate the owners from the datatable into the listbox
         If dtOwners.Rows.Count > 0 Then
             lbxPOwners.DataSource = New BindingSource(dtOwners, Nothing)
             lbxPOwners.DisplayMember = "FullName"
@@ -177,6 +204,9 @@ Public Class frmPawperingMain
         Else
             lbxPOwners.DataSource = Nothing
         End If
+
+        ' Deselect all owners
+        lbxPOwners.SelectedIndex = -1
 
     End Sub
 
@@ -221,7 +251,7 @@ Public Class frmPawperingMain
             frmCustomer.Show(Me)
         End If
 
-        'frmCustomer = DirectCast(Me.Owner, frmCustomer)
+        ' Fill the customer form with the selected Customer, set to Delete
         frmCustomer.FillFormWithSelectedCustomer(objSelectedCustomer, "Delete")
 
     End Sub
@@ -233,16 +263,104 @@ Public Class frmPawperingMain
 
     End Sub
 
-    Private Sub lbxPOwners_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lbxPOwners.SelectedIndexChanged
+
+    Private Sub lbxPetsList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lbxPetsList.SelectedIndexChanged
+
+        ' Dim dbConnection As new clsDBConnection
+        Dim dbConnection As New clsDBConnection
+        Dim intSelectedPet As Integer
+        Dim blnIsInteger As Boolean
+
+        ' If the PetsList has not been loaded yet, load it.
+        blnIsInteger = Integer.TryParse(lbxPetsList.SelectedValue.ToString, intSelectedPet)
+        If Not blnIsInteger Then
+            LoadPetsList()
+        End If
+
+        ' Get the selected Pet object from the database.
+        If lbxPetsList.Items.Count > 0 And blnIsInteger Then
+            ' Get the selected pet object
+            Try
+                objSelectedPet = dbConnection.GetSelectedPet(CInt(lbxPetsList.SelectedValue))
+            Catch ex As Exception
+                MessageBox.Show("Unable to load selected pet." & Environment.NewLine & "Error: " & ex.Message, "Error Loading Pet", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+
+            ' Load the pet object into the form
+            LoadPet(objSelectedPet)
+        End If
+
 
     End Sub
 
+    Private Sub btnSelectOwner_Click(sender As Object, e As EventArgs) Handles btnSelectOwner.Click
 
+        ' Validate that there are owners listed
+        If lbxPOwners.Items.Count > 0 Then
+            ' Create the dbConnection Object to get the customer
+            Dim dbConnection As New clsDBConnection
+
+            ' Get the selected owner object
+            objSelectedCustomer = dbConnection.GetSelectedCustomer(CInt(lbxPOwners.SelectedValue))
+
+            MessageBox.Show(lbxPOwners.SelectedValue.ToString())
+            ' Load the customer object into the form
+            LoadCustomer(objSelectedCustomer)
+
+        Else
+            MessageBox.Show("No owner was selected.", "Owner", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End If
+
+    End Sub
 
     Private Sub lbxPOwners_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles lbxPOwners.MouseDoubleClick
 
-        'Send the customer that was selected
-        GetCustomer(lbxPOwners.SelectedIndex)
+        ' Validate that there are owners listed
+        If lbxPOwners.Items.Count > 0 Then
+            ' Create the dbConnection Object to get the customer
+            Dim dbConnection As New clsDBConnection
 
+            ' Get the selected owner object
+            objSelectedCustomer = dbConnection.GetSelectedCustomer(CInt(lbxPOwners.SelectedValue))
+
+            MessageBox.Show(lbxPOwners.SelectedValue.ToString())
+            ' Load the customer object into the form
+            LoadCustomer(objSelectedCustomer)
+
+        Else
+            MessageBox.Show("No owner was selected.", "Owner", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End If
+
+    End Sub
+
+    Private Sub btnEditPet_Click(sender As Object, e As EventArgs) Handles btnEditPet.Click
+        'Check if the form is created and open already
+        If frmPet.IsHandleCreated Then
+            'Focus on the already opened form
+            frmPet.Focus()
+        Else
+            'Create and show the form
+            frmPet.Show(Me)
+        End If
+
+        ' Fill the Pet Form with the selected pet, set to Edit
+        frmPet.FillFormWithSelectedPet(objSelectedPet, "Edit")
+        'TODO: Update Pet
+    End Sub
+
+    Private Sub DeletePetToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeletePetToolStripMenuItem.Click
+
+        'Check if the form is created and open already
+        If frmPet.IsHandleCreated Then
+            'Focus on the already opened form
+            frmPet.Focus()
+        Else
+            'Create and show the form
+            frmPet.Show(Me)
+        End If
+
+        ' Fill the Pet Form with the selected pet, set to Delete
+        frmPet.FillFormWithSelectedPet(objSelectedPet, "Delete")
+        'TODO: Delete Pet
     End Sub
 End Class

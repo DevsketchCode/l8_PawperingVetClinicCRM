@@ -15,8 +15,11 @@ Public Class frmPet
 
     ' Module Level Objects
     Public objPet As New clsPet()
+
+    ' Customer used for owners of the pet
     Public objSelectedCustomer As New clsCustomer()
     Public dctOwners As New Dictionary(Of Integer, String)
+    Public dtOwners As New DataTable
     Private Sub frmPet_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         ' Populate Species ComboBox
@@ -199,12 +202,15 @@ Public Class frmPet
     End Sub
 
     Private Sub UpdateOwnerDictionary()
+
+        ' Setup the list box if there is at least one entry
         If dctOwners.Count > 0 Then
             ' Set the Owners Dictionary binded to the ListBox
             lbxPetOwners.DataSource = New BindingSource(dctOwners, Nothing)
             lbxPetOwners.DisplayMember = "Value"
             lbxPetOwners.ValueMember = "Key"
         Else
+            'Clear the owners listbox
             lbxPetOwners.DataSource = Nothing
         End If
     End Sub
@@ -222,6 +228,7 @@ Public Class frmPet
             newConnection.InsertPet(objPet)
         Else
             'Update the new pet data from the form into the database
+            newConnection.UpdatePet(objPet, dtOwners)
         End If
 
         'Load the Main Pawpering Form with the new Pet Data
@@ -264,5 +271,136 @@ Public Class frmPet
 
         Return objPet
     End Function
+
+    Public Sub FillFormWithSelectedPet(ByVal objSelectedPet As clsPet, ByVal strAction As String)
+
+        'Set the customer forms object with the current selected customer
+        objPet = objSelectedPet
+
+        ' Only make the edit adjustmetns if a customer is selected
+        If objPet.PetID > 0 Then
+
+
+            If strAction = "Delete" Then
+
+                'Disable Entry Fields on Pet Form
+                txtPetID.Enabled = False
+                txtName.Enabled = False
+                cboSpecies.Enabled = False
+                cboBreed.Enabled = False
+                cboColor.Enabled = False
+                dtpBirthDate.Enabled = False
+                cboStatus.Enabled = False
+                dtpDeceasedDate.Enabled = False
+                txtPhoto.Enabled = False
+                chkActive.Enabled = False
+                picPetPhoto.Enabled = False
+                btnSelectImage.Enabled = False
+                lbxPetOwners.Enabled = False
+
+                ' Hide all buttons except the Delete button where it stands out.
+                btnAddOwner.Enabled = False
+                btnRemoveOwner.Enabled = False
+                btnClearForm.Visible = False
+                btnSaveAndLoad.Visible = False
+                btnDeletePet.Visible = True
+
+            ElseIf strAction = "Edit" Then
+
+                'Enable Entry Fields on Pet Form
+                txtPetID.Enabled = True
+                txtName.Enabled = True
+                cboSpecies.Enabled = True
+                cboBreed.Enabled = True
+                cboColor.Enabled = True
+                dtpBirthDate.Enabled = True
+                cboStatus.Enabled = True
+                dtpDeceasedDate.Enabled = True
+                txtPhoto.Enabled = True
+                chkActive.Enabled = True
+                picPetPhoto.Enabled = True
+                btnSelectImage.Enabled = True
+                ' Editing owners is not a current feature
+                lbxPetOwners.Enabled = False
+
+                ' Show all buttons except the Delete button where it stands out.
+                btnAddOwner.Enabled = False
+                btnRemoveOwner.Enabled = False
+                btnClearForm.Visible = True
+                btnSaveAndLoad.Visible = True
+                btnDeletePet.Visible = False
+            End If
+
+
+            'Populate fields to edit customer
+            grpPet.Text = "Pet: " & objPet.PetID.ToString & " " & objPet.Name
+            txtPetID.Text = objPet.PetID.ToString
+            txtName.Text = objPet.Name
+            cboSpecies.SelectedValue = objPet.SpeciesID
+            cboBreed.SelectedValue = objPet.BreedID
+            cboColor.SelectedItem = objPet.Color
+            dtpBirthDate.Value = objPet.BirthDate
+            cboStatus.SelectedItem = objPet.Status
+            If objPet.Status = "Deceased" Then
+                dtpDeceasedDate.Value = objPet.DeceasedDate
+            Else
+                dtpDeceasedDate.Value = Today()
+            End If
+
+            txtPhoto.Text = objPet.Photo
+            chkActive.Checked = objPet.Active
+
+
+            ' Get the application file path
+            Dim strAppPath As String = Application.StartupPath
+            Dim intPathLength As Integer = strAppPath.Length
+
+            ' Strip off the bin/debug folder, to point to the project folder instead
+            strAppPath = strAppPath.Substring(0, intPathLength - 9)
+
+            ' Load the pet picture if there is one
+            If Not objPet.Photo = "" Then
+                Try
+                    picPetPhoto.ImageLocation = strAppPath & "Images\" & objPet.Photo
+                Catch e As Exception
+                    MessageBox.Show("Unable to load the pet image." & Environment.NewLine & e.Message)
+                End Try
+            Else
+                ' Pet does not have a picture
+                picPetPhoto.ImageLocation = strAppPath & "Images\" & "_NoImage.png"
+            End If
+
+            'Get Owners for pet in datatable to put it into the listbox
+            Dim dbConnection As New clsDBConnection
+            Dim strQuery As String
+
+            strQuery = " SELECT [Ownership].OwnershipID, [Ownership].CustomerID, CONCAT(Customer.FirstName, ' ', Customer.LastName) As FullName " &
+                    "FROM [Ownership] INNER JOIN Customer ON [Ownership].CustomerID = Customer.CustomerID " &
+                    "WHERE [Ownership].PetID = " & objSelectedPet.PetID & " " &
+                    "ORDER BY [Ownership].CustomerID;"
+
+            ' Get all the owners for the pet from the results of the Query
+            dtOwners = dbConnection.GetSearchTable(strQuery)
+
+            ' Populate the owners from the datatable into the listbox
+            If dtOwners.Rows.Count > 0 Then
+                lbxPetOwners.DataSource = New BindingSource(dtOwners, Nothing)
+                lbxPetOwners.DisplayMember = "FullName"
+                lbxPetOwners.ValueMember = "CustomerID"
+            Else
+                lbxPetOwners.DataSource = Nothing
+            End If
+
+            'Refresh the pets list
+            frmPawperingMain.LoadPetsList()
+
+            ' Deselect all owners
+            lbxPetOwners.SelectedIndex = -1
+
+        Else
+            MessageBox.Show("No Pet selected.  Loading New Pet Form.", "No Pet Found", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End If
+
+    End Sub
 
 End Class

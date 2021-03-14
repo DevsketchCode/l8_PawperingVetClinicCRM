@@ -207,7 +207,7 @@ Public Class frmCustomer
 
             ElseIf strAction = "Edit" Then
 
-                'Disable Entry Fields on Customer Form
+                'Enable Entry Fields on Customer Form
                 txtFirstName.Enabled = True
                 txtLastName.Enabled = True
                 txtAddress1.Enabled = True

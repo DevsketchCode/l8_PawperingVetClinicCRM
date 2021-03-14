@@ -89,6 +89,8 @@ Partial Class frmPawperingMain
         Me.btnSearchPets = New System.Windows.Forms.Button()
         Me.btnNewPet = New System.Windows.Forms.Button()
         Me.lbxPOwners = New System.Windows.Forms.ListBox()
+        Me.btnSelectOwner = New System.Windows.Forms.Button()
+        Me.DeletePetToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuMain.SuspendLayout()
         Me.grpCustomer.SuspendLayout()
         Me.grpPetInfo.SuspendLayout()
@@ -173,7 +175,7 @@ Partial Class frmPawperingMain
         '
         'AdminToolStripMenuItem
         '
-        Me.AdminToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DeleteCustomerToolStripMenuItem})
+        Me.AdminToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DeleteCustomerToolStripMenuItem, Me.DeletePetToolStripMenuItem})
         Me.AdminToolStripMenuItem.Name = "AdminToolStripMenuItem"
         Me.AdminToolStripMenuItem.Size = New System.Drawing.Size(55, 20)
         Me.AdminToolStripMenuItem.Text = "Admin"
@@ -181,7 +183,7 @@ Partial Class frmPawperingMain
         'DeleteCustomerToolStripMenuItem
         '
         Me.DeleteCustomerToolStripMenuItem.Name = "DeleteCustomerToolStripMenuItem"
-        Me.DeleteCustomerToolStripMenuItem.Size = New System.Drawing.Size(162, 22)
+        Me.DeleteCustomerToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.DeleteCustomerToolStripMenuItem.Text = "Delete Customer"
         '
         'lblCNameLabel
@@ -220,7 +222,7 @@ Partial Class frmPawperingMain
         Me.grpCustomer.Controls.Add(Me.lblCNameLabel)
         Me.grpCustomer.Location = New System.Drawing.Point(12, 60)
         Me.grpCustomer.Name = "grpCustomer"
-        Me.grpCustomer.Size = New System.Drawing.Size(389, 193)
+        Me.grpCustomer.Size = New System.Drawing.Size(389, 207)
         Me.grpCustomer.TabIndex = 2
         Me.grpCustomer.TabStop = False
         Me.grpCustomer.Text = "Customer Info"
@@ -448,7 +450,7 @@ Partial Class frmPawperingMain
         Me.grpPetInfo.Controls.Add(Me.lblPName)
         Me.grpPetInfo.Location = New System.Drawing.Point(573, 60)
         Me.grpPetInfo.Name = "grpPetInfo"
-        Me.grpPetInfo.Size = New System.Drawing.Size(457, 193)
+        Me.grpPetInfo.Size = New System.Drawing.Size(457, 207)
         Me.grpPetInfo.TabIndex = 3
         Me.grpPetInfo.TabStop = False
         Me.grpPetInfo.Text = "Pet Info"
@@ -701,8 +703,24 @@ Partial Class frmPawperingMain
         Me.lbxPOwners.FormattingEnabled = True
         Me.lbxPOwners.Location = New System.Drawing.Point(407, 196)
         Me.lbxPOwners.Name = "lbxPOwners"
-        Me.lbxPOwners.Size = New System.Drawing.Size(160, 56)
+        Me.lbxPOwners.Size = New System.Drawing.Size(160, 43)
         Me.lbxPOwners.TabIndex = 2
+        '
+        'btnSelectOwner
+        '
+        Me.btnSelectOwner.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnSelectOwner.Location = New System.Drawing.Point(407, 245)
+        Me.btnSelectOwner.Name = "btnSelectOwner"
+        Me.btnSelectOwner.Size = New System.Drawing.Size(160, 22)
+        Me.btnSelectOwner.TabIndex = 11
+        Me.btnSelectOwner.Text = "Select Owner"
+        Me.btnSelectOwner.UseVisualStyleBackColor = True
+        '
+        'DeletePetToolStripMenuItem
+        '
+        Me.DeletePetToolStripMenuItem.Name = "DeletePetToolStripMenuItem"
+        Me.DeletePetToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.DeletePetToolStripMenuItem.Text = "Delete Pet"
         '
         'frmPawperingMain
         '
@@ -710,6 +728,7 @@ Partial Class frmPawperingMain
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1042, 538)
+        Me.Controls.Add(Me.btnSelectOwner)
         Me.Controls.Add(Me.lbxPOwners)
         Me.Controls.Add(Me.btnEditPet)
         Me.Controls.Add(Me.btnSearchPets)
@@ -806,4 +825,6 @@ Partial Class frmPawperingMain
     Friend WithEvents picPetPhoto As PictureBox
     Friend WithEvents lblPOwnersLabel As Label
     Friend WithEvents lbxPOwners As ListBox
+    Friend WithEvents btnSelectOwner As Button
+    Friend WithEvents DeletePetToolStripMenuItem As ToolStripMenuItem
 End Class

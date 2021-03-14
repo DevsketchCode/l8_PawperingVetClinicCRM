@@ -116,26 +116,25 @@ Public Class clsDBConnection
     End Sub
 
     Public Function GetSelectedCustomer(ByVal intCustomerID As Integer) As clsCustomer
-        'Initialize variable
-        Dim selectedCustomerID As Integer = intCustomerID
 
         'Create Customer Object
-        Dim objSelectedCustomer As clsCustomer
-        objSelectedCustomer = New clsCustomer
+        Dim objSelectedCustomer As New clsCustomer
 
         'Open the Database
         Dim dbConnection As SqlConnection = OpenDBConnection()
 
-        'Query latest new customer entry and attach to the customer customerid to the existing customer object
-        'Create the SQL String
+        ' Create SQL Query to get all the customer data using the Customer ID
         Dim strSQL = "SELECT * FROM Customer WHERE " &
                     "CustomerID = " & intCustomerID & "; "
 
+        ' Create the command
         Dim cmdQuery As New SqlCommand(strSQL, dbConnection)
 
         Try
+            ' Create the reader and execute the command
             Dim sqlReader As SqlDataReader = cmdQuery.ExecuteReader()
 
+            ' Iterate through the row and populate it to the customer object
             If sqlReader.HasRows Then
                 Do While sqlReader.Read()
                     objSelectedCustomer.CustomerID = CInt(sqlReader.Item("CustomerID"))
@@ -464,9 +463,11 @@ Public Class clsDBConnection
         Dim strSQL = "SELECT * FROM Breed WHERE " &
                     "BreedID = " & strBreedID & "; "
 
+        ' Create the command
         Dim cmdQuery As New SqlCommand(strSQL, dbConnection)
 
         Try
+            ' Create the reader and execute the command
             Dim sqlReader As SqlDataReader = cmdQuery.ExecuteReader()
 
             If sqlReader.HasRows Then
@@ -492,35 +493,120 @@ Public Class clsDBConnection
         Return strBreedName
     End Function
 
-    Private Function GetCustomer(ByVal intCustomerID As Integer) As clsCustomer
-        ' TODO: get the customer data using the customerid
+    Public Function GetSelectedPet(ByVal intPetID As Integer) As clsPet
 
-        Dim dbConnection As New clsDBConnection
-        Dim strQuery As String
-        Dim dtOwners As DataTable
+        ' Create Customer Object
+        Dim objSelectedPet As New clsPet()
 
-        strQuery = " SELECT * FROM Customer WHERE CustomerID" & intCustomerID & ";"
+        ' Open the database
+        Dim dbConnection As SqlConnection = OpenDBConnection()
 
-        dtOwners = dbConnection.GetSearchTable(strQuery)
-        Dim selectedRow As DataRow = dtOwners.Rows.Item(lbxPOwners.SelectedIndex)
-        'TODO: Has Error
-        'TODO: Make customer in dbConnection instead and return the object.
+        ' Create SQL Query to get all the customer data using the Customer ID
+        Dim strSQL As String
+        strSQL = " SELECT * FROM Pet WHERE PetID = " & intPetID & ";"
 
-        objSelectedCustomer.CustomerID = CInt(selectedRow.Item("CustomerID"))
-        objSelectedCustomer.FirstName = selectedRow.Item("FirstName").ToString
-        objSelectedCustomer.LastName = selectedRow.Item("LastName").ToString
-        objSelectedCustomer.Address1 = selectedRow.Item("Address1").ToString
-        objSelectedCustomer.Address2 = selectedRow.Item("Address2").ToString
-        objSelectedCustomer.City = selectedRow.Item("City").ToString
-        objSelectedCustomer.State = selectedRow.Item("State").ToString
-        objSelectedCustomer.ZipCode = selectedRow.Item("ZipCode").ToString
-        objSelectedCustomer.PhoneNumber1 = selectedRow.Item("PhoneNumber1").ToString
-        objSelectedCustomer.PhoneNumber2 = selectedRow.Item("PhoneNumber2").ToString
-        objSelectedCustomer.Email = selectedRow.Item("Email").ToString
-        objSelectedCustomer.CustomerSince = CDate(selectedRow.Item("CustomerSince"))
-        objSelectedCustomer.Active = CBool(selectedRow.Item("Active"))
+        ' Create the command
+        Dim cmdQuery As New SqlCommand(strSQL, dbConnection)
 
-        Return objSelectedCustomer
+        Try
+            ' Create the reader and execute the command
+            Dim sqlReader As SqlDataReader = cmdQuery.ExecuteReader()
+
+            ' Iterate through the row and populate it to the customer object
+            If sqlReader.HasRows Then
+                Do While sqlReader.Read()
+
+                    objSelectedPet.PetID = CInt(sqlReader.Item("PetID"))
+                    objSelectedPet.Name = sqlReader.Item("Name").ToString
+                    objSelectedPet.SpeciesID = CInt(sqlReader.Item("SpeciesID"))
+                    objSelectedPet.BreedID = CInt(sqlReader.Item("BreedID"))
+                    objSelectedPet.Color = sqlReader.Item("Color").ToString
+                    objSelectedPet.BirthDate = CDate(sqlReader.Item("BirthDate"))
+                    objSelectedPet.Status = sqlReader.Item("Status").ToString
+                    If objSelectedPet.Status = "Deceased" Then
+                        objSelectedPet.DeceasedDate = CDate(sqlReader.Item("DeceasedDate"))
+                    Else
+                        objSelectedPet.DeceasedDate = Nothing
+                    End If
+                    objSelectedPet.Photo = sqlReader.Item("Photo").ToString
+                    objSelectedPet.Active = CBool(sqlReader.Item("Active"))
+
+                Loop
+            End If
+
+            'Close the sqlReader
+            sqlReader.Close()
+
+            'Clear the Command
+            cmdQuery.Dispose()
+
+        Catch ex As Exception
+            MessageBox.Show("Pet Retrieval Failed" & Environment.NewLine & ex.Message, "Get Pet Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+        'Close database
+        dbConnection.Close()
+        dbConnection.Dispose()
+
+        Return objSelectedPet
     End Function
+
+    Public Sub UpdatePet(ByVal objSelectedPet As clsPet, ByVal dtOwners As DataTable)
+        'TODO: FIX ALL OF THIS 
+        'Instantiate Object
+        Dim objStoredPet As clsPet
+        objStoredPet = objSelectedPet
+
+        ' TODO: UPdate Pets List After this runs
+        'Open the Database
+        Dim dbConnection As SqlConnection = OpenDBConnection()
+
+        Dim strDeceased As String
+        'If the pet is alive, set Null for deceasedDate
+        If objStoredPet.Status = "Deceased" Then
+            strDeceased = "DeceasedDate = NULL, "
+        Else
+            strDeceased = "DeceasedDate ='" & objStoredPet.DeceasedDate & "', "
+        End If
+
+        'Create the SQL String
+        Dim strSQL = "UPDATE Pet SET " &
+                    "Name ='" & objStoredPet.Name & "', " &
+                    "SpeciesID ='" & objStoredPet.SpeciesID & "', " &
+                    "BreedID ='" & objStoredPet.BreedID & "', " &
+                    "Color ='" & objStoredPet.Color & "', " &
+                    "BirthDate ='" & objStoredPet.BirthDate & "', " &
+                    "Status ='" & objStoredPet.Status & "', " &
+                    strDeceased &
+                    "Photo ='" & objStoredPet.Photo & "', " &
+                    "Active ='" & objStoredPet.Active & "' " &
+                    "WHERE PetID = " & objStoredPet.PetID & ";"
+
+
+        'Create the Update Command
+        Dim cmdUpdate As New SqlCommand(strSQL, dbConnection)
+
+        ' Execute the update to the database
+        Try
+            'Update the row (with error catching)
+            Dim intRowsAffected = cmdUpdate.ExecuteNonQuery
+            If intRowsAffected = 1 Then
+                MessageBox.Show(objStoredPet.Name & " was updated successfully.", "Success")
+            Else
+                MessageBox.Show("The Pet update failed." & Environment.NewLine & intRowsAffected & "records updated.", "Expected DB Pet Update Failed.")
+            End If
+
+            'Clear the command
+            cmdUpdate.Dispose()
+
+        Catch ex As Exception
+            MessageBox.Show("DB Pet Update Failed: " & Environment.NewLine & ex.Message, "Update Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+        'Close database
+        dbConnection.Close()
+        dbConnection.Dispose()
+
+    End Sub
 
 End Class
