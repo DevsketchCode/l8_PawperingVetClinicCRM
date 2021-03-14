@@ -1,21 +1,17 @@
-﻿Option Strict On
-Option Explicit On
-' Project: Pawpering Vet Clinic CRM
+﻿' Project: Pawpering Vet Clinic CRM
 ' Author: David Oberlander
 ' Purpose: (CVTC) VB.NET Final Project: Develop your own.
 ' Date: 03/06/2021
 
+Option Strict On
+Option Explicit On
 Public Class frmCustomer
 
     ' Module Level Objects
     Public objCustomer As New clsCustomer()
     Private Sub frmCustomer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        Me.CenterToParent()
-
-        ' Populate the US States combo box
-
-
+        ' Populate the US States combo box binding a Dictionary object
         cboState.DisplayMember = "Key"
         cboState.ValueMember = "Value"
         cboState.DataSource = New BindingSource(PopulateStates(), Nothing)
@@ -23,59 +19,59 @@ Public Class frmCustomer
 
     Private Function PopulateStates() As Dictionary(Of String, String)
         ' Create collection of all the states of the U.S.
-        Dim colStates As New Dictionary(Of String, String)
-        colStates.Add("Alabama", "AL")
-        colStates.Add("Alaska", "AK")
-        colStates.Add("Arizona", "AZ")
-        colStates.Add("Arkansas", "AR")
-        colStates.Add("California", "CA")
-        colStates.Add("Colorado", "CO")
-        colStates.Add("Connecticut", "CT")
-        colStates.Add("Delaware", "DE")
-        colStates.Add("Florida", "FL")
-        colStates.Add("Georgia", "GA")
-        colStates.Add("Hawaii", "HI")
-        colStates.Add("Idaho", "ID")
-        colStates.Add("Illinois", "IL")
-        colStates.Add("Indiana", " IN")
-        colStates.Add("Iowa", "IA")
-        colStates.Add("Kansas", "KS")
-        colStates.Add("Kentucky", "KY")
-        colStates.Add("Louisiana", "LA")
-        colStates.Add("Maine", "Me")
-        colStates.Add("Maryland", "MD")
-        colStates.Add("Massachusetts", "MA")
-        colStates.Add("Michigan", "MI")
-        colStates.Add("Minnesota", "MN")
-        colStates.Add("Mississippi", "MS")
-        colStates.Add("Missouri", "MO")
-        colStates.Add("Montana", "MT")
-        colStates.Add("Nebraska", "NE")
-        colStates.Add("Nevada", "NV")
-        colStates.Add("New Hampshire", " NH")
-        colStates.Add("New Jersey", " NJ")
-        colStates.Add("New Mexico", " NM")
-        colStates.Add("New York", " NY")
-        colStates.Add("North Carolina", " NC")
-        colStates.Add("North Dakota", " ND")
-        colStates.Add("Ohio", "OH")
-        colStates.Add("Oklahoma", "OK")
-        colStates.Add("Oregon", " Or")
-        colStates.Add("Pennsylvania", " PA")
-        colStates.Add("Rhode Island", " RI")
-        colStates.Add("South Carolina", " SC")
-        colStates.Add("South Dakota", " SD")
-        colStates.Add("Tennessee", "TN")
-        colStates.Add("Texas", "TX")
-        colStates.Add("Utah", "UT")
-        colStates.Add("Vermont", "VT")
-        colStates.Add("Virginia", "VA")
-        colStates.Add("Washington", "WA")
-        colStates.Add("West Virginia", " WV")
-        colStates.Add("Wisconsin", "WI")
-        colStates.Add("Wyoming", "WY")
+        Dim dctStates As New Dictionary(Of String, String)
+        dctStates.Add("Alabama", "AL")
+        dctStates.Add("Alaska", "AK")
+        dctStates.Add("Arizona", "AZ")
+        dctStates.Add("Arkansas", "AR")
+        dctStates.Add("California", "CA")
+        dctStates.Add("Colorado", "CO")
+        dctStates.Add("Connecticut", "CT")
+        dctStates.Add("Delaware", "DE")
+        dctStates.Add("Florida", "FL")
+        dctStates.Add("Georgia", "GA")
+        dctStates.Add("Hawaii", "HI")
+        dctStates.Add("Idaho", "ID")
+        dctStates.Add("Illinois", "IL")
+        dctStates.Add("Indiana", " IN")
+        dctStates.Add("Iowa", "IA")
+        dctStates.Add("Kansas", "KS")
+        dctStates.Add("Kentucky", "KY")
+        dctStates.Add("Louisiana", "LA")
+        dctStates.Add("Maine", "Me")
+        dctStates.Add("Maryland", "MD")
+        dctStates.Add("Massachusetts", "MA")
+        dctStates.Add("Michigan", "MI")
+        dctStates.Add("Minnesota", "MN")
+        dctStates.Add("Mississippi", "MS")
+        dctStates.Add("Missouri", "MO")
+        dctStates.Add("Montana", "MT")
+        dctStates.Add("Nebraska", "NE")
+        dctStates.Add("Nevada", "NV")
+        dctStates.Add("New Hampshire", " NH")
+        dctStates.Add("New Jersey", " NJ")
+        dctStates.Add("New Mexico", " NM")
+        dctStates.Add("New York", " NY")
+        dctStates.Add("North Carolina", " NC")
+        dctStates.Add("North Dakota", " ND")
+        dctStates.Add("Ohio", "OH")
+        dctStates.Add("Oklahoma", "OK")
+        dctStates.Add("Oregon", " Or")
+        dctStates.Add("Pennsylvania", " PA")
+        dctStates.Add("Rhode Island", " RI")
+        dctStates.Add("South Carolina", " SC")
+        dctStates.Add("South Dakota", " SD")
+        dctStates.Add("Tennessee", "TN")
+        dctStates.Add("Texas", "TX")
+        dctStates.Add("Utah", "UT")
+        dctStates.Add("Vermont", "VT")
+        dctStates.Add("Virginia", "VA")
+        dctStates.Add("Washington", "WA")
+        dctStates.Add("West Virginia", " WV")
+        dctStates.Add("Wisconsin", "WI")
+        dctStates.Add("Wyoming", "WY")
 
-        Return colStates
+        Return dctStates
     End Function
 
     Private Sub btnSaveAndLoad_Click(sender As Object, e As EventArgs) Handles btnSaveAndLoad.Click
@@ -92,6 +88,7 @@ Public Class frmCustomer
                 ' Insert the data from the form into the database
                 newConnection.InsertCustomer(objCustomer)
             Else
+                ' Update the new customer data from the form into the database
                 newConnection.UpdateCustomer(objCustomer)
             End If
 
@@ -115,7 +112,7 @@ Public Class frmCustomer
 
         ' Check to see if all the text boxes have data
         For Each tb In grpCustomer.Controls.OfType(Of TextBox)
-            If tb.Text.Equals("") And Not (tb.Name.Equals("txtAddress2") Or tb.Name.Equals("txtPhoneNumber2")) Then
+            If tb.Text.Equals("") And (Not (tb.Name.Equals("txtAddress2") Or Not tb.Name.Equals("txtPhoneNumber2"))) Then
                 isValid = False
             End If
         Next
@@ -124,6 +121,8 @@ Public Class frmCustomer
     End Function
 
     Private Function PopulateCustomer() As clsCustomer
+
+        'TODO: Validate Phone number format and E-mail Address
 
         objCustomer.FirstName = txtFirstName.Text
         objCustomer.LastName = txtLastName.Text

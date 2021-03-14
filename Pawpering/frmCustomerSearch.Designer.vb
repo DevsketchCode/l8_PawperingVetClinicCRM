@@ -22,6 +22,7 @@ Partial Class frmCustomerSearch
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmCustomerSearch))
         Me.btnSearchCustomer = New System.Windows.Forms.Button()
@@ -38,13 +39,19 @@ Partial Class frmCustomerSearch
         Me.lblInstructions = New System.Windows.Forms.Label()
         Me.btnLoadSelectedCustomer = New System.Windows.Forms.Button()
         Me.chkShowInactive = New System.Windows.Forms.CheckBox()
+        Me.mnu_SearchMenu = New System.Windows.Forms.MenuStrip()
+        Me.toolFileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.toolCloseSearchToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.toolInstructionsStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tipCustomerSearch = New System.Windows.Forms.ToolTip(Me.components)
         Me.StatusStrip1.SuspendLayout()
         CType(Me.dgvCustomers, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.mnu_SearchMenu.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnSearchCustomer
         '
-        Me.btnSearchCustomer.Location = New System.Drawing.Point(730, 19)
+        Me.btnSearchCustomer.Location = New System.Drawing.Point(730, 38)
         Me.btnSearchCustomer.Name = "btnSearchCustomer"
         Me.btnSearchCustomer.Size = New System.Drawing.Size(75, 23)
         Me.btnSearchCustomer.TabIndex = 4
@@ -54,9 +61,9 @@ Partial Class frmCustomerSearch
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.stsRecordsReturnedLabel, Me.stsRecordsReturned})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 534)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 355)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1106, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1034, 22)
         Me.StatusStrip1.TabIndex = 3
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -79,7 +86,7 @@ Partial Class frmCustomerSearch
         '
         Me.lblCustomerID.AutoSize = True
         Me.lblCustomerID.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCustomerID.Location = New System.Drawing.Point(12, 23)
+        Me.lblCustomerID.Location = New System.Drawing.Point(12, 42)
         Me.lblCustomerID.Name = "lblCustomerID"
         Me.lblCustomerID.Size = New System.Drawing.Size(76, 15)
         Me.lblCustomerID.TabIndex = 4
@@ -88,7 +95,7 @@ Partial Class frmCustomerSearch
         'txtCustomerID
         '
         Me.txtCustomerID.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtCustomerID.Location = New System.Drawing.Point(94, 20)
+        Me.txtCustomerID.Location = New System.Drawing.Point(94, 39)
         Me.txtCustomerID.MaxLength = 15
         Me.txtCustomerID.Name = "txtCustomerID"
         Me.txtCustomerID.Size = New System.Drawing.Size(100, 23)
@@ -97,7 +104,7 @@ Partial Class frmCustomerSearch
         'txtFirstName
         '
         Me.txtFirstName.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtFirstName.Location = New System.Drawing.Point(287, 19)
+        Me.txtFirstName.Location = New System.Drawing.Point(287, 38)
         Me.txtFirstName.MaxLength = 55
         Me.txtFirstName.Name = "txtFirstName"
         Me.txtFirstName.Size = New System.Drawing.Size(170, 23)
@@ -107,7 +114,7 @@ Partial Class frmCustomerSearch
         '
         Me.lblFirstName.AutoSize = True
         Me.lblFirstName.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFirstName.Location = New System.Drawing.Point(214, 23)
+        Me.lblFirstName.Location = New System.Drawing.Point(214, 42)
         Me.lblFirstName.Name = "lblFirstName"
         Me.lblFirstName.Size = New System.Drawing.Size(67, 15)
         Me.lblFirstName.TabIndex = 6
@@ -116,7 +123,7 @@ Partial Class frmCustomerSearch
         'txtLastName
         '
         Me.txtLastName.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtLastName.Location = New System.Drawing.Point(550, 19)
+        Me.txtLastName.Location = New System.Drawing.Point(550, 38)
         Me.txtLastName.MaxLength = 55
         Me.txtLastName.Name = "txtLastName"
         Me.txtLastName.Size = New System.Drawing.Size(170, 23)
@@ -126,7 +133,7 @@ Partial Class frmCustomerSearch
         '
         Me.lblLastName.AutoSize = True
         Me.lblLastName.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLastName.Location = New System.Drawing.Point(478, 23)
+        Me.lblLastName.Location = New System.Drawing.Point(478, 42)
         Me.lblLastName.Name = "lblLastName"
         Me.lblLastName.Size = New System.Drawing.Size(66, 15)
         Me.lblLastName.TabIndex = 8
@@ -145,12 +152,12 @@ Partial Class frmCustomerSearch
         Me.dgvCustomers.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvCustomers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvCustomers.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvCustomers.Location = New System.Drawing.Point(12, 58)
+        Me.dgvCustomers.Location = New System.Drawing.Point(12, 75)
         Me.dgvCustomers.MultiSelect = False
         Me.dgvCustomers.Name = "dgvCustomers"
         Me.dgvCustomers.RowHeadersVisible = False
         Me.dgvCustomers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvCustomers.Size = New System.Drawing.Size(1082, 462)
+        Me.dgvCustomers.Size = New System.Drawing.Size(1010, 266)
         Me.dgvCustomers.StandardTab = True
         Me.dgvCustomers.TabIndex = 5
         '
@@ -159,15 +166,18 @@ Partial Class frmCustomerSearch
         Me.lblInstructions.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblInstructions.AutoSize = True
         Me.lblInstructions.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblInstructions.Location = New System.Drawing.Point(863, 538)
+        Me.lblInstructions.Location = New System.Drawing.Point(499, 359)
         Me.lblInstructions.Name = "lblInstructions"
-        Me.lblInstructions.Size = New System.Drawing.Size(206, 15)
+        Me.lblInstructions.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.lblInstructions.Size = New System.Drawing.Size(509, 15)
         Me.lblInstructions.TabIndex = 9
-        Me.lblInstructions.Text = "Double Click Record to Load Customer"
+        Me.lblInstructions.Text = "Friendly Tip: Enter data into any field, or leave blank and click Search to show " &
+    "the top 25 records."
+        Me.lblInstructions.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'btnLoadSelectedCustomer
         '
-        Me.btnLoadSelectedCustomer.Location = New System.Drawing.Point(811, 18)
+        Me.btnLoadSelectedCustomer.Location = New System.Drawing.Point(811, 38)
         Me.btnLoadSelectedCustomer.Name = "btnLoadSelectedCustomer"
         Me.btnLoadSelectedCustomer.Size = New System.Drawing.Size(96, 23)
         Me.btnLoadSelectedCustomer.TabIndex = 6
@@ -176,24 +186,54 @@ Partial Class frmCustomerSearch
         '
         'chkShowInactive
         '
+        Me.chkShowInactive.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.chkShowInactive.AutoSize = True
-        Me.chkShowInactive.Location = New System.Drawing.Point(1000, 35)
+        Me.chkShowInactive.Location = New System.Drawing.Point(928, 54)
         Me.chkShowInactive.Name = "chkShowInactive"
         Me.chkShowInactive.Size = New System.Drawing.Size(94, 17)
         Me.chkShowInactive.TabIndex = 10
         Me.chkShowInactive.Text = "Show Inactive"
         Me.chkShowInactive.UseVisualStyleBackColor = True
         '
+        'mnu_SearchMenu
+        '
+        Me.mnu_SearchMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.toolFileToolStripMenuItem, Me.toolInstructionsStripMenuItem})
+        Me.mnu_SearchMenu.Location = New System.Drawing.Point(0, 0)
+        Me.mnu_SearchMenu.Name = "mnu_SearchMenu"
+        Me.mnu_SearchMenu.Size = New System.Drawing.Size(1034, 24)
+        Me.mnu_SearchMenu.TabIndex = 11
+        Me.mnu_SearchMenu.Text = "MenuStrip1"
+        '
+        'toolFileToolStripMenuItem
+        '
+        Me.toolFileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.toolCloseSearchToolStripMenuItem})
+        Me.toolFileToolStripMenuItem.Name = "toolFileToolStripMenuItem"
+        Me.toolFileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
+        Me.toolFileToolStripMenuItem.Text = "File"
+        '
+        'toolCloseSearchToolStripMenuItem
+        '
+        Me.toolCloseSearchToolStripMenuItem.Name = "toolCloseSearchToolStripMenuItem"
+        Me.toolCloseSearchToolStripMenuItem.Size = New System.Drawing.Size(141, 22)
+        Me.toolCloseSearchToolStripMenuItem.Text = "Close Search"
+        '
+        'toolInstructionsStripMenuItem
+        '
+        Me.toolInstructionsStripMenuItem.Name = "toolInstructionsStripMenuItem"
+        Me.toolInstructionsStripMenuItem.Size = New System.Drawing.Size(81, 20)
+        Me.toolInstructionsStripMenuItem.Text = "Instructions"
+        '
         'frmCustomerSearch
         '
         Me.AcceptButton = Me.btnSearchCustomer
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1106, 556)
+        Me.ClientSize = New System.Drawing.Size(1034, 377)
         Me.Controls.Add(Me.chkShowInactive)
         Me.Controls.Add(Me.btnLoadSelectedCustomer)
         Me.Controls.Add(Me.lblInstructions)
         Me.Controls.Add(Me.StatusStrip1)
+        Me.Controls.Add(Me.mnu_SearchMenu)
         Me.Controls.Add(Me.txtLastName)
         Me.Controls.Add(Me.lblLastName)
         Me.Controls.Add(Me.txtFirstName)
@@ -203,12 +243,16 @@ Partial Class frmCustomerSearch
         Me.Controls.Add(Me.btnSearchCustomer)
         Me.Controls.Add(Me.dgvCustomers)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MainMenuStrip = Me.mnu_SearchMenu
+        Me.MinimumSize = New System.Drawing.Size(1050, 416)
         Me.Name = "frmCustomerSearch"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Customer Search"
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         CType(Me.dgvCustomers, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.mnu_SearchMenu.ResumeLayout(False)
+        Me.mnu_SearchMenu.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -227,4 +271,9 @@ Partial Class frmCustomerSearch
     Friend WithEvents lblInstructions As Label
     Friend WithEvents btnLoadSelectedCustomer As Button
     Friend WithEvents chkShowInactive As CheckBox
+    Friend WithEvents mnu_SearchMenu As MenuStrip
+    Friend WithEvents toolFileToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents toolCloseSearchToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents toolInstructionsStripMenuItem As ToolStripMenuItem
+    Friend WithEvents tipCustomerSearch As ToolTip
 End Class

@@ -44,13 +44,13 @@ Partial Class frmCustomer
         Me.dteCustomerSince = New System.Windows.Forms.DateTimePicker()
         Me.cboState = New System.Windows.Forms.ComboBox()
         Me.grpCustomer = New System.Windows.Forms.GroupBox()
+        Me.lblCustomerID = New System.Windows.Forms.Label()
+        Me.txtCustomerID = New System.Windows.Forms.TextBox()
         Me.chkActive = New System.Windows.Forms.CheckBox()
         Me.txtEmail = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnSaveAndLoad = New System.Windows.Forms.Button()
         Me.btnClear = New System.Windows.Forms.Button()
-        Me.txtCustomerID = New System.Windows.Forms.TextBox()
-        Me.lblCustomerID = New System.Windows.Forms.Label()
         Me.btnDeleteCustomer = New System.Windows.Forms.Button()
         Me.grpCustomer.SuspendLayout()
         Me.SuspendLayout()
@@ -264,6 +264,24 @@ Partial Class frmCustomer
         Me.grpCustomer.TabStop = False
         Me.grpCustomer.Text = "New Customer"
         '
+        'lblCustomerID
+        '
+        Me.lblCustomerID.AutoSize = True
+        Me.lblCustomerID.Enabled = False
+        Me.lblCustomerID.Location = New System.Drawing.Point(30, 27)
+        Me.lblCustomerID.Name = "lblCustomerID"
+        Me.lblCustomerID.Size = New System.Drawing.Size(71, 13)
+        Me.lblCustomerID.TabIndex = 14
+        Me.lblCustomerID.Text = "Customer ID: "
+        '
+        'txtCustomerID
+        '
+        Me.txtCustomerID.Enabled = False
+        Me.txtCustomerID.Location = New System.Drawing.Point(120, 24)
+        Me.txtCustomerID.Name = "txtCustomerID"
+        Me.txtCustomerID.Size = New System.Drawing.Size(100, 20)
+        Me.txtCustomerID.TabIndex = 13
+        '
         'chkActive
         '
         Me.chkActive.AutoSize = True
@@ -315,24 +333,6 @@ Partial Class frmCustomer
         Me.btnClear.Text = "Clear"
         Me.btnClear.UseVisualStyleBackColor = True
         '
-        'txtCustomerID
-        '
-        Me.txtCustomerID.Enabled = False
-        Me.txtCustomerID.Location = New System.Drawing.Point(120, 24)
-        Me.txtCustomerID.Name = "txtCustomerID"
-        Me.txtCustomerID.Size = New System.Drawing.Size(100, 20)
-        Me.txtCustomerID.TabIndex = 13
-        '
-        'lblCustomerID
-        '
-        Me.lblCustomerID.AutoSize = True
-        Me.lblCustomerID.Enabled = False
-        Me.lblCustomerID.Location = New System.Drawing.Point(30, 27)
-        Me.lblCustomerID.Name = "lblCustomerID"
-        Me.lblCustomerID.Size = New System.Drawing.Size(71, 13)
-        Me.lblCustomerID.TabIndex = 14
-        Me.lblCustomerID.Text = "Customer ID: "
-        '
         'btnDeleteCustomer
         '
         Me.btnDeleteCustomer.BackColor = System.Drawing.Color.Firebrick
@@ -358,7 +358,7 @@ Partial Class frmCustomer
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmCustomer"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Customer"
         Me.grpCustomer.ResumeLayout(False)
         Me.grpCustomer.PerformLayout()

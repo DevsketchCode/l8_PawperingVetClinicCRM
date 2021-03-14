@@ -35,6 +35,8 @@ Partial Class frmPawperingMain
         Me.mstEditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mstEditCustomerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mstEditPetToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AdminToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DeleteCustomerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.lblCNameLabel = New System.Windows.Forms.Label()
         Me.grpCustomer = New System.Windows.Forms.GroupBox()
         Me.chkCustomerActive = New System.Windows.Forms.CheckBox()
@@ -60,11 +62,25 @@ Partial Class frmPawperingMain
         Me.lblCPhone1Label = New System.Windows.Forms.Label()
         Me.lblCAddress1Label = New System.Windows.Forms.Label()
         Me.grpPetInfo = New System.Windows.Forms.GroupBox()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
+        Me.picPetPhoto = New System.Windows.Forms.PictureBox()
+        Me.lblPDeceasedLabel = New System.Windows.Forms.Label()
+        Me.lblPDeceased = New System.Windows.Forms.Label()
+        Me.lblPStatusLabel = New System.Windows.Forms.Label()
+        Me.lblPStatus = New System.Windows.Forms.Label()
+        Me.lblPBirthDateLabel = New System.Windows.Forms.Label()
+        Me.lblPBirthDate = New System.Windows.Forms.Label()
+        Me.lblPColorLabel = New System.Windows.Forms.Label()
+        Me.lblPColor = New System.Windows.Forms.Label()
+        Me.lblPBreedLabel = New System.Windows.Forms.Label()
+        Me.lblPBreed = New System.Windows.Forms.Label()
+        Me.lblPSpeciesLabel = New System.Windows.Forms.Label()
+        Me.lblPSpecies = New System.Windows.Forms.Label()
+        Me.lblPetID = New System.Windows.Forms.Label()
+        Me.lblPetIDLabel = New System.Windows.Forms.Label()
+        Me.lblPNameLabel = New System.Windows.Forms.Label()
+        Me.lblPName = New System.Windows.Forms.Label()
         Me.grpPetsList = New System.Windows.Forms.GroupBox()
+        Me.lblPOwnersLabel = New System.Windows.Forms.Label()
         Me.lbxPetsList = New System.Windows.Forms.ListBox()
         Me.btnNewCustomer = New System.Windows.Forms.Button()
         Me.btnSearchCustomers = New System.Windows.Forms.Button()
@@ -72,11 +88,11 @@ Partial Class frmPawperingMain
         Me.btnEditPet = New System.Windows.Forms.Button()
         Me.btnSearchPets = New System.Windows.Forms.Button()
         Me.btnNewPet = New System.Windows.Forms.Button()
-        Me.AdminToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DeleteCustomerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.lbxPOwners = New System.Windows.Forms.ListBox()
         Me.mnuMain.SuspendLayout()
         Me.grpCustomer.SuspendLayout()
         Me.grpPetInfo.SuspendLayout()
+        CType(Me.picPetPhoto, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpPetsList.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -146,14 +162,27 @@ Partial Class frmPawperingMain
         'mstEditCustomerToolStripMenuItem
         '
         Me.mstEditCustomerToolStripMenuItem.Name = "mstEditCustomerToolStripMenuItem"
-        Me.mstEditCustomerToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.mstEditCustomerToolStripMenuItem.Size = New System.Drawing.Size(149, 22)
         Me.mstEditCustomerToolStripMenuItem.Text = "Edit &Customer"
         '
         'mstEditPetToolStripMenuItem
         '
         Me.mstEditPetToolStripMenuItem.Name = "mstEditPetToolStripMenuItem"
-        Me.mstEditPetToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.mstEditPetToolStripMenuItem.Size = New System.Drawing.Size(149, 22)
         Me.mstEditPetToolStripMenuItem.Text = "Edit &Pet"
+        '
+        'AdminToolStripMenuItem
+        '
+        Me.AdminToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DeleteCustomerToolStripMenuItem})
+        Me.AdminToolStripMenuItem.Name = "AdminToolStripMenuItem"
+        Me.AdminToolStripMenuItem.Size = New System.Drawing.Size(55, 20)
+        Me.AdminToolStripMenuItem.Text = "Admin"
+        '
+        'DeleteCustomerToolStripMenuItem
+        '
+        Me.DeleteCustomerToolStripMenuItem.Name = "DeleteCustomerToolStripMenuItem"
+        Me.DeleteCustomerToolStripMenuItem.Size = New System.Drawing.Size(162, 22)
+        Me.DeleteCustomerToolStripMenuItem.Text = "Delete Customer"
         '
         'lblCNameLabel
         '
@@ -400,69 +429,211 @@ Partial Class frmPawperingMain
         '
         'grpPetInfo
         '
-        Me.grpPetInfo.Controls.Add(Me.Label1)
-        Me.grpPetInfo.Controls.Add(Me.Label2)
-        Me.grpPetInfo.Controls.Add(Me.Label4)
-        Me.grpPetInfo.Controls.Add(Me.Label3)
-        Me.grpPetInfo.Location = New System.Drawing.Point(613, 60)
+        Me.grpPetInfo.Controls.Add(Me.picPetPhoto)
+        Me.grpPetInfo.Controls.Add(Me.lblPDeceasedLabel)
+        Me.grpPetInfo.Controls.Add(Me.lblPDeceased)
+        Me.grpPetInfo.Controls.Add(Me.lblPStatusLabel)
+        Me.grpPetInfo.Controls.Add(Me.lblPStatus)
+        Me.grpPetInfo.Controls.Add(Me.lblPBirthDateLabel)
+        Me.grpPetInfo.Controls.Add(Me.lblPBirthDate)
+        Me.grpPetInfo.Controls.Add(Me.lblPColorLabel)
+        Me.grpPetInfo.Controls.Add(Me.lblPColor)
+        Me.grpPetInfo.Controls.Add(Me.lblPBreedLabel)
+        Me.grpPetInfo.Controls.Add(Me.lblPBreed)
+        Me.grpPetInfo.Controls.Add(Me.lblPSpeciesLabel)
+        Me.grpPetInfo.Controls.Add(Me.lblPSpecies)
+        Me.grpPetInfo.Controls.Add(Me.lblPetID)
+        Me.grpPetInfo.Controls.Add(Me.lblPetIDLabel)
+        Me.grpPetInfo.Controls.Add(Me.lblPNameLabel)
+        Me.grpPetInfo.Controls.Add(Me.lblPName)
+        Me.grpPetInfo.Location = New System.Drawing.Point(573, 60)
         Me.grpPetInfo.Name = "grpPetInfo"
-        Me.grpPetInfo.Size = New System.Drawing.Size(417, 193)
+        Me.grpPetInfo.Size = New System.Drawing.Size(457, 193)
         Me.grpPetInfo.TabIndex = 3
         Me.grpPetInfo.TabStop = False
         Me.grpPetInfo.Text = "Pet Info"
         '
-        'Label1
+        'picPetPhoto
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(76, 22)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(11, 13)
-        Me.Label1.TabIndex = 27
-        Me.Label1.Text = "*"
+        Me.picPetPhoto.Location = New System.Drawing.Point(283, 15)
+        Me.picPetPhoto.Name = "picPetPhoto"
+        Me.picPetPhoto.Size = New System.Drawing.Size(168, 168)
+        Me.picPetPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.picPetPhoto.TabIndex = 42
+        Me.picPetPhoto.TabStop = False
         '
-        'Label2
+        'lblPDeceasedLabel
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(49, 22)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(21, 13)
-        Me.Label2.TabIndex = 26
-        Me.Label2.Text = "ID:"
+        Me.lblPDeceasedLabel.AutoSize = True
+        Me.lblPDeceasedLabel.Location = New System.Drawing.Point(15, 169)
+        Me.lblPDeceasedLabel.Name = "lblPDeceasedLabel"
+        Me.lblPDeceasedLabel.Size = New System.Drawing.Size(59, 13)
+        Me.lblPDeceasedLabel.TabIndex = 40
+        Me.lblPDeceasedLabel.Text = "Deceased:"
+        Me.lblPDeceasedLabel.Visible = False
         '
-        'Label4
+        'lblPDeceased
         '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(32, 43)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(38, 13)
-        Me.Label4.TabIndex = 24
-        Me.Label4.Text = "Name:"
+        Me.lblPDeceased.AutoSize = True
+        Me.lblPDeceased.Location = New System.Drawing.Point(80, 169)
+        Me.lblPDeceased.Name = "lblPDeceased"
+        Me.lblPDeceased.Size = New System.Drawing.Size(11, 13)
+        Me.lblPDeceased.TabIndex = 41
+        Me.lblPDeceased.Text = "*"
+        Me.lblPDeceased.Visible = False
         '
-        'Label3
+        'lblPStatusLabel
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(76, 43)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(11, 13)
-        Me.Label3.TabIndex = 25
-        Me.Label3.Text = "*"
+        Me.lblPStatusLabel.AutoSize = True
+        Me.lblPStatusLabel.Location = New System.Drawing.Point(34, 148)
+        Me.lblPStatusLabel.Name = "lblPStatusLabel"
+        Me.lblPStatusLabel.Size = New System.Drawing.Size(40, 13)
+        Me.lblPStatusLabel.TabIndex = 36
+        Me.lblPStatusLabel.Text = "Status:"
+        '
+        'lblPStatus
+        '
+        Me.lblPStatus.AutoSize = True
+        Me.lblPStatus.Location = New System.Drawing.Point(80, 148)
+        Me.lblPStatus.Name = "lblPStatus"
+        Me.lblPStatus.Size = New System.Drawing.Size(11, 13)
+        Me.lblPStatus.TabIndex = 37
+        Me.lblPStatus.Text = "*"
+        '
+        'lblPBirthDateLabel
+        '
+        Me.lblPBirthDateLabel.AutoSize = True
+        Me.lblPBirthDateLabel.Location = New System.Drawing.Point(17, 127)
+        Me.lblPBirthDateLabel.Name = "lblPBirthDateLabel"
+        Me.lblPBirthDateLabel.Size = New System.Drawing.Size(57, 13)
+        Me.lblPBirthDateLabel.TabIndex = 34
+        Me.lblPBirthDateLabel.Text = "Birth Date:"
+        '
+        'lblPBirthDate
+        '
+        Me.lblPBirthDate.AutoSize = True
+        Me.lblPBirthDate.Location = New System.Drawing.Point(80, 127)
+        Me.lblPBirthDate.Name = "lblPBirthDate"
+        Me.lblPBirthDate.Size = New System.Drawing.Size(11, 13)
+        Me.lblPBirthDate.TabIndex = 35
+        Me.lblPBirthDate.Text = "*"
+        '
+        'lblPColorLabel
+        '
+        Me.lblPColorLabel.AutoSize = True
+        Me.lblPColorLabel.Location = New System.Drawing.Point(40, 106)
+        Me.lblPColorLabel.Name = "lblPColorLabel"
+        Me.lblPColorLabel.Size = New System.Drawing.Size(34, 13)
+        Me.lblPColorLabel.TabIndex = 32
+        Me.lblPColorLabel.Text = "Color:"
+        '
+        'lblPColor
+        '
+        Me.lblPColor.AutoSize = True
+        Me.lblPColor.Location = New System.Drawing.Point(80, 106)
+        Me.lblPColor.Name = "lblPColor"
+        Me.lblPColor.Size = New System.Drawing.Size(11, 13)
+        Me.lblPColor.TabIndex = 33
+        Me.lblPColor.Text = "*"
+        '
+        'lblPBreedLabel
+        '
+        Me.lblPBreedLabel.AutoSize = True
+        Me.lblPBreedLabel.Location = New System.Drawing.Point(36, 85)
+        Me.lblPBreedLabel.Name = "lblPBreedLabel"
+        Me.lblPBreedLabel.Size = New System.Drawing.Size(38, 13)
+        Me.lblPBreedLabel.TabIndex = 30
+        Me.lblPBreedLabel.Text = "Breed:"
+        '
+        'lblPBreed
+        '
+        Me.lblPBreed.AutoSize = True
+        Me.lblPBreed.Location = New System.Drawing.Point(80, 85)
+        Me.lblPBreed.Name = "lblPBreed"
+        Me.lblPBreed.Size = New System.Drawing.Size(11, 13)
+        Me.lblPBreed.TabIndex = 31
+        Me.lblPBreed.Text = "*"
+        '
+        'lblPSpeciesLabel
+        '
+        Me.lblPSpeciesLabel.AutoSize = True
+        Me.lblPSpeciesLabel.Location = New System.Drawing.Point(26, 64)
+        Me.lblPSpeciesLabel.Name = "lblPSpeciesLabel"
+        Me.lblPSpeciesLabel.Size = New System.Drawing.Size(48, 13)
+        Me.lblPSpeciesLabel.TabIndex = 28
+        Me.lblPSpeciesLabel.Text = "Species:"
+        '
+        'lblPSpecies
+        '
+        Me.lblPSpecies.AutoSize = True
+        Me.lblPSpecies.Location = New System.Drawing.Point(80, 64)
+        Me.lblPSpecies.Name = "lblPSpecies"
+        Me.lblPSpecies.Size = New System.Drawing.Size(11, 13)
+        Me.lblPSpecies.TabIndex = 29
+        Me.lblPSpecies.Text = "*"
+        '
+        'lblPetID
+        '
+        Me.lblPetID.AutoSize = True
+        Me.lblPetID.Location = New System.Drawing.Point(80, 22)
+        Me.lblPetID.Name = "lblPetID"
+        Me.lblPetID.Size = New System.Drawing.Size(11, 13)
+        Me.lblPetID.TabIndex = 27
+        Me.lblPetID.Text = "*"
+        '
+        'lblPetIDLabel
+        '
+        Me.lblPetIDLabel.AutoSize = True
+        Me.lblPetIDLabel.Location = New System.Drawing.Point(53, 22)
+        Me.lblPetIDLabel.Name = "lblPetIDLabel"
+        Me.lblPetIDLabel.Size = New System.Drawing.Size(21, 13)
+        Me.lblPetIDLabel.TabIndex = 26
+        Me.lblPetIDLabel.Text = "ID:"
+        '
+        'lblPNameLabel
+        '
+        Me.lblPNameLabel.AutoSize = True
+        Me.lblPNameLabel.Location = New System.Drawing.Point(36, 43)
+        Me.lblPNameLabel.Name = "lblPNameLabel"
+        Me.lblPNameLabel.Size = New System.Drawing.Size(38, 13)
+        Me.lblPNameLabel.TabIndex = 24
+        Me.lblPNameLabel.Text = "Name:"
+        '
+        'lblPName
+        '
+        Me.lblPName.AutoSize = True
+        Me.lblPName.Location = New System.Drawing.Point(80, 43)
+        Me.lblPName.Name = "lblPName"
+        Me.lblPName.Size = New System.Drawing.Size(11, 13)
+        Me.lblPName.TabIndex = 25
+        Me.lblPName.Text = "*"
         '
         'grpPetsList
         '
+        Me.grpPetsList.Controls.Add(Me.lblPOwnersLabel)
         Me.grpPetsList.Controls.Add(Me.lbxPetsList)
         Me.grpPetsList.Location = New System.Drawing.Point(407, 60)
         Me.grpPetsList.Name = "grpPetsList"
-        Me.grpPetsList.Size = New System.Drawing.Size(200, 193)
+        Me.grpPetsList.Size = New System.Drawing.Size(160, 193)
         Me.grpPetsList.TabIndex = 4
         Me.grpPetsList.TabStop = False
         Me.grpPetsList.Text = "Pets"
+        '
+        'lblPOwnersLabel
+        '
+        Me.lblPOwnersLabel.AutoSize = True
+        Me.lblPOwnersLabel.Location = New System.Drawing.Point(6, 121)
+        Me.lblPOwnersLabel.Name = "lblPOwnersLabel"
+        Me.lblPOwnersLabel.Size = New System.Drawing.Size(43, 13)
+        Me.lblPOwnersLabel.TabIndex = 1
+        Me.lblPOwnersLabel.Text = "Owners"
         '
         'lbxPetsList
         '
         Me.lbxPetsList.FormattingEnabled = True
         Me.lbxPetsList.Location = New System.Drawing.Point(0, 20)
         Me.lbxPetsList.Name = "lbxPetsList"
-        Me.lbxPetsList.Size = New System.Drawing.Size(200, 173)
+        Me.lbxPetsList.Size = New System.Drawing.Size(160, 95)
         Me.lbxPetsList.TabIndex = 0
         '
         'btnNewCustomer
@@ -525,18 +696,13 @@ Partial Class frmPawperingMain
         Me.btnNewPet.Text = "New Pet"
         Me.btnNewPet.UseVisualStyleBackColor = True
         '
-        'AdminToolStripMenuItem
+        'lbxPOwners
         '
-        Me.AdminToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DeleteCustomerToolStripMenuItem})
-        Me.AdminToolStripMenuItem.Name = "AdminToolStripMenuItem"
-        Me.AdminToolStripMenuItem.Size = New System.Drawing.Size(55, 20)
-        Me.AdminToolStripMenuItem.Text = "Admin"
-        '
-        'DeleteCustomerToolStripMenuItem
-        '
-        Me.DeleteCustomerToolStripMenuItem.Name = "DeleteCustomerToolStripMenuItem"
-        Me.DeleteCustomerToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.DeleteCustomerToolStripMenuItem.Text = "Delete Customer"
+        Me.lbxPOwners.FormattingEnabled = True
+        Me.lbxPOwners.Location = New System.Drawing.Point(407, 196)
+        Me.lbxPOwners.Name = "lbxPOwners"
+        Me.lbxPOwners.Size = New System.Drawing.Size(160, 56)
+        Me.lbxPOwners.TabIndex = 2
         '
         'frmPawperingMain
         '
@@ -544,6 +710,7 @@ Partial Class frmPawperingMain
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1042, 538)
+        Me.Controls.Add(Me.lbxPOwners)
         Me.Controls.Add(Me.btnEditPet)
         Me.Controls.Add(Me.btnSearchPets)
         Me.Controls.Add(Me.btnNewPet)
@@ -565,7 +732,9 @@ Partial Class frmPawperingMain
         Me.grpCustomer.PerformLayout()
         Me.grpPetInfo.ResumeLayout(False)
         Me.grpPetInfo.PerformLayout()
+        CType(Me.picPetPhoto, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpPetsList.ResumeLayout(False)
+        Me.grpPetsList.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -613,13 +782,28 @@ Partial Class frmPawperingMain
     Friend WithEvents btnEditPet As Button
     Friend WithEvents btnSearchPets As Button
     Friend WithEvents btnNewPet As Button
-    Friend WithEvents Label1 As Label
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Label4 As Label
-    Friend WithEvents Label3 As Label
+    Friend WithEvents lblPetID As Label
+    Friend WithEvents lblPetIDLabel As Label
+    Friend WithEvents lblPNameLabel As Label
+    Friend WithEvents lblPName As Label
     Friend WithEvents chkCustomerActive As CheckBox
     Friend WithEvents mstFileAboutToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents mstFileToolStripSeparator2 As ToolStripSeparator
     Friend WithEvents AdminToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents DeleteCustomerToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents lblPStatusLabel As Label
+    Friend WithEvents lblPStatus As Label
+    Friend WithEvents lblPBirthDateLabel As Label
+    Friend WithEvents lblPBirthDate As Label
+    Friend WithEvents lblPColorLabel As Label
+    Friend WithEvents lblPColor As Label
+    Friend WithEvents lblPBreedLabel As Label
+    Friend WithEvents lblPBreed As Label
+    Friend WithEvents lblPSpeciesLabel As Label
+    Friend WithEvents lblPSpecies As Label
+    Friend WithEvents lblPDeceasedLabel As Label
+    Friend WithEvents lblPDeceased As Label
+    Friend WithEvents picPetPhoto As PictureBox
+    Friend WithEvents lblPOwnersLabel As Label
+    Friend WithEvents lbxPOwners As ListBox
 End Class

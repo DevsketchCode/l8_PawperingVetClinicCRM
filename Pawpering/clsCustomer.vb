@@ -9,8 +9,8 @@ Option Strict On
 Option Explicit On
 Public Class clsCustomer
 
-    ' Declare User Variables
-    Private msterCustomerID As Integer
+    ' Declare Customer Variables
+    Private mstrCustomerID As Integer
     Private mstrFirstName As String
     Private mstrLastName As String
     Private mstrAddress1 As String
@@ -26,7 +26,7 @@ Public Class clsCustomer
 
     ' Generate a Default Constructor
     Public Sub New()
-        msterCustomerID = 0
+        mstrCustomerID = 0
         mstrFirstName = String.Empty
         mstrLastName = String.Empty
         mstrAddress1 = String.Empty
@@ -46,7 +46,7 @@ Public Class clsCustomer
                    mstrAddress1 As String, mstrAddress2 As String, mstrCity As String,
                    mstrState As String, mstrZipCode As String, mstrPhoneNumber1 As String,
                    mstrPhoneNumber2 As String, mstrEmail As String, mstrCustomerSince As Date, mstrActive As Boolean)
-        Me.msterCustomerID = msterCustomerID
+        Me.mstrCustomerID = msterCustomerID
         Me.mstrFirstName = mstrFirstName
         Me.mstrLastName = mstrLastName
         Me.mstrAddress1 = mstrAddress1
@@ -64,10 +64,10 @@ Public Class clsCustomer
     ' Getter and Setter Methods
     Public Property CustomerID As Integer
         Get
-            Return msterCustomerID
+            Return mstrCustomerID
         End Get
         Set(value As Integer)
-            msterCustomerID = value
+            mstrCustomerID = value
         End Set
     End Property
 
