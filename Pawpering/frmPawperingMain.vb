@@ -237,36 +237,7 @@ Public Class frmPawperingMain
 
     End Sub
 
-    Private Function GetCustomer(ByVal selectedOwnerID As Integer) As clsCustomer
-        ' TODO: get the customer data using the customerid
 
-        Dim dbConnection As New clsDBConnection
-        Dim strQuery As String
-        Dim dtOwners As DataTable
-
-        strQuery = " SELECT * FROM Customer WHERE CustomerID" & selectedOwnerID & ";"
-
-        dtOwners = dbConnection.GetSearchTable(strQuery)
-        Dim selectedRow As DataRow = dtOwners.Rows.Item(lbxPOwners.SelectedIndex)
-        'TODO: Has Error
-        'TODO: Make customer in dbConnection instead and return the object.
-
-        objSelectedCustomer.CustomerID = CInt(selectedRow.Item("CustomerID"))
-        objSelectedCustomer.FirstName = selectedRow.Item("FirstName").ToString
-        objSelectedCustomer.LastName = selectedRow.Item("LastName").ToString
-        objSelectedCustomer.Address1 = selectedRow.Item("Address1").ToString
-        objSelectedCustomer.Address2 = selectedRow.Item("Address2").ToString
-        objSelectedCustomer.City = selectedRow.Item("City").ToString
-        objSelectedCustomer.State = selectedRow.Item("State").ToString
-        objSelectedCustomer.ZipCode = selectedRow.Item("ZipCode").ToString
-        objSelectedCustomer.PhoneNumber1 = selectedRow.Item("PhoneNumber1").ToString
-        objSelectedCustomer.PhoneNumber2 = selectedRow.Item("PhoneNumber2").ToString
-        objSelectedCustomer.Email = selectedRow.Item("Email").ToString
-        objSelectedCustomer.CustomerSince = CDate(selectedRow.Item("CustomerSince"))
-        objSelectedCustomer.Active = CBool(selectedRow.Item("Active"))
-
-        Return objSelectedCustomer
-    End Function
 
     Private Sub lbxPOwners_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles lbxPOwners.MouseDoubleClick
 
