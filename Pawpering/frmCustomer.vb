@@ -115,14 +115,19 @@ Public Class frmCustomer
             If tb.Text.Equals("") And (Not (tb.Name.Equals("txtAddress2") Or Not tb.Name.Equals("txtPhoneNumber2"))) Then
                 isValid = False
             End If
+
+            ' Basic validation of the e-mail address text field
+            If tb.Name = "txtEmail" AndAlso Not txtEmail.Text.Contains("@") Then
+                isValid = False
+                MessageBox.Show("Please enter a valid e-mail address", "Invalid E-mail Address")
+            End If
+
         Next
 
         Return isValid
     End Function
 
     Private Function PopulateCustomer() As clsCustomer
-
-        'TODO: Validate Phone number format and E-mail Address
 
         objCustomer.FirstName = txtFirstName.Text
         objCustomer.LastName = txtLastName.Text
@@ -241,6 +246,7 @@ Public Class frmCustomer
         'Create object to connect to the database
         Dim newConnection As clsDBConnection = New clsDBConnection
 
+        ' Validate that a customer ID has been entered
         If objCustomer.CustomerID > 0 Then
             'Prompt User to Confirm
             Dim diaResult As DialogResult = MessageBox.Show("Are you sure you want to delete this Customer? " & Environment.NewLine & Environment.NewLine &
@@ -251,9 +257,12 @@ Public Class frmCustomer
                 ' Insert the data from the form into the database
                 newConnection.DeleteCustomer(objCustomer)
 
-                'Load the Main Pawpering Form with the new customer data
+                'Clear the main form
                 Dim frmPawperingMain = DirectCast(Me.Owner, frmPawperingMain)
-                frmPawperingMain.ClearForm()
+                frmPawperingMain.ClearForm("All")
+
+                ' Close this form
+                Me.Close()
             Else
                 MessageBox.Show("Deletion Canceled. No changes have been made.")
             End If
@@ -262,8 +271,10 @@ Public Class frmCustomer
             MessageBox.Show("No Customer ID Found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
 
-        ' Close this form
-        Me.Close()
+        frmPawperingMain.LoadPetsList()
+        frmPawperingMain.LoadOwners()
+
+        frmPawperingMain.ClearForm("All")
 
     End Sub
 End Class

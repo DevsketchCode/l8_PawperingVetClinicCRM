@@ -258,6 +258,9 @@ Public Class clsDBConnection
         dbConnection.Close()
         dbConnection.Dispose()
 
+        ' Delete Customer from the ownership table
+        DeleteOwnership(objStoredCustomer.CustomerID, "Customer")
+
     End Sub
 
     Public Function GetSearchTable(ByVal strSearchQuerySQL As String) As DataTable
@@ -305,8 +308,6 @@ Public Class clsDBConnection
                     "VALUES (@Name, @SpeciesID, @BreedID, " &
                     "@Color, @BirthDate, @Status, " & strDeceasedValue & "@Photo, @Active)"
 
-        ' TODO: Insert to OWNERS TABLE
-
         'Create the Insert Command
         Dim cmdInsert As New SqlCommand(strSQL, dbConnection)
 
@@ -328,6 +329,8 @@ Public Class clsDBConnection
             If intRowsAffected = 1 Then
                 'Get the new customer ID and attach it
                 AttachNewPetID(objPet, dbConnection)
+
+                ' Insert all the owners into the Ownership table
                 InsertOwnership(objPet, dbConnection)
                 MessageBox.Show("ID: " & objPet.PetID & " Name: " & objPet.Name & " was added successfully.", "Success")
             Else
@@ -384,10 +387,8 @@ Public Class clsDBConnection
         Dim strSQL As String
 
         Try
+            ' Insert a record for each owner of the pet
             For i As Integer = 0 To objPet.Owners.Count - 1
-
-                MessageBox.Show("OwnerKeys: " & objPet.Owners.Keys(i) & Environment.NewLine &
-                        "PetID: " & objPet.PetID)
 
                 'Create the SQL String
                 strSQL = "INSERT into Ownership (CustomerID, PetID) " &
@@ -552,12 +553,11 @@ Public Class clsDBConnection
     End Function
 
     Public Sub UpdatePet(ByVal objSelectedPet As clsPet, ByVal dtOwners As DataTable)
-        'TODO: FIX ALL OF THIS 
+
         'Instantiate Object
         Dim objStoredPet As clsPet
         objStoredPet = objSelectedPet
 
-        ' TODO: UPdate Pets List After this runs
         'Open the Database
         Dim dbConnection As SqlConnection = OpenDBConnection()
 
@@ -608,5 +608,81 @@ Public Class clsDBConnection
         dbConnection.Dispose()
 
     End Sub
+
+    Public Sub DeletePet(ByVal objSelectedPet As clsPet)
+
+        'Instantiate Object
+        Dim objStoredPet As clsPet
+        objStoredPet = objSelectedPet
+
+        'Open Database
+        Dim dbConnection As SqlConnection = OpenDBConnection()
+
+        'Create SQL String
+        Dim strSQL = "Delete FROM Pet " &
+                    "WHERE PetID = '" & objStoredPet.PetID &
+                    "';"
+
+        'Create Command
+        Dim cmdDelete As New SqlCommand(strSQL, dbConnection)
+
+        Try
+            Dim intRowsAffected = cmdDelete.ExecuteNonQuery() 'Not a query, it's an Delete statement, returns 0 or 1 if Deleted
+            If intRowsAffected = 1 Then
+                MessageBox.Show("Pet ID: " & objStoredPet.PetID & ": """ & objStoredPet.Name & """ was deleted successfully.", "Success") ' Use message box for testing
+            Else
+                MessageBox.Show("The pet deletion failed." & vbCrLf & intRowsAffected & " records deleted.", "Delete Pet Failed")
+            End If
+
+            'Clear the command
+            cmdDelete.Dispose()
+
+        Catch ex As Exception
+            MessageBox.Show("DB Pet Deletion Failed" & ex.Message, "Delete Pet Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+        'Close database
+        dbConnection.Close()
+        dbConnection.Dispose()
+
+        ' Delete pet from the ownership table
+        DeleteOwnership(objStoredPet.PetID, "Pet")
+
+    End Sub
+
+    ' Deletes either the specified customer or the pet from the ownership table
+    Public Sub DeleteOwnership(ByVal intID As Integer, ByVal strCustOrPet As String)
+
+        'Open Database
+        Dim dbConnection As SqlConnection = OpenDBConnection()
+
+        'Create SQL String
+        Dim strSQL = "Delete FROM Ownership " &
+                    "WHERE " & strCustOrPet & "ID = '" & intID & "';"
+
+        'Create Command
+        Dim cmdDelete As New SqlCommand(strSQL, dbConnection)
+
+        Try
+            Dim intRowsAffected = cmdDelete.ExecuteNonQuery() 'Not a query, it's an Delete statement, returns 0 or 1 if Deleted
+            If intRowsAffected > 0 Then
+                MessageBox.Show(strCustOrPet & " ID " & intID & "'s " & intRowsAffected & " ownership records have been successfully deleted.", "Success") ' Use message box for testing
+            Else
+                MessageBox.Show("The " & strCustOrPet & " deletion failed." & vbCrLf & intRowsAffected & " records deleted.", "Delete Ownership " & strCustOrPet & " Ownership Failed")
+            End If
+
+            'Clear the command
+            cmdDelete.Dispose()
+
+        Catch ex As Exception
+            MessageBox.Show("DB " & strCustOrPet & " Deletion Failed" & ex.Message, "Delete Ownership " & strCustOrPet & " Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+        'Close database
+        dbConnection.Close()
+        dbConnection.Dispose()
+
+    End Sub
+
 
 End Class

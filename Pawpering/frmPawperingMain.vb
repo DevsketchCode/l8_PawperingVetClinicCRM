@@ -157,7 +157,6 @@ Public Class frmPawperingMain
 
     End Sub
 
-    ' TODO: Upload Pets and Owners into list boxes from SQL
     Public Sub LoadPetsList()
         Dim dbConnection As New clsDBConnection
         Dim strQuery As String
@@ -193,7 +192,7 @@ Public Class frmPawperingMain
                     "WHERE [Ownership].PetID = " & objSelectedPet.PetID & " " &
                     "ORDER BY [Ownership].CustomerID;"
 
-       ' Get all the owners for the pet from the results of the Query
+        ' Get all the owners for the pet from the results of the Query
         dtOwners = dbConnection.GetSearchTable(strQuery)
 
         ' Populate the owners from the datatable into the listbox
@@ -210,26 +209,65 @@ Public Class frmPawperingMain
 
     End Sub
 
-    ' TODO: Possibly Create a Recently Search List using Stacks
-
     Private Sub frmPawperingMain_Load(sender As Object, e As EventArgs) Handles Me.Load
+
         'Clear the form
-        ClearForm()
+        ClearForm("All")
     End Sub
 
-    Public Sub ClearForm()
-        'Clear the form
-        lblCustomerID.Text = ""
-        lblCustomerName.Text = ""
-        lblAddress1.Text = ""
-        lblAddress2.Text = ""
-        lblCity.Text = ""
-        lblState.Text = ""
-        lblZipCode.Text = ""
-        lblPhoneNumber1.Text = ""
-        lblPhoneNumber2.Text = ""
-        lblEmail.Text = ""
-        lblCustomerSince.Text = ""
+    Public Sub ClearForm(ByVal strAllOrPet As String)
+
+        If strAllOrPet = "Pet" Then
+
+            'Pet Data
+            lblPetID.Text = ""
+            lblPName.Text = "*"
+            lblPSpecies.Text = "*"
+            lblPBreed.Text = "*"
+            lblPColor.Text = "*"
+            lblPBirthDate.Text = "*"
+            lblPStatus.Text = "*"
+            lblPDeceased.Text = "*"
+            picPetPhoto.ImageLocation = ""
+
+            'Clear the Pet Owners List Box
+            lbxPOwners.DataSource = Nothing
+
+        Else
+            'Clear the entire form
+
+            ' Customer data
+            lblCustomerID.Text = ""
+            lblCustomerName.Text = "*"
+            lblAddress1.Text = "*"
+            lblAddress2.Text = "*"
+            lblCity.Text = "*"
+            lblState.Text = "*"
+            lblZipCode.Text = "*"
+            lblPhoneNumber1.Text = "*"
+            lblPhoneNumber2.Text = "*"
+            lblEmail.Text = "*"
+            lblCustomerSince.Text = "*"
+
+            ' Clear Customer Pets
+            lbxPetsList.DataSource = Nothing
+
+            'Pet Data
+            lblPetID.Text = ""
+            lblPName.Text = "*"
+            lblPSpecies.Text = "*"
+            lblPBreed.Text = "*"
+            lblPColor.Text = "*"
+            lblPBirthDate.Text = "*"
+            lblPStatus.Text = "*"
+            lblPDeceased.Text = "*"
+            picPetPhoto.ImageLocation = ""
+
+            'Clear the Pet Owners List Box
+            lbxPOwners.DataSource = Nothing
+
+        End If
+
     End Sub
 
     Private Sub mstFileAboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mstFileAboutToolStripMenuItem.Click
@@ -260,6 +298,19 @@ Public Class frmPawperingMain
 
         'Open New Pet Form
         OpenForm(frmPet)
+
+        'If Customer Currently Selected, Add them to the Owners ListBox
+        frmPet.LoadCustomerAsOwner(objSelectedCustomer)
+
+    End Sub
+
+    Private Sub mstNewPetToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mstNewPetToolStripMenuItem.Click
+
+        'Open New Pet Form
+        OpenForm(frmPet)
+
+        'If Customer Currently Selected, Add them to the Owners ListBox
+        frmPet.LoadCustomerAsOwner(objSelectedCustomer)
 
     End Sub
 
@@ -303,7 +354,6 @@ Public Class frmPawperingMain
             ' Get the selected owner object
             objSelectedCustomer = dbConnection.GetSelectedCustomer(CInt(lbxPOwners.SelectedValue))
 
-            MessageBox.Show(lbxPOwners.SelectedValue.ToString())
             ' Load the customer object into the form
             LoadCustomer(objSelectedCustomer)
 
@@ -334,6 +384,18 @@ Public Class frmPawperingMain
     End Sub
 
     Private Sub btnEditPet_Click(sender As Object, e As EventArgs) Handles btnEditPet.Click
+
+        EditPet()
+
+    End Sub
+
+    Private Sub mstEditPetToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mstEditPetToolStripMenuItem.Click
+
+        EditPet()
+
+    End Sub
+
+    Private Sub EditPet()
         'Check if the form is created and open already
         If frmPet.IsHandleCreated Then
             'Focus on the already opened form
@@ -345,7 +407,6 @@ Public Class frmPawperingMain
 
         ' Fill the Pet Form with the selected pet, set to Edit
         frmPet.FillFormWithSelectedPet(objSelectedPet, "Edit")
-        'TODO: Update Pet
     End Sub
 
     Private Sub DeletePetToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeletePetToolStripMenuItem.Click
@@ -361,6 +422,7 @@ Public Class frmPawperingMain
 
         ' Fill the Pet Form with the selected pet, set to Delete
         frmPet.FillFormWithSelectedPet(objSelectedPet, "Delete")
-        'TODO: Delete Pet
+
     End Sub
+
 End Class

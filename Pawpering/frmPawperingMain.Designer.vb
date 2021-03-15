@@ -37,6 +37,7 @@ Partial Class frmPawperingMain
         Me.mstEditPetToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AdminToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DeleteCustomerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DeletePetToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.lblCNameLabel = New System.Windows.Forms.Label()
         Me.grpCustomer = New System.Windows.Forms.GroupBox()
         Me.chkCustomerActive = New System.Windows.Forms.CheckBox()
@@ -86,16 +87,19 @@ Partial Class frmPawperingMain
         Me.btnSearchCustomers = New System.Windows.Forms.Button()
         Me.btnEditCustomer = New System.Windows.Forms.Button()
         Me.btnEditPet = New System.Windows.Forms.Button()
-        Me.btnSearchPets = New System.Windows.Forms.Button()
         Me.btnNewPet = New System.Windows.Forms.Button()
         Me.lbxPOwners = New System.Windows.Forms.ListBox()
         Me.btnSelectOwner = New System.Windows.Forms.Button()
-        Me.DeletePetToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.grpPetHistory = New System.Windows.Forms.GroupBox()
+        Me.btnDeleteRecord = New System.Windows.Forms.Button()
+        Me.btnEditRecord = New System.Windows.Forms.Button()
+        Me.btnAddRecord = New System.Windows.Forms.Button()
         Me.mnuMain.SuspendLayout()
         Me.grpCustomer.SuspendLayout()
         Me.grpPetInfo.SuspendLayout()
         CType(Me.picPetPhoto, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpPetsList.SuspendLayout()
+        Me.grpPetHistory.SuspendLayout()
         Me.SuspendLayout()
         '
         'mnuMain
@@ -117,41 +121,41 @@ Partial Class frmPawperingMain
         'mstNewCustomerToolStripMenuItem
         '
         Me.mstNewCustomerToolStripMenuItem.Name = "mstNewCustomerToolStripMenuItem"
-        Me.mstNewCustomerToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
+        Me.mstNewCustomerToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.mstNewCustomerToolStripMenuItem.Text = "New &Customer"
         '
         'mstNewPetToolStripMenuItem
         '
         Me.mstNewPetToolStripMenuItem.Name = "mstNewPetToolStripMenuItem"
-        Me.mstNewPetToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
+        Me.mstNewPetToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.mstNewPetToolStripMenuItem.Text = "New &Pet"
         '
         'mstSearchToolStripMenuItem
         '
         Me.mstSearchToolStripMenuItem.Name = "mstSearchToolStripMenuItem"
-        Me.mstSearchToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
-        Me.mstSearchToolStripMenuItem.Text = "&Search Customer/Pet"
+        Me.mstSearchToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
+        Me.mstSearchToolStripMenuItem.Text = "&Search Customer"
         '
         'mstFileToolStripSeparator
         '
         Me.mstFileToolStripSeparator.Name = "mstFileToolStripSeparator"
-        Me.mstFileToolStripSeparator.Size = New System.Drawing.Size(183, 6)
+        Me.mstFileToolStripSeparator.Size = New System.Drawing.Size(161, 6)
         '
         'mstFileAboutToolStripMenuItem
         '
         Me.mstFileAboutToolStripMenuItem.Name = "mstFileAboutToolStripMenuItem"
-        Me.mstFileAboutToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
+        Me.mstFileAboutToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.mstFileAboutToolStripMenuItem.Text = "About"
         '
         'mstFileToolStripSeparator2
         '
         Me.mstFileToolStripSeparator2.Name = "mstFileToolStripSeparator2"
-        Me.mstFileToolStripSeparator2.Size = New System.Drawing.Size(183, 6)
+        Me.mstFileToolStripSeparator2.Size = New System.Drawing.Size(161, 6)
         '
         'mstExitToolStripMenuItem
         '
         Me.mstExitToolStripMenuItem.Name = "mstExitToolStripMenuItem"
-        Me.mstExitToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
+        Me.mstExitToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.mstExitToolStripMenuItem.Text = "E&xit"
         '
         'mstEditToolStripMenuItem
@@ -183,8 +187,14 @@ Partial Class frmPawperingMain
         'DeleteCustomerToolStripMenuItem
         '
         Me.DeleteCustomerToolStripMenuItem.Name = "DeleteCustomerToolStripMenuItem"
-        Me.DeleteCustomerToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.DeleteCustomerToolStripMenuItem.Size = New System.Drawing.Size(162, 22)
         Me.DeleteCustomerToolStripMenuItem.Text = "Delete Customer"
+        '
+        'DeletePetToolStripMenuItem
+        '
+        Me.DeletePetToolStripMenuItem.Name = "DeletePetToolStripMenuItem"
+        Me.DeletePetToolStripMenuItem.Size = New System.Drawing.Size(162, 22)
+        Me.DeletePetToolStripMenuItem.Text = "Delete Pet"
         '
         'lblCNameLabel
         '
@@ -231,7 +241,7 @@ Partial Class frmPawperingMain
         '
         Me.chkCustomerActive.AutoSize = True
         Me.chkCustomerActive.Enabled = False
-        Me.chkCustomerActive.Location = New System.Drawing.Point(327, 168)
+        Me.chkCustomerActive.Location = New System.Drawing.Point(318, 184)
         Me.chkCustomerActive.Name = "chkCustomerActive"
         Me.chkCustomerActive.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.chkCustomerActive.Size = New System.Drawing.Size(56, 17)
@@ -616,10 +626,10 @@ Partial Class frmPawperingMain
         Me.grpPetsList.Controls.Add(Me.lbxPetsList)
         Me.grpPetsList.Location = New System.Drawing.Point(407, 60)
         Me.grpPetsList.Name = "grpPetsList"
-        Me.grpPetsList.Size = New System.Drawing.Size(160, 193)
+        Me.grpPetsList.Size = New System.Drawing.Size(160, 179)
         Me.grpPetsList.TabIndex = 4
         Me.grpPetsList.TabStop = False
-        Me.grpPetsList.Text = "Pets"
+        Me.grpPetsList.Text = "Customer's Pets"
         '
         'lblPOwnersLabel
         '
@@ -678,16 +688,6 @@ Partial Class frmPawperingMain
         Me.btnEditPet.Text = "Edit Pet"
         Me.btnEditPet.UseVisualStyleBackColor = True
         '
-        'btnSearchPets
-        '
-        Me.btnSearchPets.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnSearchPets.Location = New System.Drawing.Point(801, 27)
-        Me.btnSearchPets.Name = "btnSearchPets"
-        Me.btnSearchPets.Size = New System.Drawing.Size(118, 23)
-        Me.btnSearchPets.TabIndex = 9
-        Me.btnSearchPets.Text = "Search Pets"
-        Me.btnSearchPets.UseVisualStyleBackColor = True
-        '
         'btnNewPet
         '
         Me.btnNewPet.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -716,11 +716,44 @@ Partial Class frmPawperingMain
         Me.btnSelectOwner.Text = "Select Owner"
         Me.btnSelectOwner.UseVisualStyleBackColor = True
         '
-        'DeletePetToolStripMenuItem
+        'grpPetHistory
         '
-        Me.DeletePetToolStripMenuItem.Name = "DeletePetToolStripMenuItem"
-        Me.DeletePetToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.DeletePetToolStripMenuItem.Text = "Delete Pet"
+        Me.grpPetHistory.Controls.Add(Me.btnDeleteRecord)
+        Me.grpPetHistory.Controls.Add(Me.btnEditRecord)
+        Me.grpPetHistory.Controls.Add(Me.btnAddRecord)
+        Me.grpPetHistory.Location = New System.Drawing.Point(12, 273)
+        Me.grpPetHistory.Name = "grpPetHistory"
+        Me.grpPetHistory.Size = New System.Drawing.Size(1018, 240)
+        Me.grpPetHistory.TabIndex = 12
+        Me.grpPetHistory.TabStop = False
+        Me.grpPetHistory.Text = "PetHistory"
+        '
+        'btnDeleteRecord
+        '
+        Me.btnDeleteRecord.Location = New System.Drawing.Point(6, 112)
+        Me.btnDeleteRecord.Name = "btnDeleteRecord"
+        Me.btnDeleteRecord.Size = New System.Drawing.Size(96, 23)
+        Me.btnDeleteRecord.TabIndex = 2
+        Me.btnDeleteRecord.Text = "Delete Record"
+        Me.btnDeleteRecord.UseVisualStyleBackColor = True
+        '
+        'btnEditRecord
+        '
+        Me.btnEditRecord.Location = New System.Drawing.Point(6, 72)
+        Me.btnEditRecord.Name = "btnEditRecord"
+        Me.btnEditRecord.Size = New System.Drawing.Size(96, 23)
+        Me.btnEditRecord.TabIndex = 1
+        Me.btnEditRecord.Text = "Edit Record"
+        Me.btnEditRecord.UseVisualStyleBackColor = True
+        '
+        'btnAddRecord
+        '
+        Me.btnAddRecord.Location = New System.Drawing.Point(6, 32)
+        Me.btnAddRecord.Name = "btnAddRecord"
+        Me.btnAddRecord.Size = New System.Drawing.Size(96, 23)
+        Me.btnAddRecord.TabIndex = 0
+        Me.btnAddRecord.Text = "Add Record"
+        Me.btnAddRecord.UseVisualStyleBackColor = True
         '
         'frmPawperingMain
         '
@@ -728,10 +761,10 @@ Partial Class frmPawperingMain
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1042, 538)
+        Me.Controls.Add(Me.grpPetHistory)
         Me.Controls.Add(Me.btnSelectOwner)
         Me.Controls.Add(Me.lbxPOwners)
         Me.Controls.Add(Me.btnEditPet)
-        Me.Controls.Add(Me.btnSearchPets)
         Me.Controls.Add(Me.btnNewPet)
         Me.Controls.Add(Me.btnEditCustomer)
         Me.Controls.Add(Me.btnSearchCustomers)
@@ -754,6 +787,7 @@ Partial Class frmPawperingMain
         CType(Me.picPetPhoto, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpPetsList.ResumeLayout(False)
         Me.grpPetsList.PerformLayout()
+        Me.grpPetHistory.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -799,7 +833,6 @@ Partial Class frmPawperingMain
     Friend WithEvents mstEditPetToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents btnEditCustomer As Button
     Friend WithEvents btnEditPet As Button
-    Friend WithEvents btnSearchPets As Button
     Friend WithEvents btnNewPet As Button
     Friend WithEvents lblPetID As Label
     Friend WithEvents lblPetIDLabel As Label
@@ -827,4 +860,8 @@ Partial Class frmPawperingMain
     Friend WithEvents lbxPOwners As ListBox
     Friend WithEvents btnSelectOwner As Button
     Friend WithEvents DeletePetToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents grpPetHistory As GroupBox
+    Friend WithEvents btnDeleteRecord As Button
+    Friend WithEvents btnEditRecord As Button
+    Friend WithEvents btnAddRecord As Button
 End Class

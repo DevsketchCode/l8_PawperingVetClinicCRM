@@ -8,11 +8,6 @@ Option Strict On
 Option Explicit On
 Public Class frmPet
 
-    ' TODO: Figure out how you want to attach an owner to a pet
-    ' Do you want to make them select an owner first? 
-    ' Or do you want to bring up the owner search to load the customer, 
-    ' then focus on the pet window again and populate the selected owner
-
     ' Module Level Objects
     Public objPet As New clsPet()
 
@@ -70,7 +65,7 @@ Public Class frmPet
         'Update the Breeds ComboBox for the selected Species
         PopulateBreeds()
 
-        ' Select Other initially for the breed
+        ' Manually Select Other initially for the breed
         cboBreed.Text = "Other"
 
     End Sub
@@ -183,7 +178,7 @@ Public Class frmPet
         End If
     End Sub
 
-    Public Sub LoadCustomer(ByVal objCustomer As clsCustomer)
+    Public Sub LoadCustomerAsOwner(ByVal objCustomer As clsCustomer)
 
         ' Load the customer data into the form as an Owner
         objSelectedCustomer = objCustomer
@@ -234,6 +229,7 @@ Public Class frmPet
         'Load the Main Pawpering Form with the new Pet Data
         Dim frmPawperingMain = DirectCast(Me.Owner, frmPawperingMain)
         frmPawperingMain.LoadPet(objPet)
+        frmPawperingMain.LoadPetsList()
         frmPawperingMain.LoadOwners()
 
         'Close this form
@@ -284,7 +280,6 @@ Public Class frmPet
             If strAction = "Delete" Then
 
                 'Disable Entry Fields on Pet Form
-                txtPetID.Enabled = False
                 txtName.Enabled = False
                 cboSpecies.Enabled = False
                 cboBreed.Enabled = False
@@ -308,7 +303,6 @@ Public Class frmPet
             ElseIf strAction = "Edit" Then
 
                 'Enable Entry Fields on Pet Form
-                txtPetID.Enabled = True
                 txtName.Enabled = True
                 cboSpecies.Enabled = True
                 cboBreed.Enabled = True
@@ -391,9 +385,6 @@ Public Class frmPet
                 lbxPetOwners.DataSource = Nothing
             End If
 
-            'Refresh the pets list
-            frmPawperingMain.LoadPetsList()
-
             ' Deselect all owners
             lbxPetOwners.SelectedIndex = -1
 
@@ -403,4 +394,56 @@ Public Class frmPet
 
     End Sub
 
+    Private Sub btnClearForm_Click(sender As Object, e As EventArgs) Handles btnClearForm.Click
+
+        ' Clear the pet form
+        txtName.Text = String.Empty
+        cboSpecies.SelectedIndex = 0
+        cboBreed.SelectedIndex = 0
+        cboColor.SelectedIndex = 0
+        dtpBirthDate.Value = Today()
+        cboStatus.SelectedItem = "Alive"
+        dtpDeceasedDate.Value = Today()
+        dtpDeceasedDate.Visible = False
+        txtPhoto.Text = String.Empty
+        picPetPhoto.ImageLocation = String.Empty
+        lbxPetOwners.DataSource = Nothing
+
+    End Sub
+
+    Private Sub btnDeletePet_Click(sender As Object, e As EventArgs) Handles btnDeletePet.Click
+
+        'Populate customer object with data from user
+        objPet = PopulatePet()
+
+        'Create object to connect to the database
+        Dim newConnection As clsDBConnection = New clsDBConnection
+
+        ' Validate that a pet ID has been entered
+        If objPet.PetID > 0 Then
+            'Prompt User to Confirm
+            Dim diaResult As DialogResult = MessageBox.Show("Are you sure you want to delete this Pet? " & Environment.NewLine & Environment.NewLine &
+                                                            "Pet #: " & objPet.PetID & " - " &
+                                                            objPet.Name, "DELETE PET", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+
+            If diaResult = DialogResult.Yes Then
+                ' Insert the data from the form into the database
+                newConnection.DeletePet(objPet)
+
+                'Clear just the pet data on the main form
+                Dim frmPawperingMain = DirectCast(Me.Owner, frmPawperingMain)
+                frmPawperingMain.ClearForm("Pet")
+
+                ' Close this form
+                Me.Close()
+            Else
+                MessageBox.Show("Deletion Canceled. No changes have been made.")
+            End If
+
+        Else
+            MessageBox.Show("No Pet ID Found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
+
+        frmPawperingMain.LoadPetsList()
+    End Sub
 End Class

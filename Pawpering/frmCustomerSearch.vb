@@ -160,7 +160,7 @@ Public Class frmCustomerSearch
 
             'Load the Selected Customer into the appropriate form
             If btnLoadSelectedCustomer.Text = "Load as Pet Owner" Then
-                frmPet.LoadCustomer(objSelectedCustomer)
+                frmPet.LoadCustomerAsOwner(objSelectedCustomer)
             Else
                 frmPawperingMain.LoadCustomer(objSelectedCustomer)
             End If
