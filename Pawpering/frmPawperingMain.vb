@@ -341,6 +341,7 @@ Public Class frmPawperingMain
             LoadPet(objSelectedPet)
         End If
 
+        LoadPetHistory()
 
     End Sub
 
@@ -373,7 +374,6 @@ Public Class frmPawperingMain
             ' Get the selected owner object
             objSelectedCustomer = dbConnection.GetSelectedCustomer(CInt(lbxPOwners.SelectedValue))
 
-            MessageBox.Show(lbxPOwners.SelectedValue.ToString())
             ' Load the customer object into the form
             LoadCustomer(objSelectedCustomer)
 
@@ -423,6 +423,34 @@ Public Class frmPawperingMain
         ' Fill the Pet Form with the selected pet, set to Delete
         frmPet.FillFormWithSelectedPet(objSelectedPet, "Delete")
 
+    End Sub
+
+    Private Sub LoadPetHistory()
+
+        If lbxPetsList.Items.Count > 0 Then
+
+            'Build SQL Query for Patient History
+            Dim strPetHistorySQL As String
+            strPetHistorySQL = "Select HistoryID As ID, Date, VisitReason, Treatment " &
+                "FROM PetHistory" &
+                "WHERE PetID = " & lbxPetsList.SelectedValue.ToString & " And Active = 1 " &
+                "ORDER BY Date Desc;"
+
+            'Create object to connect to the database
+            Dim dbConn As clsDBConnection = New clsDBConnection
+
+            'Get results from the database and apply to a DataTable
+            Dim table As DataTable = dbConn.GetSearchTable(strPetHistorySQL)
+
+            ' Show the results to the data grid view
+            dgvPetHistory.DataSource = table
+
+            ' Show and Update the Status Bar with the records now in the table
+            stsPetHistoryRecordsStripStatusLabel.Visible = True
+            stsRecordsReturned.Visible = True
+            stsRecordsReturned.Text = table.Rows.Count.ToString
+
+        End If
     End Sub
 
 End Class

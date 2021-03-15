@@ -94,12 +94,18 @@ Partial Class frmPawperingMain
         Me.btnDeleteRecord = New System.Windows.Forms.Button()
         Me.btnEditRecord = New System.Windows.Forms.Button()
         Me.btnAddRecord = New System.Windows.Forms.Button()
+        Me.dgvPetHistory = New System.Windows.Forms.DataGridView()
+        Me.stsStatusStrip = New System.Windows.Forms.StatusStrip()
+        Me.stsPetHistoryRecordsStripStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.stsRecordsReturned = New System.Windows.Forms.ToolStripStatusLabel()
         Me.mnuMain.SuspendLayout()
         Me.grpCustomer.SuspendLayout()
         Me.grpPetInfo.SuspendLayout()
         CType(Me.picPetPhoto, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpPetsList.SuspendLayout()
         Me.grpPetHistory.SuspendLayout()
+        CType(Me.dgvPetHistory, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.stsStatusStrip.SuspendLayout()
         Me.SuspendLayout()
         '
         'mnuMain
@@ -718,12 +724,13 @@ Partial Class frmPawperingMain
         '
         'grpPetHistory
         '
+        Me.grpPetHistory.Controls.Add(Me.dgvPetHistory)
         Me.grpPetHistory.Controls.Add(Me.btnDeleteRecord)
         Me.grpPetHistory.Controls.Add(Me.btnEditRecord)
         Me.grpPetHistory.Controls.Add(Me.btnAddRecord)
         Me.grpPetHistory.Location = New System.Drawing.Point(12, 273)
         Me.grpPetHistory.Name = "grpPetHistory"
-        Me.grpPetHistory.Size = New System.Drawing.Size(1018, 240)
+        Me.grpPetHistory.Size = New System.Drawing.Size(1018, 235)
         Me.grpPetHistory.TabIndex = 12
         Me.grpPetHistory.TabStop = False
         Me.grpPetHistory.Text = "PetHistory"
@@ -755,12 +762,53 @@ Partial Class frmPawperingMain
         Me.btnAddRecord.Text = "Add Record"
         Me.btnAddRecord.UseVisualStyleBackColor = True
         '
+        'dgvPetHistory
+        '
+        Me.dgvPetHistory.AllowUserToAddRows = False
+        Me.dgvPetHistory.AllowUserToDeleteRows = False
+        Me.dgvPetHistory.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dgvPetHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvPetHistory.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.dgvPetHistory.Location = New System.Drawing.Point(108, 6)
+        Me.dgvPetHistory.Name = "dgvPetHistory"
+        Me.dgvPetHistory.ReadOnly = True
+        Me.dgvPetHistory.RowHeadersVisible = False
+        Me.dgvPetHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvPetHistory.Size = New System.Drawing.Size(910, 228)
+        Me.dgvPetHistory.TabIndex = 3
+        '
+        'stsStatusStrip
+        '
+        Me.stsStatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.stsPetHistoryRecordsStripStatusLabel, Me.stsRecordsReturned})
+        Me.stsStatusStrip.Location = New System.Drawing.Point(0, 516)
+        Me.stsStatusStrip.Name = "stsStatusStrip"
+        Me.stsStatusStrip.Size = New System.Drawing.Size(1042, 22)
+        Me.stsStatusStrip.TabIndex = 13
+        Me.stsStatusStrip.Text = "StatusStrip1"
+        '
+        'stsPetHistoryRecordsStripStatusLabel
+        '
+        Me.stsPetHistoryRecordsStripStatusLabel.Name = "stsPetHistoryRecordsStripStatusLabel"
+        Me.stsPetHistoryRecordsStripStatusLabel.Size = New System.Drawing.Size(116, 17)
+        Me.stsPetHistoryRecordsStripStatusLabel.Text = "Pet History Records: "
+        Me.stsPetHistoryRecordsStripStatusLabel.Visible = False
+        '
+        'stsRecordsReturned
+        '
+        Me.stsRecordsReturned.Name = "stsRecordsReturned"
+        Me.stsRecordsReturned.Size = New System.Drawing.Size(13, 17)
+        Me.stsRecordsReturned.Text = "0"
+        Me.stsRecordsReturned.Visible = False
+        '
         'frmPawperingMain
         '
         Me.AcceptButton = Me.btnSearchCustomers
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1042, 538)
+        Me.Controls.Add(Me.stsStatusStrip)
         Me.Controls.Add(Me.grpPetHistory)
         Me.Controls.Add(Me.btnSelectOwner)
         Me.Controls.Add(Me.lbxPOwners)
@@ -788,6 +836,9 @@ Partial Class frmPawperingMain
         Me.grpPetsList.ResumeLayout(False)
         Me.grpPetsList.PerformLayout()
         Me.grpPetHistory.ResumeLayout(False)
+        CType(Me.dgvPetHistory, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.stsStatusStrip.ResumeLayout(False)
+        Me.stsStatusStrip.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -864,4 +915,8 @@ Partial Class frmPawperingMain
     Friend WithEvents btnDeleteRecord As Button
     Friend WithEvents btnEditRecord As Button
     Friend WithEvents btnAddRecord As Button
+    Friend WithEvents dgvPetHistory As DataGridView
+    Friend WithEvents stsStatusStrip As StatusStrip
+    Friend WithEvents stsPetHistoryRecordsStripStatusLabel As ToolStripStatusLabel
+    Friend WithEvents stsRecordsReturned As ToolStripStatusLabel
 End Class

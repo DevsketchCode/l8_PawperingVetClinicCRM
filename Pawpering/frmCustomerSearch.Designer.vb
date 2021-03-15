@@ -26,7 +26,7 @@ Partial Class frmCustomerSearch
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmCustomerSearch))
         Me.btnSearchCustomer = New System.Windows.Forms.Button()
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.stsStatusStrip = New System.Windows.Forms.StatusStrip()
         Me.stsRecordsReturnedLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.stsRecordsReturned = New System.Windows.Forms.ToolStripStatusLabel()
         Me.lblCustomerID = New System.Windows.Forms.Label()
@@ -44,7 +44,7 @@ Partial Class frmCustomerSearch
         Me.toolCloseSearchToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.toolInstructionsStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.tipCustomerSearch = New System.Windows.Forms.ToolTip(Me.components)
-        Me.StatusStrip1.SuspendLayout()
+        Me.stsStatusStrip.SuspendLayout()
         CType(Me.dgvCustomers, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.mnu_SearchMenu.SuspendLayout()
         Me.SuspendLayout()
@@ -58,14 +58,14 @@ Partial Class frmCustomerSearch
         Me.btnSearchCustomer.Text = "Search"
         Me.btnSearchCustomer.UseVisualStyleBackColor = True
         '
-        'StatusStrip1
+        'stsStatusStrip
         '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.stsRecordsReturnedLabel, Me.stsRecordsReturned})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 355)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1034, 22)
-        Me.StatusStrip1.TabIndex = 3
-        Me.StatusStrip1.Text = "StatusStrip1"
+        Me.stsStatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.stsRecordsReturnedLabel, Me.stsRecordsReturned})
+        Me.stsStatusStrip.Location = New System.Drawing.Point(0, 355)
+        Me.stsStatusStrip.Name = "stsStatusStrip"
+        Me.stsStatusStrip.Size = New System.Drawing.Size(1034, 22)
+        Me.stsStatusStrip.TabIndex = 3
+        Me.stsStatusStrip.Text = "StatusStrip1"
         '
         'stsRecordsReturnedLabel
         '
@@ -232,7 +232,7 @@ Partial Class frmCustomerSearch
         Me.Controls.Add(Me.chkShowInactive)
         Me.Controls.Add(Me.btnLoadSelectedCustomer)
         Me.Controls.Add(Me.lblInstructions)
-        Me.Controls.Add(Me.StatusStrip1)
+        Me.Controls.Add(Me.stsStatusStrip)
         Me.Controls.Add(Me.mnu_SearchMenu)
         Me.Controls.Add(Me.txtLastName)
         Me.Controls.Add(Me.lblLastName)
@@ -248,8 +248,8 @@ Partial Class frmCustomerSearch
         Me.Name = "frmCustomerSearch"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Customer Search"
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
+        Me.stsStatusStrip.ResumeLayout(False)
+        Me.stsStatusStrip.PerformLayout()
         CType(Me.dgvCustomers, System.ComponentModel.ISupportInitialize).EndInit()
         Me.mnu_SearchMenu.ResumeLayout(False)
         Me.mnu_SearchMenu.PerformLayout()
@@ -258,7 +258,7 @@ Partial Class frmCustomerSearch
 
     End Sub
     Friend WithEvents btnSearchCustomer As Button
-    Friend WithEvents StatusStrip1 As StatusStrip
+    Friend WithEvents stsStatusStrip As StatusStrip
     Friend WithEvents stsRecordsReturnedLabel As ToolStripStatusLabel
     Friend WithEvents stsRecordsReturned As ToolStripStatusLabel
     Friend WithEvents lblCustomerID As Label
