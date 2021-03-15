@@ -71,7 +71,7 @@ Public Class frmPet
     End Sub
 
     Private Function GetColors() As String()
-        Dim strColors() As String = {"Blue", "Black", "Brown", "Golden", "Green", "Gray", "Mixed", "Orange", "Other", "Purple", "Red", "White", "Yellow"}
+        Dim strColors() As String = {"Other", "Mixed", "Blue", "Black", "Brown", "Golden", "Green", "Gray", "Mixed", "Orange", "Purple", "Red", "White", "Yellow"}
         Return strColors
     End Function
 
