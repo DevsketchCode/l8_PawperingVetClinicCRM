@@ -58,7 +58,7 @@ Partial Class frmPetHistory
         'lblHistoryIDLabel
         '
         Me.lblHistoryIDLabel.AutoSize = True
-        Me.lblHistoryIDLabel.Location = New System.Drawing.Point(132, 27)
+        Me.lblHistoryIDLabel.Location = New System.Drawing.Point(407, 27)
         Me.lblHistoryIDLabel.Name = "lblHistoryIDLabel"
         Me.lblHistoryIDLabel.Size = New System.Drawing.Size(59, 13)
         Me.lblHistoryIDLabel.TabIndex = 2
@@ -110,7 +110,7 @@ Partial Class frmPetHistory
         'lblHistoryID
         '
         Me.lblHistoryID.AutoSize = True
-        Me.lblHistoryID.Location = New System.Drawing.Point(206, 27)
+        Me.lblHistoryID.Location = New System.Drawing.Point(481, 27)
         Me.lblHistoryID.Name = "lblHistoryID"
         Me.lblHistoryID.Size = New System.Drawing.Size(11, 13)
         Me.lblHistoryID.TabIndex = 9
