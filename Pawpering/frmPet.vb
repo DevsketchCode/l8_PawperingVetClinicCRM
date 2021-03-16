@@ -36,6 +36,13 @@ Public Class frmPet
         lstStatus.Add("Missing")
         cboStatus.DataSource = lstStatus
 
+        ' Populate Gender Combobox
+        Dim lstGender = New List(Of String)
+        lstGender.Add("Male")
+        lstGender.Add("Female")
+        lstGender.Add("Unknown")
+        cboGender.DataSource = lstGender
+
     End Sub
 
     Private Sub PopulateSpecies()
@@ -132,7 +139,7 @@ Public Class frmPet
             Try
                 If Not (strNewImageLocation = strSelectedImageLocation) Then
                     'Rename to avoid overwriting other pet images
-                    strNewImageFileName = DateTime.Now.ToString("dd-MM-yyyy-hhmmss") & "_" & selectImageFile.SafeFileName
+                    strNewImageFileName = DateTime.Now.ToString("MM-dd-yyyy-hhmmss") & "_" & selectImageFile.SafeFileName
 
                     ' Copy the image that was selected to the designated image folder
                     My.Computer.FileSystem.CopyFile(selectImageFile.FileName, strNewImageLocation & strNewImageFileName, Microsoft.VisualBasic.FileIO.UIOption.AllDialogs, Microsoft.VisualBasic.FileIO.UICancelOption.DoNothing)
@@ -266,6 +273,7 @@ Public Class frmPet
         Integer.TryParse(cboBreed.SelectedValue.ToString, objPet.BreedID)
         objPet.Color = cboColor.SelectedItem.ToString
         objPet.BirthDate = dtpBirthDate.Value
+        objPet.Gender = cboGender.SelectedItem.ToString
         objPet.Status = cboStatus.SelectedItem.ToString
 
         ' Do not add a deceased date if the pet has not deceased
@@ -298,6 +306,7 @@ Public Class frmPet
                 cboBreed.Enabled = False
                 cboColor.Enabled = False
                 dtpBirthDate.Enabled = False
+                cboGender.Enabled = False
                 cboStatus.Enabled = False
                 dtpDeceasedDate.Enabled = False
                 txtPhoto.Enabled = False
@@ -321,6 +330,7 @@ Public Class frmPet
                 cboBreed.Enabled = True
                 cboColor.Enabled = True
                 dtpBirthDate.Enabled = True
+                cboGender.Enabled = True
                 cboStatus.Enabled = True
                 dtpDeceasedDate.Enabled = True
                 txtPhoto.Enabled = True
@@ -347,6 +357,7 @@ Public Class frmPet
             cboBreed.SelectedValue = objPet.BreedID
             cboColor.SelectedItem = objPet.Color
             dtpBirthDate.Value = objPet.BirthDate
+            cboGender.SelectedItem = objPet.Gender
             cboStatus.SelectedItem = objPet.Status
             If objPet.Status = "Deceased" Then
                 dtpDeceasedDate.Value = objPet.DeceasedDate
@@ -415,6 +426,7 @@ Public Class frmPet
         cboBreed.SelectedIndex = 0
         cboColor.SelectedIndex = 0
         dtpBirthDate.Value = Today()
+        cboGender.SelectedItem = "Male"
         cboStatus.SelectedItem = "Alive"
         dtpDeceasedDate.Value = Today()
         dtpDeceasedDate.Visible = False

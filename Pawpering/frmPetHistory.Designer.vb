@@ -37,7 +37,6 @@ Partial Class frmPetHistory
         Me.btnClear = New System.Windows.Forms.Button()
         Me.btnDeleteRecord = New System.Windows.Forms.Button()
         Me.lblPetName = New System.Windows.Forms.Label()
-        Me.lblPetNameLabel = New System.Windows.Forms.Label()
         Me.chkActiveRecord = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
@@ -62,7 +61,7 @@ Partial Class frmPetHistory
         'lblHistoryIDLabel
         '
         Me.lblHistoryIDLabel.AutoSize = True
-        Me.lblHistoryIDLabel.Location = New System.Drawing.Point(407, 27)
+        Me.lblHistoryIDLabel.Location = New System.Drawing.Point(434, 27)
         Me.lblHistoryIDLabel.Name = "lblHistoryIDLabel"
         Me.lblHistoryIDLabel.Size = New System.Drawing.Size(59, 13)
         Me.lblHistoryIDLabel.TabIndex = 2
@@ -116,7 +115,7 @@ Partial Class frmPetHistory
         'lblHistoryID
         '
         Me.lblHistoryID.AutoSize = True
-        Me.lblHistoryID.Location = New System.Drawing.Point(481, 27)
+        Me.lblHistoryID.Location = New System.Drawing.Point(508, 27)
         Me.lblHistoryID.Name = "lblHistoryID"
         Me.lblHistoryID.Size = New System.Drawing.Size(11, 13)
         Me.lblHistoryID.TabIndex = 9
@@ -163,21 +162,13 @@ Partial Class frmPetHistory
         '
         'lblPetName
         '
-        Me.lblPetName.AutoSize = True
-        Me.lblPetName.Location = New System.Drawing.Point(208, 27)
+        Me.lblPetName.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblPetName.Location = New System.Drawing.Point(187, 19)
         Me.lblPetName.Name = "lblPetName"
-        Me.lblPetName.Size = New System.Drawing.Size(11, 13)
+        Me.lblPetName.Size = New System.Drawing.Size(198, 21)
         Me.lblPetName.TabIndex = 19
         Me.lblPetName.Text = "*"
-        '
-        'lblPetNameLabel
-        '
-        Me.lblPetNameLabel.AutoSize = True
-        Me.lblPetNameLabel.Location = New System.Drawing.Point(164, 27)
-        Me.lblPetNameLabel.Name = "lblPetNameLabel"
-        Me.lblPetNameLabel.Size = New System.Drawing.Size(38, 13)
-        Me.lblPetNameLabel.TabIndex = 18
-        Me.lblPetNameLabel.Text = "Name:"
+        Me.lblPetName.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'chkActiveRecord
         '
@@ -200,7 +191,6 @@ Partial Class frmPetHistory
         Me.ClientSize = New System.Drawing.Size(572, 397)
         Me.Controls.Add(Me.chkActiveRecord)
         Me.Controls.Add(Me.lblPetName)
-        Me.Controls.Add(Me.lblPetNameLabel)
         Me.Controls.Add(Me.btnDeleteRecord)
         Me.Controls.Add(Me.btnClear)
         Me.Controls.Add(Me.btnSave)
@@ -238,6 +228,5 @@ Partial Class frmPetHistory
     Friend WithEvents btnClear As Button
     Friend WithEvents btnDeleteRecord As Button
     Friend WithEvents lblPetName As Label
-    Friend WithEvents lblPetNameLabel As Label
     Friend WithEvents chkActiveRecord As CheckBox
 End Class

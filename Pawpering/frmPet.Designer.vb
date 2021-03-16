@@ -53,6 +53,8 @@ Partial Class frmPet
         Me.btnClearForm = New System.Windows.Forms.Button()
         Me.ofdOpenFileDialog = New System.Windows.Forms.OpenFileDialog()
         Me.btnDeletePet = New System.Windows.Forms.Button()
+        Me.cboGender = New System.Windows.Forms.ComboBox()
+        Me.lblGender = New System.Windows.Forms.Label()
         Me.grpPet.SuspendLayout()
         CType(Me.picPetPhoto, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -62,6 +64,8 @@ Partial Class frmPet
         Me.grpPet.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.grpPet.Controls.Add(Me.lblGender)
+        Me.grpPet.Controls.Add(Me.cboGender)
         Me.grpPet.Controls.Add(Me.btnSelectImage)
         Me.grpPet.Controls.Add(Me.cboStatus)
         Me.grpPet.Controls.Add(Me.lblStatus)
@@ -89,14 +93,14 @@ Partial Class frmPet
         Me.grpPet.Controls.Add(Me.lblPetID)
         Me.grpPet.Location = New System.Drawing.Point(12, 12)
         Me.grpPet.Name = "grpPet"
-        Me.grpPet.Size = New System.Drawing.Size(620, 434)
+        Me.grpPet.Size = New System.Drawing.Size(645, 434)
         Me.grpPet.TabIndex = 0
         Me.grpPet.TabStop = False
         Me.grpPet.Text = "New Pet"
         '
         'btnSelectImage
         '
-        Me.btnSelectImage.Location = New System.Drawing.Point(580, 291)
+        Me.btnSelectImage.Location = New System.Drawing.Point(605, 291)
         Me.btnSelectImage.Name = "btnSelectImage"
         Me.btnSelectImage.Size = New System.Drawing.Size(26, 23)
         Me.btnSelectImage.TabIndex = 16
@@ -109,17 +113,17 @@ Partial Class frmPet
         Me.cboStatus.FormattingEnabled = True
         Me.cboStatus.Location = New System.Drawing.Point(118, 256)
         Me.cboStatus.Name = "cboStatus"
-        Me.cboStatus.Size = New System.Drawing.Size(113, 21)
+        Me.cboStatus.Size = New System.Drawing.Size(75, 21)
         Me.cboStatus.TabIndex = 15
         '
         'lblStatus
         '
         Me.lblStatus.AutoSize = True
-        Me.lblStatus.Location = New System.Drawing.Point(61, 259)
+        Me.lblStatus.Location = New System.Drawing.Point(72, 259)
         Me.lblStatus.Name = "lblStatus"
-        Me.lblStatus.Size = New System.Drawing.Size(37, 13)
+        Me.lblStatus.Size = New System.Drawing.Size(40, 13)
         Me.lblStatus.TabIndex = 14
-        Me.lblStatus.Text = "Status"
+        Me.lblStatus.Text = "Status:"
         '
         'btnRemoveOwner
         '
@@ -161,7 +165,7 @@ Partial Class frmPet
         'dtpBirthDate
         '
         Me.dtpBirthDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpBirthDate.Location = New System.Drawing.Point(118, 217)
+        Me.dtpBirthDate.Location = New System.Drawing.Point(118, 219)
         Me.dtpBirthDate.Name = "dtpBirthDate"
         Me.dtpBirthDate.Size = New System.Drawing.Size(113, 20)
         Me.dtpBirthDate.TabIndex = 5
@@ -170,7 +174,7 @@ Partial Class frmPet
         'dtpDeceasedDate
         '
         Me.dtpDeceasedDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpDeceasedDate.Location = New System.Drawing.Point(118, 292)
+        Me.dtpDeceasedDate.Location = New System.Drawing.Point(118, 293)
         Me.dtpDeceasedDate.Name = "dtpDeceasedDate"
         Me.dtpDeceasedDate.Size = New System.Drawing.Size(113, 20)
         Me.dtpDeceasedDate.TabIndex = 6
@@ -202,7 +206,7 @@ Partial Class frmPet
         Me.txtPhoto.Name = "txtPhoto"
         Me.txtPhoto.ReadOnly = True
         Me.txtPhoto.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtPhoto.Size = New System.Drawing.Size(174, 20)
+        Me.txtPhoto.Size = New System.Drawing.Size(199, 20)
         Me.txtPhoto.TabIndex = 8
         '
         'txtName
@@ -218,18 +222,19 @@ Partial Class frmPet
         Me.txtPetID.Location = New System.Drawing.Point(118, 34)
         Me.txtPetID.MaxLength = 20
         Me.txtPetID.Name = "txtPetID"
-        Me.txtPetID.Size = New System.Drawing.Size(100, 20)
+        Me.txtPetID.Size = New System.Drawing.Size(75, 20)
         Me.txtPetID.TabIndex = 0
         '
         'picPetPhoto
         '
-        Me.picPetPhoto.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.picPetPhoto.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.picPetPhoto.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.picPetPhoto.InitialImage = CType(resources.GetObject("picPetPhoto.InitialImage"), System.Drawing.Image)
         Me.picPetPhoto.Location = New System.Drawing.Point(356, 34)
         Me.picPetPhoto.Name = "picPetPhoto"
-        Me.picPetPhoto.Size = New System.Drawing.Size(250, 250)
-        Me.picPetPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.picPetPhoto.Size = New System.Drawing.Size(275, 250)
+        Me.picPetPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.picPetPhoto.TabIndex = 10
         Me.picPetPhoto.TabStop = False
         '
@@ -239,7 +244,7 @@ Partial Class frmPet
         Me.chkActive.AutoSize = True
         Me.chkActive.Checked = True
         Me.chkActive.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkActive.Location = New System.Drawing.Point(558, 411)
+        Me.chkActive.Location = New System.Drawing.Point(583, 411)
         Me.chkActive.Name = "chkActive"
         Me.chkActive.Size = New System.Drawing.Size(56, 17)
         Me.chkActive.TabIndex = 9
@@ -333,7 +338,7 @@ Partial Class frmPet
         'btnSaveAndLoad
         '
         Me.btnSaveAndLoad.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnSaveAndLoad.Location = New System.Drawing.Point(492, 457)
+        Me.btnSaveAndLoad.Location = New System.Drawing.Point(517, 457)
         Me.btnSaveAndLoad.Name = "btnSaveAndLoad"
         Me.btnSaveAndLoad.Size = New System.Drawing.Size(140, 23)
         Me.btnSaveAndLoad.TabIndex = 1
@@ -358,7 +363,7 @@ Partial Class frmPet
         '
         Me.btnDeletePet.BackColor = System.Drawing.Color.Firebrick
         Me.btnDeletePet.ForeColor = System.Drawing.SystemColors.ControlLight
-        Me.btnDeletePet.Location = New System.Drawing.Point(263, 453)
+        Me.btnDeletePet.Location = New System.Drawing.Point(275, 453)
         Me.btnDeletePet.Name = "btnDeletePet"
         Me.btnDeletePet.Size = New System.Drawing.Size(119, 31)
         Me.btnDeletePet.TabIndex = 16
@@ -366,12 +371,30 @@ Partial Class frmPet
         Me.btnDeletePet.UseVisualStyleBackColor = False
         Me.btnDeletePet.Visible = False
         '
+        'cboGender
+        '
+        Me.cboGender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboGender.FormattingEnabled = True
+        Me.cboGender.Location = New System.Drawing.Point(247, 256)
+        Me.cboGender.Name = "cboGender"
+        Me.cboGender.Size = New System.Drawing.Size(71, 21)
+        Me.cboGender.TabIndex = 17
+        '
+        'lblGender
+        '
+        Me.lblGender.AutoSize = True
+        Me.lblGender.Location = New System.Drawing.Point(199, 259)
+        Me.lblGender.Name = "lblGender"
+        Me.lblGender.Size = New System.Drawing.Size(45, 13)
+        Me.lblGender.TabIndex = 18
+        Me.lblGender.Text = "Gender:"
+        '
         'frmPet
         '
         Me.AcceptButton = Me.btnSaveAndLoad
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(644, 492)
+        Me.ClientSize = New System.Drawing.Size(669, 492)
         Me.Controls.Add(Me.btnDeletePet)
         Me.Controls.Add(Me.btnClearForm)
         Me.Controls.Add(Me.btnSaveAndLoad)
@@ -419,4 +442,6 @@ Partial Class frmPet
     Friend WithEvents btnSelectImage As Button
     Friend WithEvents ofdOpenFileDialog As OpenFileDialog
     Friend WithEvents btnDeletePet As Button
+    Friend WithEvents lblGender As Label
+    Friend WithEvents cboGender As ComboBox
 End Class

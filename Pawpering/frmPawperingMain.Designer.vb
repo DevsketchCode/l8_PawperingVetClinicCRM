@@ -22,6 +22,7 @@ Partial Class frmPawperingMain
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPawperingMain))
         Me.mnuMain = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -29,8 +30,10 @@ Partial Class frmPawperingMain
         Me.mstNewPetToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mstSearchToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mstFileToolStripSeparator = New System.Windows.Forms.ToolStripSeparator()
-        Me.mstFileAboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mstFileClearToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mstFileToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.mstFileAboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mstFileToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.mstExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mstEditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mstEditCustomerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -63,6 +66,8 @@ Partial Class frmPawperingMain
         Me.lblCPhone1Label = New System.Windows.Forms.Label()
         Me.lblCAddress1Label = New System.Windows.Forms.Label()
         Me.grpPetInfo = New System.Windows.Forms.GroupBox()
+        Me.lblGenderLabel = New System.Windows.Forms.Label()
+        Me.lblPGender = New System.Windows.Forms.Label()
         Me.picPetPhoto = New System.Windows.Forms.PictureBox()
         Me.lblPDeceasedLabel = New System.Windows.Forms.Label()
         Me.lblPDeceased = New System.Windows.Forms.Label()
@@ -91,6 +96,7 @@ Partial Class frmPawperingMain
         Me.lbxPOwners = New System.Windows.Forms.ListBox()
         Me.btnSelectOwner = New System.Windows.Forms.Button()
         Me.grpPetHistory = New System.Windows.Forms.GroupBox()
+        Me.chkShowInactiveRecords = New System.Windows.Forms.CheckBox()
         Me.dgvPetHistory = New System.Windows.Forms.DataGridView()
         Me.btnDeleteRecord = New System.Windows.Forms.Button()
         Me.btnEditRecord = New System.Windows.Forms.Button()
@@ -98,9 +104,6 @@ Partial Class frmPawperingMain
         Me.stsStatusStrip = New System.Windows.Forms.StatusStrip()
         Me.stsPetHistoryRecordsStripStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.stsRecordsReturned = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.mstFileToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
-        Me.mstFileClearToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.chkShowInactiveRecords = New System.Windows.Forms.CheckBox()
         Me.mnuMain.SuspendLayout()
         Me.grpCustomer.SuspendLayout()
         Me.grpPetInfo.SuspendLayout()
@@ -130,41 +133,52 @@ Partial Class frmPawperingMain
         'mstNewCustomerToolStripMenuItem
         '
         Me.mstNewCustomerToolStripMenuItem.Name = "mstNewCustomerToolStripMenuItem"
-        Me.mstNewCustomerToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.mstNewCustomerToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.mstNewCustomerToolStripMenuItem.Text = "New &Customer"
         '
         'mstNewPetToolStripMenuItem
         '
         Me.mstNewPetToolStripMenuItem.Name = "mstNewPetToolStripMenuItem"
-        Me.mstNewPetToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.mstNewPetToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.mstNewPetToolStripMenuItem.Text = "New &Pet"
         '
         'mstSearchToolStripMenuItem
         '
         Me.mstSearchToolStripMenuItem.Name = "mstSearchToolStripMenuItem"
-        Me.mstSearchToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.mstSearchToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.mstSearchToolStripMenuItem.Text = "&Search Customer"
         '
         'mstFileToolStripSeparator
         '
         Me.mstFileToolStripSeparator.Name = "mstFileToolStripSeparator"
-        Me.mstFileToolStripSeparator.Size = New System.Drawing.Size(177, 6)
+        Me.mstFileToolStripSeparator.Size = New System.Drawing.Size(161, 6)
         '
-        'mstFileAboutToolStripMenuItem
+        'mstFileClearToolStripMenuItem
         '
-        Me.mstFileAboutToolStripMenuItem.Name = "mstFileAboutToolStripMenuItem"
-        Me.mstFileAboutToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.mstFileAboutToolStripMenuItem.Text = "About"
+        Me.mstFileClearToolStripMenuItem.Name = "mstFileClearToolStripMenuItem"
+        Me.mstFileClearToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
+        Me.mstFileClearToolStripMenuItem.Text = "Clear Form"
         '
         'mstFileToolStripSeparator2
         '
         Me.mstFileToolStripSeparator2.Name = "mstFileToolStripSeparator2"
-        Me.mstFileToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
+        Me.mstFileToolStripSeparator2.Size = New System.Drawing.Size(161, 6)
+        '
+        'mstFileAboutToolStripMenuItem
+        '
+        Me.mstFileAboutToolStripMenuItem.Name = "mstFileAboutToolStripMenuItem"
+        Me.mstFileAboutToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
+        Me.mstFileAboutToolStripMenuItem.Text = "About"
+        '
+        'mstFileToolStripSeparator3
+        '
+        Me.mstFileToolStripSeparator3.Name = "mstFileToolStripSeparator3"
+        Me.mstFileToolStripSeparator3.Size = New System.Drawing.Size(161, 6)
         '
         'mstExitToolStripMenuItem
         '
         Me.mstExitToolStripMenuItem.Name = "mstExitToolStripMenuItem"
-        Me.mstExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.mstExitToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.mstExitToolStripMenuItem.Text = "E&xit"
         '
         'mstEditToolStripMenuItem
@@ -177,13 +191,13 @@ Partial Class frmPawperingMain
         'mstEditCustomerToolStripMenuItem
         '
         Me.mstEditCustomerToolStripMenuItem.Name = "mstEditCustomerToolStripMenuItem"
-        Me.mstEditCustomerToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.mstEditCustomerToolStripMenuItem.Size = New System.Drawing.Size(149, 22)
         Me.mstEditCustomerToolStripMenuItem.Text = "Edit &Customer"
         '
         'mstEditPetToolStripMenuItem
         '
         Me.mstEditPetToolStripMenuItem.Name = "mstEditPetToolStripMenuItem"
-        Me.mstEditPetToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.mstEditPetToolStripMenuItem.Size = New System.Drawing.Size(149, 22)
         Me.mstEditPetToolStripMenuItem.Text = "Edit &Pet"
         '
         'AdminToolStripMenuItem
@@ -196,13 +210,13 @@ Partial Class frmPawperingMain
         'DeleteCustomerToolStripMenuItem
         '
         Me.DeleteCustomerToolStripMenuItem.Name = "DeleteCustomerToolStripMenuItem"
-        Me.DeleteCustomerToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.DeleteCustomerToolStripMenuItem.Size = New System.Drawing.Size(162, 22)
         Me.DeleteCustomerToolStripMenuItem.Text = "Delete Customer"
         '
         'DeletePetToolStripMenuItem
         '
         Me.DeletePetToolStripMenuItem.Name = "DeletePetToolStripMenuItem"
-        Me.DeletePetToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.DeletePetToolStripMenuItem.Size = New System.Drawing.Size(162, 22)
         Me.DeletePetToolStripMenuItem.Text = "Delete Pet"
         '
         'lblCNameLabel
@@ -251,19 +265,21 @@ Partial Class frmPawperingMain
         Me.chkCustomerActive.AutoSize = True
         Me.chkCustomerActive.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.chkCustomerActive.Enabled = False
-        Me.chkCustomerActive.Location = New System.Drawing.Point(318, 184)
+        Me.chkCustomerActive.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkCustomerActive.Location = New System.Drawing.Point(280, 15)
         Me.chkCustomerActive.Name = "chkCustomerActive"
         Me.chkCustomerActive.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.chkCustomerActive.Size = New System.Drawing.Size(56, 17)
+        Me.chkCustomerActive.Size = New System.Drawing.Size(95, 16)
         Me.chkCustomerActive.TabIndex = 24
         Me.chkCustomerActive.TabStop = False
-        Me.chkCustomerActive.Text = "Active"
+        Me.chkCustomerActive.Text = "Active Customer"
         Me.chkCustomerActive.UseVisualStyleBackColor = True
         '
         'lblCustomerSince
         '
         Me.lblCustomerSince.AutoSize = True
-        Me.lblCustomerSince.Location = New System.Drawing.Point(108, 169)
+        Me.lblCustomerSince.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCustomerSince.Location = New System.Drawing.Point(99, 182)
         Me.lblCustomerSince.Name = "lblCustomerSince"
         Me.lblCustomerSince.Size = New System.Drawing.Size(11, 13)
         Me.lblCustomerSince.TabIndex = 23
@@ -281,7 +297,7 @@ Partial Class frmPawperingMain
         'lblPhoneNumber2
         '
         Me.lblPhoneNumber2.AutoSize = True
-        Me.lblPhoneNumber2.Location = New System.Drawing.Point(270, 127)
+        Me.lblPhoneNumber2.Location = New System.Drawing.Point(247, 127)
         Me.lblPhoneNumber2.Name = "lblPhoneNumber2"
         Me.lblPhoneNumber2.Size = New System.Drawing.Size(11, 13)
         Me.lblPhoneNumber2.TabIndex = 21
@@ -299,7 +315,7 @@ Partial Class frmPawperingMain
         'lblZipCode
         '
         Me.lblZipCode.AutoSize = True
-        Me.lblZipCode.Location = New System.Drawing.Point(301, 106)
+        Me.lblZipCode.Location = New System.Drawing.Point(298, 106)
         Me.lblZipCode.Name = "lblZipCode"
         Me.lblZipCode.Size = New System.Drawing.Size(11, 13)
         Me.lblZipCode.TabIndex = 19
@@ -308,7 +324,7 @@ Partial Class frmPawperingMain
         'lblState
         '
         Me.lblState.AutoSize = True
-        Me.lblState.Location = New System.Drawing.Point(229, 106)
+        Me.lblState.Location = New System.Drawing.Point(226, 106)
         Me.lblState.Name = "lblState"
         Me.lblState.Size = New System.Drawing.Size(11, 13)
         Me.lblState.TabIndex = 18
@@ -362,7 +378,8 @@ Partial Class frmPawperingMain
         'lblCCustomerSinceLabel
         '
         Me.lblCCustomerSinceLabel.AutoSize = True
-        Me.lblCCustomerSinceLabel.Location = New System.Drawing.Point(15, 169)
+        Me.lblCCustomerSinceLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCCustomerSinceLabel.Location = New System.Drawing.Point(6, 182)
         Me.lblCCustomerSinceLabel.Name = "lblCCustomerSinceLabel"
         Me.lblCCustomerSinceLabel.Size = New System.Drawing.Size(87, 13)
         Me.lblCCustomerSinceLabel.TabIndex = 12
@@ -398,7 +415,7 @@ Partial Class frmPawperingMain
         'lblCPhone2Label
         '
         Me.lblCPhone2Label.AutoSize = True
-        Me.lblCPhone2Label.Location = New System.Drawing.Point(208, 127)
+        Me.lblCPhone2Label.Location = New System.Drawing.Point(185, 127)
         Me.lblCPhone2Label.Name = "lblCPhone2Label"
         Me.lblCPhone2Label.Size = New System.Drawing.Size(56, 13)
         Me.lblCPhone2Label.TabIndex = 8
@@ -407,7 +424,7 @@ Partial Class frmPawperingMain
         'lblCZipCodeLabel
         '
         Me.lblCZipCodeLabel.AutoSize = True
-        Me.lblCZipCodeLabel.Location = New System.Drawing.Point(270, 106)
+        Me.lblCZipCodeLabel.Location = New System.Drawing.Point(267, 106)
         Me.lblCZipCodeLabel.Name = "lblCZipCodeLabel"
         Me.lblCZipCodeLabel.Size = New System.Drawing.Size(25, 13)
         Me.lblCZipCodeLabel.TabIndex = 7
@@ -416,7 +433,7 @@ Partial Class frmPawperingMain
         'lblCStateLabel
         '
         Me.lblCStateLabel.AutoSize = True
-        Me.lblCStateLabel.Location = New System.Drawing.Point(188, 106)
+        Me.lblCStateLabel.Location = New System.Drawing.Point(185, 106)
         Me.lblCStateLabel.Name = "lblCStateLabel"
         Me.lblCStateLabel.Size = New System.Drawing.Size(35, 13)
         Me.lblCStateLabel.TabIndex = 6
@@ -451,6 +468,8 @@ Partial Class frmPawperingMain
         '
         'grpPetInfo
         '
+        Me.grpPetInfo.Controls.Add(Me.lblGenderLabel)
+        Me.grpPetInfo.Controls.Add(Me.lblPGender)
         Me.grpPetInfo.Controls.Add(Me.picPetPhoto)
         Me.grpPetInfo.Controls.Add(Me.lblPDeceasedLabel)
         Me.grpPetInfo.Controls.Add(Me.lblPDeceased)
@@ -475,19 +494,37 @@ Partial Class frmPawperingMain
         Me.grpPetInfo.TabStop = False
         Me.grpPetInfo.Text = "Pet Info"
         '
+        'lblGenderLabel
+        '
+        Me.lblGenderLabel.AutoSize = True
+        Me.lblGenderLabel.Location = New System.Drawing.Point(29, 121)
+        Me.lblGenderLabel.Name = "lblGenderLabel"
+        Me.lblGenderLabel.Size = New System.Drawing.Size(45, 13)
+        Me.lblGenderLabel.TabIndex = 43
+        Me.lblGenderLabel.Text = "Gender:"
+        '
+        'lblPGender
+        '
+        Me.lblPGender.AutoSize = True
+        Me.lblPGender.Location = New System.Drawing.Point(80, 121)
+        Me.lblPGender.Name = "lblPGender"
+        Me.lblPGender.Size = New System.Drawing.Size(11, 13)
+        Me.lblPGender.TabIndex = 44
+        Me.lblPGender.Text = "*"
+        '
         'picPetPhoto
         '
-        Me.picPetPhoto.Location = New System.Drawing.Point(283, 15)
+        Me.picPetPhoto.Location = New System.Drawing.Point(259, 15)
         Me.picPetPhoto.Name = "picPetPhoto"
-        Me.picPetPhoto.Size = New System.Drawing.Size(168, 168)
-        Me.picPetPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.picPetPhoto.Size = New System.Drawing.Size(192, 168)
+        Me.picPetPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.picPetPhoto.TabIndex = 42
         Me.picPetPhoto.TabStop = False
         '
         'lblPDeceasedLabel
         '
         Me.lblPDeceasedLabel.AutoSize = True
-        Me.lblPDeceasedLabel.Location = New System.Drawing.Point(15, 169)
+        Me.lblPDeceasedLabel.Location = New System.Drawing.Point(15, 182)
         Me.lblPDeceasedLabel.Name = "lblPDeceasedLabel"
         Me.lblPDeceasedLabel.Size = New System.Drawing.Size(59, 13)
         Me.lblPDeceasedLabel.TabIndex = 40
@@ -497,7 +534,7 @@ Partial Class frmPawperingMain
         'lblPDeceased
         '
         Me.lblPDeceased.AutoSize = True
-        Me.lblPDeceased.Location = New System.Drawing.Point(80, 169)
+        Me.lblPDeceased.Location = New System.Drawing.Point(80, 182)
         Me.lblPDeceased.Name = "lblPDeceased"
         Me.lblPDeceased.Size = New System.Drawing.Size(11, 13)
         Me.lblPDeceased.TabIndex = 41
@@ -507,7 +544,7 @@ Partial Class frmPawperingMain
         'lblPStatusLabel
         '
         Me.lblPStatusLabel.AutoSize = True
-        Me.lblPStatusLabel.Location = New System.Drawing.Point(34, 148)
+        Me.lblPStatusLabel.Location = New System.Drawing.Point(34, 162)
         Me.lblPStatusLabel.Name = "lblPStatusLabel"
         Me.lblPStatusLabel.Size = New System.Drawing.Size(40, 13)
         Me.lblPStatusLabel.TabIndex = 36
@@ -516,7 +553,7 @@ Partial Class frmPawperingMain
         'lblPStatus
         '
         Me.lblPStatus.AutoSize = True
-        Me.lblPStatus.Location = New System.Drawing.Point(80, 148)
+        Me.lblPStatus.Location = New System.Drawing.Point(80, 162)
         Me.lblPStatus.Name = "lblPStatus"
         Me.lblPStatus.Size = New System.Drawing.Size(11, 13)
         Me.lblPStatus.TabIndex = 37
@@ -525,7 +562,7 @@ Partial Class frmPawperingMain
         'lblPBirthDateLabel
         '
         Me.lblPBirthDateLabel.AutoSize = True
-        Me.lblPBirthDateLabel.Location = New System.Drawing.Point(17, 127)
+        Me.lblPBirthDateLabel.Location = New System.Drawing.Point(17, 142)
         Me.lblPBirthDateLabel.Name = "lblPBirthDateLabel"
         Me.lblPBirthDateLabel.Size = New System.Drawing.Size(57, 13)
         Me.lblPBirthDateLabel.TabIndex = 34
@@ -534,7 +571,7 @@ Partial Class frmPawperingMain
         'lblPBirthDate
         '
         Me.lblPBirthDate.AutoSize = True
-        Me.lblPBirthDate.Location = New System.Drawing.Point(80, 127)
+        Me.lblPBirthDate.Location = New System.Drawing.Point(80, 142)
         Me.lblPBirthDate.Name = "lblPBirthDate"
         Me.lblPBirthDate.Size = New System.Drawing.Size(11, 13)
         Me.lblPBirthDate.TabIndex = 35
@@ -543,7 +580,7 @@ Partial Class frmPawperingMain
         'lblPColorLabel
         '
         Me.lblPColorLabel.AutoSize = True
-        Me.lblPColorLabel.Location = New System.Drawing.Point(40, 106)
+        Me.lblPColorLabel.Location = New System.Drawing.Point(40, 102)
         Me.lblPColorLabel.Name = "lblPColorLabel"
         Me.lblPColorLabel.Size = New System.Drawing.Size(34, 13)
         Me.lblPColorLabel.TabIndex = 32
@@ -552,7 +589,7 @@ Partial Class frmPawperingMain
         'lblPColor
         '
         Me.lblPColor.AutoSize = True
-        Me.lblPColor.Location = New System.Drawing.Point(80, 106)
+        Me.lblPColor.Location = New System.Drawing.Point(80, 102)
         Me.lblPColor.Name = "lblPColor"
         Me.lblPColor.Size = New System.Drawing.Size(11, 13)
         Me.lblPColor.TabIndex = 33
@@ -561,7 +598,7 @@ Partial Class frmPawperingMain
         'lblPBreedLabel
         '
         Me.lblPBreedLabel.AutoSize = True
-        Me.lblPBreedLabel.Location = New System.Drawing.Point(36, 85)
+        Me.lblPBreedLabel.Location = New System.Drawing.Point(36, 82)
         Me.lblPBreedLabel.Name = "lblPBreedLabel"
         Me.lblPBreedLabel.Size = New System.Drawing.Size(38, 13)
         Me.lblPBreedLabel.TabIndex = 30
@@ -570,7 +607,7 @@ Partial Class frmPawperingMain
         'lblPBreed
         '
         Me.lblPBreed.AutoSize = True
-        Me.lblPBreed.Location = New System.Drawing.Point(80, 85)
+        Me.lblPBreed.Location = New System.Drawing.Point(80, 82)
         Me.lblPBreed.Name = "lblPBreed"
         Me.lblPBreed.Size = New System.Drawing.Size(11, 13)
         Me.lblPBreed.TabIndex = 31
@@ -579,7 +616,7 @@ Partial Class frmPawperingMain
         'lblPSpeciesLabel
         '
         Me.lblPSpeciesLabel.AutoSize = True
-        Me.lblPSpeciesLabel.Location = New System.Drawing.Point(26, 64)
+        Me.lblPSpeciesLabel.Location = New System.Drawing.Point(26, 62)
         Me.lblPSpeciesLabel.Name = "lblPSpeciesLabel"
         Me.lblPSpeciesLabel.Size = New System.Drawing.Size(48, 13)
         Me.lblPSpeciesLabel.TabIndex = 28
@@ -615,7 +652,7 @@ Partial Class frmPawperingMain
         'lblPNameLabel
         '
         Me.lblPNameLabel.AutoSize = True
-        Me.lblPNameLabel.Location = New System.Drawing.Point(36, 43)
+        Me.lblPNameLabel.Location = New System.Drawing.Point(36, 42)
         Me.lblPNameLabel.Name = "lblPNameLabel"
         Me.lblPNameLabel.Size = New System.Drawing.Size(38, 13)
         Me.lblPNameLabel.TabIndex = 24
@@ -740,10 +777,23 @@ Partial Class frmPawperingMain
         Me.grpPetHistory.TabStop = False
         Me.grpPetHistory.Text = "PetHistory"
         '
+        'chkShowInactiveRecords
+        '
+        Me.chkShowInactiveRecords.AutoSize = True
+        Me.chkShowInactiveRecords.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.chkShowInactiveRecords.Location = New System.Drawing.Point(6, 159)
+        Me.chkShowInactiveRecords.Name = "chkShowInactiveRecords"
+        Me.chkShowInactiveRecords.Size = New System.Drawing.Size(94, 17)
+        Me.chkShowInactiveRecords.TabIndex = 4
+        Me.chkShowInactiveRecords.Text = "Show Inactive"
+        Me.chkShowInactiveRecords.UseVisualStyleBackColor = True
+        '
         'dgvPetHistory
         '
         Me.dgvPetHistory.AllowUserToAddRows = False
         Me.dgvPetHistory.AllowUserToDeleteRows = False
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.dgvPetHistory.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvPetHistory.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -810,28 +860,6 @@ Partial Class frmPawperingMain
         Me.stsRecordsReturned.Size = New System.Drawing.Size(13, 17)
         Me.stsRecordsReturned.Text = "0"
         Me.stsRecordsReturned.Visible = False
-        '
-        'mstFileToolStripSeparator3
-        '
-        Me.mstFileToolStripSeparator3.Name = "mstFileToolStripSeparator3"
-        Me.mstFileToolStripSeparator3.Size = New System.Drawing.Size(177, 6)
-        '
-        'mstFileClearToolStripMenuItem
-        '
-        Me.mstFileClearToolStripMenuItem.Name = "mstFileClearToolStripMenuItem"
-        Me.mstFileClearToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.mstFileClearToolStripMenuItem.Text = "Clear Form"
-        '
-        'chkShowInactiveRecords
-        '
-        Me.chkShowInactiveRecords.AutoSize = True
-        Me.chkShowInactiveRecords.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chkShowInactiveRecords.Location = New System.Drawing.Point(6, 159)
-        Me.chkShowInactiveRecords.Name = "chkShowInactiveRecords"
-        Me.chkShowInactiveRecords.Size = New System.Drawing.Size(94, 17)
-        Me.chkShowInactiveRecords.TabIndex = 4
-        Me.chkShowInactiveRecords.Text = "Show Inactive"
-        Me.chkShowInactiveRecords.UseVisualStyleBackColor = True
         '
         'frmPawperingMain
         '
@@ -954,4 +982,6 @@ Partial Class frmPawperingMain
     Friend WithEvents mstFileClearToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents mstFileToolStripSeparator3 As ToolStripSeparator
     Friend WithEvents chkShowInactiveRecords As CheckBox
+    Friend WithEvents lblGenderLabel As Label
+    Friend WithEvents lblPGender As Label
 End Class

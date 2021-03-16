@@ -151,12 +151,11 @@ Public Class frmPetHistory
             End If
 
         Else
-            MessageBox.Show("No Customer ID Found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("No History ID Found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
 
-        frmPawperingMain.LoadPetsList()
-        frmPawperingMain.LoadOwners()
+        'Update the pet history datagridview
+        frmPawperingMain.LoadPetHistory()
 
-        frmPawperingMain.ClearForm("All")
     End Sub
 End Class

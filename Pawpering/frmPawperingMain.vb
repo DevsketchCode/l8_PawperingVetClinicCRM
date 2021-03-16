@@ -117,6 +117,7 @@ Public Class frmPawperingMain
         lblPSpecies.Text = dbConnection.GetSpeciesName(objSelectedPet.SpeciesID)
         lblPBreed.Text = dbConnection.GetBreedName(objSelectedPet.BreedID)
 
+        lblPGender.Text = objSelectedPet.Gender
         lblPColor.Text = objSelectedPet.Color
         lblPBirthDate.Text = objSelectedPet.BirthDate.ToString
         lblPStatus.Text = objSelectedPet.Status.ToString
@@ -216,6 +217,13 @@ Public Class frmPawperingMain
 
     End Sub
 
+    Private Sub mstFileClearToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mstFileClearToolStripMenuItem.Click
+
+        'Clear the whole form
+        ClearForm("All")
+
+    End Sub
+
     Public Sub ClearForm(ByVal strAllOrPet As String)
 
         If strAllOrPet = "Pet" Then
@@ -226,13 +234,16 @@ Public Class frmPawperingMain
             lblPSpecies.Text = "*"
             lblPBreed.Text = "*"
             lblPColor.Text = "*"
+            lblPGender.Text = "*"
             lblPBirthDate.Text = "*"
             lblPStatus.Text = "*"
             lblPDeceased.Text = "*"
             picPetPhoto.ImageLocation = ""
 
             'Clear the Pet Owners List Box
+            lbxPOwners.SelectedIndex = -1
             lbxPOwners.DataSource = Nothing
+            lbxPOwners.Items.Clear()
 
         Else
             'Clear the entire form
@@ -251,7 +262,10 @@ Public Class frmPawperingMain
             lblCustomerSince.Text = "*"
 
             ' Clear Customer Pets
+
+            lbxPetsList.SelectedIndex = -1
             lbxPetsList.DataSource = Nothing
+            lbxPetsList.Items.Clear()
 
             'Pet Data
             lblPetID.Text = ""
@@ -259,13 +273,16 @@ Public Class frmPawperingMain
             lblPSpecies.Text = "*"
             lblPBreed.Text = "*"
             lblPColor.Text = "*"
+            lblPGender.Text = "*"
             lblPBirthDate.Text = "*"
             lblPStatus.Text = "*"
             lblPDeceased.Text = "*"
             picPetPhoto.ImageLocation = ""
 
             'Clear the Pet Owners List Box
+            lbxPOwners.SelectedIndex = -1
             lbxPOwners.DataSource = Nothing
+            lbxPOwners.Items.Clear()
 
             'Clear the Pet History
             dgvPetHistory.DataSource = Nothing
@@ -278,7 +295,7 @@ Public Class frmPawperingMain
 
         ' Show Project information in message box
         MessageBox.Show("VB.Net Module 8" & Environment.NewLine & Environment.NewLine &
-                        "Developer: David Oberlander" & Environment.NewLine & "Date: 03/08/2021" & Environment.NewLine &
+                        "Developer: David Oberlander" & Environment.NewLine & "Date: 03/15/2021" & Environment.NewLine &
                         "Version: 1.0", "CVTC Final Project", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
@@ -327,7 +344,7 @@ Public Class frmPawperingMain
         Dim blnIsInteger As Boolean
 
         ' If the PetsList has not been loaded yet, load it.
-        If Not lbxPetsList.Items.Count < 1 Then
+        If lbxPetsList.SelectedIndex > -1 Then
             Try
                 blnIsInteger = Integer.TryParse(lbxPetsList.SelectedValue.ToString, intSelectedPet)
             Catch ex As Exception
@@ -341,7 +358,7 @@ Public Class frmPawperingMain
         End If
 
         ' Get the selected Pet object from the database.
-        If lbxPetsList.Items.Count > 0 And blnIsInteger Then
+        If lbxPetsList.Items.Count > 0 And blnIsInteger And lbxPetsList.SelectedIndex > -1 Then
             ' Get the selected pet object
             Try
                 objSelectedPet = dbConnection.GetSelectedPet(CInt(lbxPetsList.SelectedValue))
@@ -438,15 +455,29 @@ Public Class frmPawperingMain
 
     End Sub
 
+    Private Sub chkShowInactiveRecords_CheckedChanged(sender As Object, e As EventArgs) Handles chkShowInactiveRecords.CheckedChanged
+
+        ' Load pet history with the new inactive or active parameter
+        LoadPetHistory()
+
+    End Sub
+
     Public Sub LoadPetHistory()
 
         If lbxPetsList.Items.Count > 0 Then
+
+            Dim intActive As Integer
+            If chkShowInactiveRecords.Checked Then
+                intActive = 0
+            Else
+                intActive = 1
+            End If
 
             'Build SQL Query for Patient History
             Dim strPetHistorySQL As String
             strPetHistorySQL = "Select HistoryID As HxID, Date, VisitReason, Treatment, Active " &
                 "FROM PetHistory " &
-                "WHERE PetID = " & lbxPetsList.SelectedValue.ToString & " And Active = " & chkShowInactiveRecords.Checked & " " &
+                "WHERE PetID = " & lbxPetsList.SelectedValue.ToString & " And Active = " & intActive & " " &
                 "ORDER BY Date Desc;"
 
             'Create object to connect to the database
@@ -461,7 +492,7 @@ Public Class frmPawperingMain
             ' Resize the columns
             dgvPetHistory.Columns("HxID").Width = 50
             dgvPetHistory.Columns("Date").Width = 120
-            dgvPetHistory.Columns("Active").Width = 20
+            dgvPetHistory.Columns("Active").Width = 50
 
             ' Set Columns to word wrap
             dgvPetHistory.Columns("VisitReason").DefaultCellStyle.WrapMode = DataGridViewTriState.True
@@ -497,6 +528,17 @@ Public Class frmPawperingMain
 
     Private Sub btnEditRecord_Click(sender As Object, e As EventArgs) Handles btnEditRecord.Click
 
+        EditHistoryRecord()
+
+    End Sub
+
+    Private Sub dgvPetHistory_DoubleClick(sender As Object, e As EventArgs) Handles dgvPetHistory.DoubleClick
+
+        EditHistoryRecord()
+
+    End Sub
+
+    Private Sub EditHistoryRecord()
         'Check to verify that a Pet ID has been set to edit, open the pet form and populate the fields on the form
         Try
             If objSelectedPet.PetID > 0 Then
@@ -513,7 +555,6 @@ Public Class frmPawperingMain
         Catch ex As Exception
             MessageBox.Show("Error Editing Record" & Environment.NewLine & "Error: " & ex.Message, "Error Editing Record", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
-
     End Sub
 
     Private Sub btnDeleteRecord_Click(sender As Object, e As EventArgs) Handles btnDeleteRecord.Click
@@ -537,11 +578,5 @@ Public Class frmPawperingMain
 
     End Sub
 
-    Private Sub mstFileClearToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mstFileClearToolStripMenuItem.Click
-
-        'Clear the whole form
-        ClearForm("All")
-
-    End Sub
 
 End Class

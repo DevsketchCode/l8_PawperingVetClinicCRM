@@ -112,12 +112,12 @@ Public Class frmCustomer
 
         ' Check to see if all the text boxes have data
         For Each tb In grpCustomer.Controls.OfType(Of TextBox)
-            If tb.Text.Equals("") And (Not (tb.Name.Equals("txtAddress2") Or Not tb.Name.Equals("txtPhoneNumber2"))) Then
+            If tb.Text.Equals("") And Not (tb.Name.Equals("txtCustomerID") Or tb.Name.Equals("txtAddress2") Or tb.Name.Equals("txtPhoneNumber2")) Then
                 isValid = False
             End If
 
             ' Basic validation of the e-mail address text field
-            If tb.Name = "txtEmail" AndAlso Not txtEmail.Text.Contains("@") Then
+            If tb.Name = "txtEmail" AndAlso Not tb.Text.Contains("@") Then
                 isValid = False
                 MessageBox.Show("Please enter a valid e-mail address", "Invalid E-mail Address")
             End If

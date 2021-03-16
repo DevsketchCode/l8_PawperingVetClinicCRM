@@ -17,6 +17,7 @@ Public Class clsPet
     Private mstrBreedID As Integer
     Private mstrColor As String
     Private mstrBirthDate As Date
+    Private mstrGender As String
     Private mstrStatus As String
     Private mstrDeceasedDate As Date
     Private mstrPhoto As String
@@ -31,6 +32,7 @@ Public Class clsPet
         mstrBreedID = 1
         mstrColor = "Other"
         mstrBirthDate = Date.Now()
+        mstrGender = "Unknown"
         mstrStatus = "Alive"
         mstrDeceasedDate = Date.Now()
         mstrPhoto = String.Empty
@@ -40,7 +42,7 @@ Public Class clsPet
     ' Generate an Overloaded Constructor
     Public Sub New(mstrPetID As Integer, mstrName As String, mstrOwners As Dictionary(Of Integer, String),
                    mstrSpeciesID As Integer, mstrBreedID As Integer, mstrColor As String,
-                   mstrBirthDate As Date, mstrStatus As String, mstrDeceasedDate As Date, mstrPhoto As String,
+                   mstrBirthDate As Date, mstrGender As String, mstrStatus As String, mstrDeceasedDate As Date, mstrPhoto As String,
                    mstrActive As Boolean)
         Me.mstrPetID = mstrPetID
         Me.mstrName = mstrName
@@ -49,6 +51,7 @@ Public Class clsPet
         Me.mstrBreedID = mstrBreedID
         Me.mstrColor = mstrColor
         Me.mstrBirthDate = mstrBirthDate
+        Me.mstrGender = mstrGender
         Me.mstrStatus = mstrStatus
         Me.mstrDeceasedDate = mstrDeceasedDate
         Me.mstrPhoto = mstrPhoto
@@ -107,6 +110,15 @@ Public Class clsPet
         End Get
         Set(value As String)
             mstrColor = value
+        End Set
+    End Property
+
+    Public Property Gender As String
+        Get
+            Return mstrGender
+        End Get
+        Set(value As String)
+            mstrGender = value
         End Set
     End Property
 

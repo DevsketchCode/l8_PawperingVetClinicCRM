@@ -305,9 +305,9 @@ Public Class clsDBConnection
 
         'Create the SQL String
         Dim strSQL = "INSERT into Pet (Name, SpeciesID, BreedID, " &
-                    "Color, BirthDate, Status, " & strDeceased & "Photo, Active) " &
+                    "Color, Gender, BirthDate, Status, " & strDeceased & "Photo, Active) " &
                     "VALUES (@Name, @SpeciesID, @BreedID, " &
-                    "@Color, @BirthDate, @Status, " & strDeceasedValue & "@Photo, @Active)"
+                    "@Color, @Gender, @BirthDate, @Status, " & strDeceasedValue & "@Photo, @Active)"
 
         'Create the Insert Command
         Dim cmdInsert As New SqlCommand(strSQL, dbConnection)
@@ -317,6 +317,7 @@ Public Class clsDBConnection
         cmdInsert.Parameters.AddWithValue("SpeciesID", objPet.SpeciesID)
         cmdInsert.Parameters.AddWithValue("BreedID", objPet.BreedID)
         cmdInsert.Parameters.AddWithValue("Color", objPet.Color)
+        cmdInsert.Parameters.AddWithValue("Gender", objPet.Gender)
         cmdInsert.Parameters.AddWithValue("BirthDate", objPet.BirthDate)
         cmdInsert.Parameters.AddWithValue("Status", objPet.Status)
 
@@ -523,6 +524,7 @@ Public Class clsDBConnection
                     objSelectedPet.SpeciesID = CInt(sqlReader.Item("SpeciesID"))
                     objSelectedPet.BreedID = CInt(sqlReader.Item("BreedID"))
                     objSelectedPet.Color = sqlReader.Item("Color").ToString
+                    objSelectedPet.Gender = sqlReader.Item("Gender").ToString
                     objSelectedPet.BirthDate = CDate(sqlReader.Item("BirthDate"))
                     objSelectedPet.Status = sqlReader.Item("Status").ToString
                     If objSelectedPet.Status = "Deceased" Then
@@ -565,9 +567,9 @@ Public Class clsDBConnection
         Dim strDeceased As String
         'If the pet is alive, set Null for deceasedDate
         If objStoredPet.Status = "Deceased" Then
-            strDeceased = "DeceasedDate = NULL, "
-        Else
             strDeceased = "DeceasedDate ='" & objStoredPet.DeceasedDate & "', "
+        Else
+            strDeceased = "DeceasedDate = NULL, "
         End If
 
         'Create the SQL String
@@ -576,6 +578,7 @@ Public Class clsDBConnection
                     "SpeciesID ='" & objStoredPet.SpeciesID & "', " &
                     "BreedID ='" & objStoredPet.BreedID & "', " &
                     "Color ='" & objStoredPet.Color & "', " &
+                    "Gender ='" & objStoredPet.Gender & "', " &
                     "BirthDate ='" & objStoredPet.BirthDate & "', " &
                     "Status ='" & objStoredPet.Status & "', " &
                     strDeceased &
@@ -654,6 +657,7 @@ Public Class clsDBConnection
 
     End Sub
 
+
     ' Deletes either the specified customer or the pet from the ownership table
     Public Sub DeleteOwnership(ByVal intID As Integer, ByVal strCustOrPet As String)
 
@@ -670,7 +674,7 @@ Public Class clsDBConnection
         Try
             Dim intRowsAffected = cmdDelete.ExecuteNonQuery() 'Not a query, it's an Delete statement, returns 0 or 1 if Deleted
             If intRowsAffected > 0 Then
-                MessageBox.Show(strCustOrPet & " ID " & intID & "'s " & intRowsAffected & " ownership records have been successfully deleted.", "Success")
+                MessageBox.Show("The " & strCustOrPet & " ID " & intID & "'s " & intRowsAffected & " ownership records have been successfully deleted.", "Success")
             Else
                 MessageBox.Show("The " & strCustOrPet & " deletion failed." & vbCrLf & intRowsAffected & " records deleted.", "Delete Ownership " & strCustOrPet & " Ownership Failed")
             End If
@@ -701,7 +705,8 @@ Public Class clsDBConnection
         'Create the Insert Command
         Dim cmdInsert As New SqlCommand(strSQL, dbConnection)
 
-        'Populate the Parameters for the insert statement from the New/Modify Pet Form
+        'Populate the Parameters for the update statement from the Pet History Edit Form
+        '(This also allows apostrophe's to be entered in the database.)
         cmdInsert.Parameters.AddWithValue("Date", dteHistoryDate)
         cmdInsert.Parameters.AddWithValue("PetID", CInt(strPetID))
         cmdInsert.Parameters.AddWithValue("VisitReason", strVisitReason)
@@ -740,16 +745,24 @@ Public Class clsDBConnection
 
             'Create the SQL String
             Dim strSQL = "UPDATE PetHistory SET " &
-                    "Date ='" & dteHistoryDate & "', " &
-                    "PetId = '" & CInt(strPetID) & "', " &
-                    "VisitReason ='" & strVisitReason & "', " &
-                    "Treatment ='" & strTreatment & "', " &
-                    "Active ='" & blnActive & "', " &
-                    "WHERE HistoryID = " & strHistoryID & ";"
-
+                    "Date = @Date, " &
+                    "PetId = @PetID, " &
+                    "VisitReason = @VisitReason, " &
+                    "Treatment = @Treatment, " &
+                    "Active = @Active " &
+                    "WHERE HistoryID = @HistoryID;"
 
             'Create the Update Command
             Dim cmdUpdate As New SqlCommand(strSQL, dbConnection)
+
+            'Populate the Parameters for the update statement from the Pet History Edit Form
+            '(This also allows apostrophe's to be entered in the database.)
+            cmdUpdate.Parameters.AddWithValue("Date", dteHistoryDate)
+            cmdUpdate.Parameters.AddWithValue("PetID", CInt(strPetID))
+            cmdUpdate.Parameters.AddWithValue("VisitReason", strVisitReason)
+            cmdUpdate.Parameters.AddWithValue("Treatment", strTreatment)
+            cmdUpdate.Parameters.AddWithValue("Active", blnActive)
+            cmdUpdate.Parameters.AddWithValue("HistoryID", strHistoryID)
 
             ' Execute the update to the database
             Try
@@ -807,7 +820,7 @@ Public Class clsDBConnection
         Try
             Dim intRowsAffected = cmdDelete.ExecuteNonQuery() 'Not a query, it's an Delete statement, returns 0 or 1 if Deleted
             If intRowsAffected > 0 Then
-                MessageBox.Show(strPetOrHistory & " ID " & intID & "'s " & intRowsAffected & " history records have been successfully deleted.", "Success")
+                MessageBox.Show("The " & strPetOrHistory & " ID #" & intID & " has been successfully deleted. (" & intRowsAffected & " record(s))", "Success")
             Else
                 MessageBox.Show("The " & strPetOrHistory & " deletion failed." & vbCrLf & intRowsAffected & " records deleted.", "Delete " & strPetOrHistory & " Failed")
             End If
