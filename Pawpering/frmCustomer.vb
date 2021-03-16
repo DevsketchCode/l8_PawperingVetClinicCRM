@@ -264,7 +264,7 @@ Public Class frmCustomer
                 ' Close this form
                 Me.Close()
             Else
-                MessageBox.Show("Deletion Canceled. No changes have been made.")
+                MessageBox.Show("Deletion Cancelled. No changes have been made.")
             End If
 
         Else

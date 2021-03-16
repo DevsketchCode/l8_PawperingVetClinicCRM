@@ -183,16 +183,21 @@ Public Class frmPet
         ' Load the customer data into the form as an Owner
         objSelectedCustomer = objCustomer
 
-        ' Add Customer as Pet Owner
-        Try
-            'Add a Customer as an owner to the Dictionary file
-            dctOwners.Add(objCustomer.CustomerID, objCustomer.Full_Name)
-            UpdateOwnerDictionary()
-        Catch e As Exception
-            MessageBox.Show("This Customer has already been added." & Environment.NewLine & "Error: " & e.Message)
-        End Try
+        ' Only add a customer as an owner if one is actually selected
+        If objSelectedCustomer.CustomerID > 0 Then
 
-        btnRemoveOwner.Enabled = True
+            ' Add Customer as Pet Owner
+            Try
+                'Add a Customer as an owner to the Dictionary file
+                dctOwners.Add(objCustomer.CustomerID, objCustomer.Full_Name)
+                UpdateOwnerDictionary()
+            Catch e As Exception
+                MessageBox.Show("This Customer has already been added." & Environment.NewLine & "Error: " & e.Message)
+            End Try
+
+            btnRemoveOwner.Enabled = True
+
+        End If
 
     End Sub
 
@@ -212,28 +217,36 @@ Public Class frmPet
 
     Private Sub btnSaveAndLoad_Click(sender As Object, e As EventArgs) Handles btnSaveAndLoad.Click
 
-        'Populate the Pet Object with data from the user
-        objPet = PopulatePet()
+        'Only continue if a owner exists
+        If lbxPetOwners.Items.Count > 0 Then
 
-        'Create object to connect to the database
-        Dim newConnection As clsDBConnection = New clsDBConnection
+            'Populate the Pet Object with data from the user
+            objPet = PopulatePet()
 
-        If objPet.PetID = 0 Then
-            'Insert the data from the form into the database
-            newConnection.InsertPet(objPet)
+            'Create object to connect to the database
+            Dim newConnection As clsDBConnection = New clsDBConnection
+
+            If objPet.PetID = 0 Then
+                'Insert the data from the form into the database
+                newConnection.InsertPet(objPet)
+            Else
+                'Update the new pet data from the form into the database
+                newConnection.UpdatePet(objPet, dtOwners)
+            End If
+
+            'Load the Main Pawpering Form with the new Pet Data
+            Dim frmPawperingMain = DirectCast(Me.Owner, frmPawperingMain)
+            frmPawperingMain.LoadPet(objPet)
+            frmPawperingMain.LoadPetsList()
+            frmPawperingMain.LoadOwners()
+
+            'Close this form
+            Me.Close()
+
         Else
-            'Update the new pet data from the form into the database
-            newConnection.UpdatePet(objPet, dtOwners)
+            MessageBox.Show("An Owner Must Be Selected, please select one.", "No Owner", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End If
 
-        'Load the Main Pawpering Form with the new Pet Data
-        Dim frmPawperingMain = DirectCast(Me.Owner, frmPawperingMain)
-        frmPawperingMain.LoadPet(objPet)
-        frmPawperingMain.LoadPetsList()
-        frmPawperingMain.LoadOwners()
-
-        'Close this form
-        Me.Close()
 
     End Sub
 
@@ -437,7 +450,7 @@ Public Class frmPet
                 ' Close this form
                 Me.Close()
             Else
-                MessageBox.Show("Deletion Canceled. No changes have been made.")
+                MessageBox.Show("Deletion Cancelled. No changes have been made.")
             End If
 
         Else

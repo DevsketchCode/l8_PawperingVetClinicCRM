@@ -144,8 +144,8 @@ Public Class frmPawperingMain
         If Not objPet.Photo = "" Then
             Try
                 picPetPhoto.ImageLocation = strAppPath & "Images\" & objPet.Photo
-            Catch e As Exception
-                MessageBox.Show("Unable to load the pet image." & Environment.NewLine & e.Message)
+            Catch ex As Exception
+                MessageBox.Show("Unable to load the pet image." & Environment.NewLine & ex.Message)
             End Try
         Else
             ' Pet does not have a picture
@@ -162,7 +162,7 @@ Public Class frmPawperingMain
         Dim strQuery As String
         Dim dtPets As DataTable
 
-        strQuery = " SELECT [Ownership].PetID, CONCAT([Ownership].PetID, ' ', Pet.Name) As IdAndName " &
+        strQuery = "SELECT [Ownership].PetID, CONCAT([Ownership].PetID, ' ', Pet.Name) As IdAndName " &
                     "FROM [Ownership] INNER JOIN Pet ON [Ownership].PetID = Pet.PetID " &
                     "WHERE [Ownership].CustomerID = " & objSelectedCustomer.CustomerID & " " &
                     "ORDER BY [Ownership].PetID;"
@@ -213,6 +213,7 @@ Public Class frmPawperingMain
 
         'Clear the form
         ClearForm("All")
+
     End Sub
 
     Public Sub ClearForm(ByVal strAllOrPet As String)
@@ -265,6 +266,9 @@ Public Class frmPawperingMain
 
             'Clear the Pet Owners List Box
             lbxPOwners.DataSource = Nothing
+
+            'Clear the Pet History
+            dgvPetHistory.DataSource = Nothing
 
         End If
 
@@ -323,7 +327,15 @@ Public Class frmPawperingMain
         Dim blnIsInteger As Boolean
 
         ' If the PetsList has not been loaded yet, load it.
-        blnIsInteger = Integer.TryParse(lbxPetsList.SelectedValue.ToString, intSelectedPet)
+        If Not lbxPetsList.Items.Count < 1 Then
+            Try
+                blnIsInteger = Integer.TryParse(lbxPetsList.SelectedValue.ToString, intSelectedPet)
+            Catch ex As Exception
+                MessageBox.Show("Error getting selected pet." & Environment.NewLine & ex.Message, "Error: Pet List", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+
+        End If
+
         If Not blnIsInteger Then
             LoadPetsList()
         End If
@@ -339,9 +351,10 @@ Public Class frmPawperingMain
 
             ' Load the pet object into the form
             LoadPet(objSelectedPet)
-        End If
 
-        LoadPetHistory()
+            ' Load the pet history 
+            LoadPetHistory()
+        End If
 
     End Sub
 
@@ -425,15 +438,15 @@ Public Class frmPawperingMain
 
     End Sub
 
-    Private Sub LoadPetHistory()
+    Public Sub LoadPetHistory()
 
         If lbxPetsList.Items.Count > 0 Then
 
             'Build SQL Query for Patient History
             Dim strPetHistorySQL As String
-            strPetHistorySQL = "Select HistoryID As ID, Date, VisitReason, Treatment " &
-                "FROM PetHistory" &
-                "WHERE PetID = " & lbxPetsList.SelectedValue.ToString & " And Active = 1 " &
+            strPetHistorySQL = "Select HistoryID As HxID, Date, VisitReason, Treatment, Active " &
+                "FROM PetHistory " &
+                "WHERE PetID = " & lbxPetsList.SelectedValue.ToString & " And Active = " & chkShowInactiveRecords.Checked & " " &
                 "ORDER BY Date Desc;"
 
             'Create object to connect to the database
@@ -445,12 +458,90 @@ Public Class frmPawperingMain
             ' Show the results to the data grid view
             dgvPetHistory.DataSource = table
 
+            ' Resize the columns
+            dgvPetHistory.Columns("HxID").Width = 50
+            dgvPetHistory.Columns("Date").Width = 120
+            dgvPetHistory.Columns("Active").Width = 20
+
+            ' Set Columns to word wrap
+            dgvPetHistory.Columns("VisitReason").DefaultCellStyle.WrapMode = DataGridViewTriState.True
+            dgvPetHistory.Columns("Treatment").DefaultCellStyle.WrapMode = DataGridViewTriState.True
+
+            ' Resize Row height
+            dgvPetHistory.AutoResizeRows()
+
             ' Show and Update the Status Bar with the records now in the table
             stsPetHistoryRecordsStripStatusLabel.Visible = True
             stsRecordsReturned.Visible = True
             stsRecordsReturned.Text = table.Rows.Count.ToString
 
         End If
+    End Sub
+
+    Private Sub btnAddRecord_Click(sender As Object, e As EventArgs) Handles btnAddRecord.Click
+
+        'Check to verify that a Pet ID has been set to add history records, open the pet form and populate the fields on the form
+        Try
+            If objSelectedPet.PetID > 0 Then
+                OpenForm(frmPetHistory)
+                frmPetHistory.PopulateFields("New", objSelectedPet.PetID, objSelectedPet.Name, dgvPetHistory.SelectedRows)
+            Else
+                MessageBox.Show("No Pet has been selected to add records, please select one.", "No Pet Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Error Adding Record" & Environment.NewLine & "Error: " & ex.Message, "Error Adding Record", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+
+    End Sub
+
+    Private Sub btnEditRecord_Click(sender As Object, e As EventArgs) Handles btnEditRecord.Click
+
+        'Check to verify that a Pet ID has been set to edit, open the pet form and populate the fields on the form
+        Try
+            If objSelectedPet.PetID > 0 Then
+                If dgvPetHistory.SelectedRows.Count > 0 Then
+                    OpenForm(frmPetHistory)
+                    frmPetHistory.PopulateFields("Edit", objSelectedPet.PetID, objSelectedPet.Name, dgvPetHistory.SelectedRows)
+                Else
+                    MessageBox.Show("No Record has been selected for edit, please select one.", "No Record Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                End If
+
+            Else
+                MessageBox.Show("No Pet has been selected to edit records, please select one.", "No Pet Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Error Editing Record" & Environment.NewLine & "Error: " & ex.Message, "Error Editing Record", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+    End Sub
+
+    Private Sub btnDeleteRecord_Click(sender As Object, e As EventArgs) Handles btnDeleteRecord.Click
+
+        'Check to verify that a Pet ID has been set to delete, open the pet form and populate the fields on the form
+        Try
+            If objSelectedPet.PetID > 0 Then
+                If dgvPetHistory.SelectedRows.Count > 0 Then
+                    OpenForm(frmPetHistory)
+                    frmPetHistory.PopulateFields("Delete", objSelectedPet.PetID, objSelectedPet.Name, dgvPetHistory.SelectedRows)
+                Else
+                    MessageBox.Show("No Record has been selected for deletion, please select one.", "No Record Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                End If
+
+            Else
+                MessageBox.Show("No Pet has been selected to delete records, please select one.", "No Pet Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Error Deletion Record" & Environment.NewLine & "Error: " & ex.Message, "Error Deleting Record", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+    End Sub
+
+    Private Sub mstFileClearToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mstFileClearToolStripMenuItem.Click
+
+        'Clear the whole form
+        ClearForm("All")
+
     End Sub
 
 End Class

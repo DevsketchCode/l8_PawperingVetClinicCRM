@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmPawperingMain
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class frmPawperingMain
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPawperingMain))
         Me.mnuMain = New System.Windows.Forms.MenuStrip()
@@ -91,13 +91,16 @@ Partial Class frmPawperingMain
         Me.lbxPOwners = New System.Windows.Forms.ListBox()
         Me.btnSelectOwner = New System.Windows.Forms.Button()
         Me.grpPetHistory = New System.Windows.Forms.GroupBox()
+        Me.dgvPetHistory = New System.Windows.Forms.DataGridView()
         Me.btnDeleteRecord = New System.Windows.Forms.Button()
         Me.btnEditRecord = New System.Windows.Forms.Button()
         Me.btnAddRecord = New System.Windows.Forms.Button()
-        Me.dgvPetHistory = New System.Windows.Forms.DataGridView()
         Me.stsStatusStrip = New System.Windows.Forms.StatusStrip()
         Me.stsPetHistoryRecordsStripStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.stsRecordsReturned = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.mstFileToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.mstFileClearToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.chkShowInactiveRecords = New System.Windows.Forms.CheckBox()
         Me.mnuMain.SuspendLayout()
         Me.grpCustomer.SuspendLayout()
         Me.grpPetInfo.SuspendLayout()
@@ -119,7 +122,7 @@ Partial Class frmPawperingMain
         '
         'FileToolStripMenuItem
         '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mstNewCustomerToolStripMenuItem, Me.mstNewPetToolStripMenuItem, Me.mstSearchToolStripMenuItem, Me.mstFileToolStripSeparator, Me.mstFileAboutToolStripMenuItem, Me.mstFileToolStripSeparator2, Me.mstExitToolStripMenuItem})
+        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mstNewCustomerToolStripMenuItem, Me.mstNewPetToolStripMenuItem, Me.mstSearchToolStripMenuItem, Me.mstFileToolStripSeparator, Me.mstFileClearToolStripMenuItem, Me.mstFileToolStripSeparator2, Me.mstFileAboutToolStripMenuItem, Me.mstFileToolStripSeparator3, Me.mstExitToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
         Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "&File"
@@ -127,41 +130,41 @@ Partial Class frmPawperingMain
         'mstNewCustomerToolStripMenuItem
         '
         Me.mstNewCustomerToolStripMenuItem.Name = "mstNewCustomerToolStripMenuItem"
-        Me.mstNewCustomerToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
+        Me.mstNewCustomerToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.mstNewCustomerToolStripMenuItem.Text = "New &Customer"
         '
         'mstNewPetToolStripMenuItem
         '
         Me.mstNewPetToolStripMenuItem.Name = "mstNewPetToolStripMenuItem"
-        Me.mstNewPetToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
+        Me.mstNewPetToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.mstNewPetToolStripMenuItem.Text = "New &Pet"
         '
         'mstSearchToolStripMenuItem
         '
         Me.mstSearchToolStripMenuItem.Name = "mstSearchToolStripMenuItem"
-        Me.mstSearchToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
+        Me.mstSearchToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.mstSearchToolStripMenuItem.Text = "&Search Customer"
         '
         'mstFileToolStripSeparator
         '
         Me.mstFileToolStripSeparator.Name = "mstFileToolStripSeparator"
-        Me.mstFileToolStripSeparator.Size = New System.Drawing.Size(161, 6)
+        Me.mstFileToolStripSeparator.Size = New System.Drawing.Size(177, 6)
         '
         'mstFileAboutToolStripMenuItem
         '
         Me.mstFileAboutToolStripMenuItem.Name = "mstFileAboutToolStripMenuItem"
-        Me.mstFileAboutToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
+        Me.mstFileAboutToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.mstFileAboutToolStripMenuItem.Text = "About"
         '
         'mstFileToolStripSeparator2
         '
         Me.mstFileToolStripSeparator2.Name = "mstFileToolStripSeparator2"
-        Me.mstFileToolStripSeparator2.Size = New System.Drawing.Size(161, 6)
+        Me.mstFileToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
         '
         'mstExitToolStripMenuItem
         '
         Me.mstExitToolStripMenuItem.Name = "mstExitToolStripMenuItem"
-        Me.mstExitToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
+        Me.mstExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.mstExitToolStripMenuItem.Text = "E&xit"
         '
         'mstEditToolStripMenuItem
@@ -174,13 +177,13 @@ Partial Class frmPawperingMain
         'mstEditCustomerToolStripMenuItem
         '
         Me.mstEditCustomerToolStripMenuItem.Name = "mstEditCustomerToolStripMenuItem"
-        Me.mstEditCustomerToolStripMenuItem.Size = New System.Drawing.Size(149, 22)
+        Me.mstEditCustomerToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.mstEditCustomerToolStripMenuItem.Text = "Edit &Customer"
         '
         'mstEditPetToolStripMenuItem
         '
         Me.mstEditPetToolStripMenuItem.Name = "mstEditPetToolStripMenuItem"
-        Me.mstEditPetToolStripMenuItem.Size = New System.Drawing.Size(149, 22)
+        Me.mstEditPetToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.mstEditPetToolStripMenuItem.Text = "Edit &Pet"
         '
         'AdminToolStripMenuItem
@@ -193,13 +196,13 @@ Partial Class frmPawperingMain
         'DeleteCustomerToolStripMenuItem
         '
         Me.DeleteCustomerToolStripMenuItem.Name = "DeleteCustomerToolStripMenuItem"
-        Me.DeleteCustomerToolStripMenuItem.Size = New System.Drawing.Size(162, 22)
+        Me.DeleteCustomerToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.DeleteCustomerToolStripMenuItem.Text = "Delete Customer"
         '
         'DeletePetToolStripMenuItem
         '
         Me.DeletePetToolStripMenuItem.Name = "DeletePetToolStripMenuItem"
-        Me.DeletePetToolStripMenuItem.Size = New System.Drawing.Size(162, 22)
+        Me.DeletePetToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.DeletePetToolStripMenuItem.Text = "Delete Pet"
         '
         'lblCNameLabel
@@ -246,10 +249,11 @@ Partial Class frmPawperingMain
         'chkCustomerActive
         '
         Me.chkCustomerActive.AutoSize = True
+        Me.chkCustomerActive.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.chkCustomerActive.Enabled = False
         Me.chkCustomerActive.Location = New System.Drawing.Point(318, 184)
         Me.chkCustomerActive.Name = "chkCustomerActive"
-        Me.chkCustomerActive.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chkCustomerActive.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.chkCustomerActive.Size = New System.Drawing.Size(56, 17)
         Me.chkCustomerActive.TabIndex = 24
         Me.chkCustomerActive.TabStop = False
@@ -724,6 +728,7 @@ Partial Class frmPawperingMain
         '
         'grpPetHistory
         '
+        Me.grpPetHistory.Controls.Add(Me.chkShowInactiveRecords)
         Me.grpPetHistory.Controls.Add(Me.dgvPetHistory)
         Me.grpPetHistory.Controls.Add(Me.btnDeleteRecord)
         Me.grpPetHistory.Controls.Add(Me.btnEditRecord)
@@ -735,9 +740,30 @@ Partial Class frmPawperingMain
         Me.grpPetHistory.TabStop = False
         Me.grpPetHistory.Text = "PetHistory"
         '
+        'dgvPetHistory
+        '
+        Me.dgvPetHistory.AllowUserToAddRows = False
+        Me.dgvPetHistory.AllowUserToDeleteRows = False
+        Me.dgvPetHistory.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dgvPetHistory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.dgvPetHistory.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
+        Me.dgvPetHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvPetHistory.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.dgvPetHistory.Location = New System.Drawing.Point(108, 15)
+        Me.dgvPetHistory.MultiSelect = False
+        Me.dgvPetHistory.Name = "dgvPetHistory"
+        Me.dgvPetHistory.ReadOnly = True
+        Me.dgvPetHistory.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.dgvPetHistory.RowHeadersVisible = False
+        Me.dgvPetHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvPetHistory.Size = New System.Drawing.Size(904, 210)
+        Me.dgvPetHistory.TabIndex = 3
+        '
         'btnDeleteRecord
         '
-        Me.btnDeleteRecord.Location = New System.Drawing.Point(6, 112)
+        Me.btnDeleteRecord.Location = New System.Drawing.Point(6, 119)
         Me.btnDeleteRecord.Name = "btnDeleteRecord"
         Me.btnDeleteRecord.Size = New System.Drawing.Size(96, 23)
         Me.btnDeleteRecord.TabIndex = 2
@@ -746,7 +772,7 @@ Partial Class frmPawperingMain
         '
         'btnEditRecord
         '
-        Me.btnEditRecord.Location = New System.Drawing.Point(6, 72)
+        Me.btnEditRecord.Location = New System.Drawing.Point(6, 79)
         Me.btnEditRecord.Name = "btnEditRecord"
         Me.btnEditRecord.Size = New System.Drawing.Size(96, 23)
         Me.btnEditRecord.TabIndex = 1
@@ -755,29 +781,12 @@ Partial Class frmPawperingMain
         '
         'btnAddRecord
         '
-        Me.btnAddRecord.Location = New System.Drawing.Point(6, 32)
+        Me.btnAddRecord.Location = New System.Drawing.Point(6, 39)
         Me.btnAddRecord.Name = "btnAddRecord"
         Me.btnAddRecord.Size = New System.Drawing.Size(96, 23)
         Me.btnAddRecord.TabIndex = 0
         Me.btnAddRecord.Text = "Add Record"
         Me.btnAddRecord.UseVisualStyleBackColor = True
-        '
-        'dgvPetHistory
-        '
-        Me.dgvPetHistory.AllowUserToAddRows = False
-        Me.dgvPetHistory.AllowUserToDeleteRows = False
-        Me.dgvPetHistory.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.dgvPetHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvPetHistory.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvPetHistory.Location = New System.Drawing.Point(108, 6)
-        Me.dgvPetHistory.Name = "dgvPetHistory"
-        Me.dgvPetHistory.ReadOnly = True
-        Me.dgvPetHistory.RowHeadersVisible = False
-        Me.dgvPetHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvPetHistory.Size = New System.Drawing.Size(910, 228)
-        Me.dgvPetHistory.TabIndex = 3
         '
         'stsStatusStrip
         '
@@ -801,6 +810,28 @@ Partial Class frmPawperingMain
         Me.stsRecordsReturned.Size = New System.Drawing.Size(13, 17)
         Me.stsRecordsReturned.Text = "0"
         Me.stsRecordsReturned.Visible = False
+        '
+        'mstFileToolStripSeparator3
+        '
+        Me.mstFileToolStripSeparator3.Name = "mstFileToolStripSeparator3"
+        Me.mstFileToolStripSeparator3.Size = New System.Drawing.Size(177, 6)
+        '
+        'mstFileClearToolStripMenuItem
+        '
+        Me.mstFileClearToolStripMenuItem.Name = "mstFileClearToolStripMenuItem"
+        Me.mstFileClearToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.mstFileClearToolStripMenuItem.Text = "Clear Form"
+        '
+        'chkShowInactiveRecords
+        '
+        Me.chkShowInactiveRecords.AutoSize = True
+        Me.chkShowInactiveRecords.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.chkShowInactiveRecords.Location = New System.Drawing.Point(6, 159)
+        Me.chkShowInactiveRecords.Name = "chkShowInactiveRecords"
+        Me.chkShowInactiveRecords.Size = New System.Drawing.Size(94, 17)
+        Me.chkShowInactiveRecords.TabIndex = 4
+        Me.chkShowInactiveRecords.Text = "Show Inactive"
+        Me.chkShowInactiveRecords.UseVisualStyleBackColor = True
         '
         'frmPawperingMain
         '
@@ -836,6 +867,7 @@ Partial Class frmPawperingMain
         Me.grpPetsList.ResumeLayout(False)
         Me.grpPetsList.PerformLayout()
         Me.grpPetHistory.ResumeLayout(False)
+        Me.grpPetHistory.PerformLayout()
         CType(Me.dgvPetHistory, System.ComponentModel.ISupportInitialize).EndInit()
         Me.stsStatusStrip.ResumeLayout(False)
         Me.stsStatusStrip.PerformLayout()
@@ -919,4 +951,7 @@ Partial Class frmPawperingMain
     Friend WithEvents stsStatusStrip As StatusStrip
     Friend WithEvents stsPetHistoryRecordsStripStatusLabel As ToolStripStatusLabel
     Friend WithEvents stsRecordsReturned As ToolStripStatusLabel
+    Friend WithEvents mstFileClearToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents mstFileToolStripSeparator3 As ToolStripSeparator
+    Friend WithEvents chkShowInactiveRecords As CheckBox
 End Class

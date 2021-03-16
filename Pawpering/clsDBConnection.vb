@@ -242,7 +242,7 @@ Public Class clsDBConnection
         Try
             Dim intRowsAffected = cmdDelete.ExecuteNonQuery() 'Not a query, it's an Delete statement, returns 0 or 1 if Deleted
             If intRowsAffected = 1 Then
-                MessageBox.Show(objStoredCustomer.Full_Name & " was deleted.", "Success") ' Use message box for testing
+                MessageBox.Show(objStoredCustomer.Full_Name & " was deleted.", "Success")
             Else
                 MessageBox.Show("The deletion failed." & vbCrLf & "0 records added.", "Delete Failed")
             End If
@@ -276,7 +276,8 @@ Public Class clsDBConnection
             ' Fill the table with the results
             adapter.Fill(table)
         Catch ex As Exception
-            MessageBox.Show("Filling the DataTable Failed: " & Environment.NewLine & ex.Message, "Filling DataTable Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Filling the DataTable Failed: " & Environment.NewLine & ex.Message & Environment.NewLine &
+                            "SQL: " & strSearchQuerySQL, "Filling DataTable Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
         'Close database
@@ -629,7 +630,7 @@ Public Class clsDBConnection
         Try
             Dim intRowsAffected = cmdDelete.ExecuteNonQuery() 'Not a query, it's an Delete statement, returns 0 or 1 if Deleted
             If intRowsAffected = 1 Then
-                MessageBox.Show("Pet ID: " & objStoredPet.PetID & ": """ & objStoredPet.Name & """ was deleted successfully.", "Success") ' Use message box for testing
+                MessageBox.Show("Pet ID: " & objStoredPet.PetID & ": """ & objStoredPet.Name & """ was deleted successfully.", "Success")
             Else
                 MessageBox.Show("The pet deletion failed." & vbCrLf & intRowsAffected & " records deleted.", "Delete Pet Failed")
             End If
@@ -647,6 +648,9 @@ Public Class clsDBConnection
 
         ' Delete pet from the ownership table
         DeleteOwnership(objStoredPet.PetID, "Pet")
+
+        ' Delete the pets history records (True = All records)
+        DeletePetHistory(objStoredPet.PetID, True)
 
     End Sub
 
@@ -666,7 +670,7 @@ Public Class clsDBConnection
         Try
             Dim intRowsAffected = cmdDelete.ExecuteNonQuery() 'Not a query, it's an Delete statement, returns 0 or 1 if Deleted
             If intRowsAffected > 0 Then
-                MessageBox.Show(strCustOrPet & " ID " & intID & "'s " & intRowsAffected & " ownership records have been successfully deleted.", "Success") ' Use message box for testing
+                MessageBox.Show(strCustOrPet & " ID " & intID & "'s " & intRowsAffected & " ownership records have been successfully deleted.", "Success")
             Else
                 MessageBox.Show("The " & strCustOrPet & " deletion failed." & vbCrLf & intRowsAffected & " records deleted.", "Delete Ownership " & strCustOrPet & " Ownership Failed")
             End If
@@ -684,5 +688,141 @@ Public Class clsDBConnection
 
     End Sub
 
+
+    Public Sub InsertPetHistory(ByVal strPetID As String, ByVal dteHistoryDate As DateTime, ByVal strVisitReason As String, ByVal strTreatment As String)
+
+        'Open the Database
+        Dim dbConnection As SqlConnection = OpenDBConnection()
+
+        'Create the SQL String
+        Dim strSQL = "INSERT into PetHistory (Date, PetID, VisitReason, Treatment) " &
+                    "VALUES (@Date, @PetID, @VisitReason, @Treatment)"
+
+        'Create the Insert Command
+        Dim cmdInsert As New SqlCommand(strSQL, dbConnection)
+
+        'Populate the Parameters for the insert statement from the New/Modify Pet Form
+        cmdInsert.Parameters.AddWithValue("Date", dteHistoryDate)
+        cmdInsert.Parameters.AddWithValue("PetID", CInt(strPetID))
+        cmdInsert.Parameters.AddWithValue("VisitReason", strVisitReason)
+        cmdInsert.Parameters.AddWithValue("Treatment", strTreatment)
+
+
+        Try
+            'Insert the row (with error catching)
+            Dim intRowsAffected = cmdInsert.ExecuteNonQuery
+            If intRowsAffected = 1 Then
+                MessageBox.Show("The history record for Pet #: " & strPetID & " was added successfully.", "Success")
+            Else
+                MessageBox.Show("The insert failed." & Environment.NewLine & intRowsAffected & "records added.", "Expected DB Insert History Record Failed.")
+            End If
+
+            'Clear the command
+            cmdInsert.Dispose()
+
+        Catch ex As Exception
+            MessageBox.Show("DB Inserting History Record Failed: " & Environment.NewLine & ex.Message, "Insert Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+        'Close the database connection
+        dbConnection.Close()
+        dbConnection.Dispose()
+
+    End Sub
+
+    Public Sub EditPetHistory(ByVal strHistoryID As String, ByVal strPetID As String, ByVal dteHistoryDate As DateTime, ByVal strVisitReason As String, ByVal strTreatment As String, ByVal blnActive As Boolean)
+
+        ' Edit only if there is a history record id
+        If CInt(strHistoryID) > 0 Then
+
+            'Open the Database
+            Dim dbConnection As SqlConnection = OpenDBConnection()
+
+            'Create the SQL String
+            Dim strSQL = "UPDATE PetHistory SET " &
+                    "Date ='" & dteHistoryDate & "', " &
+                    "PetId = '" & CInt(strPetID) & "', " &
+                    "VisitReason ='" & strVisitReason & "', " &
+                    "Treatment ='" & strTreatment & "', " &
+                    "Active ='" & blnActive & "', " &
+                    "WHERE HistoryID = " & strHistoryID & ";"
+
+
+            'Create the Update Command
+            Dim cmdUpdate As New SqlCommand(strSQL, dbConnection)
+
+            ' Execute the update to the database
+            Try
+                'Update the row (with error catching)
+                Dim intRowsAffected = cmdUpdate.ExecuteNonQuery
+                If intRowsAffected = 1 Then
+                    MessageBox.Show("Pet ID: " & strPetID & " was updated successfully.", "Success")
+                Else
+                    MessageBox.Show("Updating the pet history record failed." & Environment.NewLine & intRowsAffected & "records updated.", "Expected DB Pet History Update Failed.")
+                End If
+
+                'Clear the command
+                cmdUpdate.Dispose()
+
+            Catch ex As Exception
+                MessageBox.Show("DB Pet Update Failed: " & Environment.NewLine & ex.Message, "Update Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+
+            'Close database
+            dbConnection.Close()
+            dbConnection.Dispose()
+
+        End If
+
+    End Sub
+
+    Public Sub DeletePetHistory(ByVal intID As Integer, ByVal blnAllPetsHistoryRecords As Boolean)
+
+        'Open Database
+        Dim dbConnection As SqlConnection = OpenDBConnection()
+
+        'Create SQL String
+        Dim strSQL As String
+        Dim strPetOrHistory As String
+
+        ' Check if all the pet history records need to be deleted or just one
+        If blnAllPetsHistoryRecords Then
+            'Create SQL String
+            strSQL = "Delete FROM PetHistory " &
+                    "WHERE PetID = '" & intID & "';"
+
+            strPetOrHistory = "Pet History"
+        Else
+            ' Only delete the selected History ID
+            strSQL = "Delete FROM PetHistory " &
+                    "WHERE HistoryID = '" & intID & "';"
+
+            strPetOrHistory = "History Record"
+        End If
+
+
+        'Create Command
+        Dim cmdDelete As New SqlCommand(strSQL, dbConnection)
+
+        Try
+            Dim intRowsAffected = cmdDelete.ExecuteNonQuery() 'Not a query, it's an Delete statement, returns 0 or 1 if Deleted
+            If intRowsAffected > 0 Then
+                MessageBox.Show(strPetOrHistory & " ID " & intID & "'s " & intRowsAffected & " history records have been successfully deleted.", "Success")
+            Else
+                MessageBox.Show("The " & strPetOrHistory & " deletion failed." & vbCrLf & intRowsAffected & " records deleted.", "Delete " & strPetOrHistory & " Failed")
+            End If
+
+            'Clear the command
+            cmdDelete.Dispose()
+
+        Catch ex As Exception
+            MessageBox.Show("DB " & strPetOrHistory & " Deletion Failed" & ex.Message, "Delete " & strPetOrHistory & " Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+        'Close database
+        dbConnection.Close()
+        dbConnection.Dispose()
+
+    End Sub
 
 End Class

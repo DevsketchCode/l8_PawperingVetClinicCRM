@@ -22,8 +22,9 @@ Partial Class frmPetHistory
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPetHistory))
         Me.lblPetHistoryDate = New System.Windows.Forms.Label()
-        Me.lblPetLabel = New System.Windows.Forms.Label()
+        Me.lblPetIDLabel = New System.Windows.Forms.Label()
         Me.lblHistoryIDLabel = New System.Windows.Forms.Label()
         Me.txtVisitReason = New System.Windows.Forms.TextBox()
         Me.lblVisitReason = New System.Windows.Forms.Label()
@@ -31,10 +32,13 @@ Partial Class frmPetHistory
         Me.txtTreatment = New System.Windows.Forms.TextBox()
         Me.dtpHistoryDate = New System.Windows.Forms.DateTimePicker()
         Me.lblHistoryID = New System.Windows.Forms.Label()
-        Me.lblPet = New System.Windows.Forms.Label()
+        Me.lblPetID = New System.Windows.Forms.Label()
         Me.btnSave = New System.Windows.Forms.Button()
         Me.btnClear = New System.Windows.Forms.Button()
         Me.btnDeleteRecord = New System.Windows.Forms.Button()
+        Me.lblPetName = New System.Windows.Forms.Label()
+        Me.lblPetNameLabel = New System.Windows.Forms.Label()
+        Me.chkActiveRecord = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'lblPetHistoryDate
@@ -46,14 +50,14 @@ Partial Class frmPetHistory
         Me.lblPetHistoryDate.TabIndex = 0
         Me.lblPetHistoryDate.Text = "Date: "
         '
-        'lblPetLabel
+        'lblPetIDLabel
         '
-        Me.lblPetLabel.AutoSize = True
-        Me.lblPetLabel.Location = New System.Drawing.Point(31, 27)
-        Me.lblPetLabel.Name = "lblPetLabel"
-        Me.lblPetLabel.Size = New System.Drawing.Size(29, 13)
-        Me.lblPetLabel.TabIndex = 1
-        Me.lblPetLabel.Text = "Pet: "
+        Me.lblPetIDLabel.AutoSize = True
+        Me.lblPetIDLabel.Location = New System.Drawing.Point(31, 27)
+        Me.lblPetIDLabel.Name = "lblPetIDLabel"
+        Me.lblPetIDLabel.Size = New System.Drawing.Size(43, 13)
+        Me.lblPetIDLabel.TabIndex = 1
+        Me.lblPetIDLabel.Text = "Pet ID: "
         '
         'lblHistoryIDLabel
         '
@@ -67,6 +71,7 @@ Partial Class frmPetHistory
         'txtVisitReason
         '
         Me.txtVisitReason.Location = New System.Drawing.Point(34, 103)
+        Me.txtVisitReason.MaxLength = 500
         Me.txtVisitReason.Multiline = True
         Me.txtVisitReason.Name = "txtVisitReason"
         Me.txtVisitReason.Size = New System.Drawing.Size(500, 100)
@@ -93,6 +98,7 @@ Partial Class frmPetHistory
         'txtTreatment
         '
         Me.txtTreatment.Location = New System.Drawing.Point(34, 239)
+        Me.txtTreatment.MaxLength = 500
         Me.txtTreatment.Multiline = True
         Me.txtTreatment.Name = "txtTreatment"
         Me.txtTreatment.Size = New System.Drawing.Size(500, 100)
@@ -116,14 +122,14 @@ Partial Class frmPetHistory
         Me.lblHistoryID.TabIndex = 9
         Me.lblHistoryID.Text = "*"
         '
-        'lblPet
+        'lblPetID
         '
-        Me.lblPet.AutoSize = True
-        Me.lblPet.Location = New System.Drawing.Point(73, 27)
-        Me.lblPet.Name = "lblPet"
-        Me.lblPet.Size = New System.Drawing.Size(11, 13)
-        Me.lblPet.TabIndex = 10
-        Me.lblPet.Text = "*"
+        Me.lblPetID.AutoSize = True
+        Me.lblPetID.Location = New System.Drawing.Point(80, 27)
+        Me.lblPetID.Name = "lblPetID"
+        Me.lblPetID.Size = New System.Drawing.Size(11, 13)
+        Me.lblPetID.TabIndex = 10
+        Me.lblPetID.Text = "*"
         '
         'btnSave
         '
@@ -155,15 +161,50 @@ Partial Class frmPetHistory
         Me.btnDeleteRecord.UseVisualStyleBackColor = False
         Me.btnDeleteRecord.Visible = False
         '
+        'lblPetName
+        '
+        Me.lblPetName.AutoSize = True
+        Me.lblPetName.Location = New System.Drawing.Point(208, 27)
+        Me.lblPetName.Name = "lblPetName"
+        Me.lblPetName.Size = New System.Drawing.Size(11, 13)
+        Me.lblPetName.TabIndex = 19
+        Me.lblPetName.Text = "*"
+        '
+        'lblPetNameLabel
+        '
+        Me.lblPetNameLabel.AutoSize = True
+        Me.lblPetNameLabel.Location = New System.Drawing.Point(164, 27)
+        Me.lblPetNameLabel.Name = "lblPetNameLabel"
+        Me.lblPetNameLabel.Size = New System.Drawing.Size(38, 13)
+        Me.lblPetNameLabel.TabIndex = 18
+        Me.lblPetNameLabel.Text = "Name:"
+        '
+        'chkActiveRecord
+        '
+        Me.chkActiveRecord.AutoSize = True
+        Me.chkActiveRecord.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.chkActiveRecord.Checked = True
+        Me.chkActiveRecord.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkActiveRecord.Location = New System.Drawing.Point(437, 86)
+        Me.chkActiveRecord.Name = "chkActiveRecord"
+        Me.chkActiveRecord.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.chkActiveRecord.Size = New System.Drawing.Size(97, 17)
+        Me.chkActiveRecord.TabIndex = 20
+        Me.chkActiveRecord.Text = "Active Record:"
+        Me.chkActiveRecord.UseVisualStyleBackColor = True
+        '
         'frmPetHistory
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(577, 397)
+        Me.ClientSize = New System.Drawing.Size(572, 397)
+        Me.Controls.Add(Me.chkActiveRecord)
+        Me.Controls.Add(Me.lblPetName)
+        Me.Controls.Add(Me.lblPetNameLabel)
         Me.Controls.Add(Me.btnDeleteRecord)
         Me.Controls.Add(Me.btnClear)
         Me.Controls.Add(Me.btnSave)
-        Me.Controls.Add(Me.lblPet)
+        Me.Controls.Add(Me.lblPetID)
         Me.Controls.Add(Me.lblHistoryID)
         Me.Controls.Add(Me.dtpHistoryDate)
         Me.Controls.Add(Me.txtTreatment)
@@ -171,9 +212,12 @@ Partial Class frmPetHistory
         Me.Controls.Add(Me.lblVisitReason)
         Me.Controls.Add(Me.txtVisitReason)
         Me.Controls.Add(Me.lblHistoryIDLabel)
-        Me.Controls.Add(Me.lblPetLabel)
+        Me.Controls.Add(Me.lblPetIDLabel)
         Me.Controls.Add(Me.lblPetHistoryDate)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmPetHistory"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Pet History"
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -181,7 +225,7 @@ Partial Class frmPetHistory
     End Sub
 
     Friend WithEvents lblPetHistoryDate As Label
-    Friend WithEvents lblPetLabel As Label
+    Friend WithEvents lblPetIDLabel As Label
     Friend WithEvents lblHistoryIDLabel As Label
     Friend WithEvents txtVisitReason As TextBox
     Friend WithEvents lblVisitReason As Label
@@ -189,8 +233,11 @@ Partial Class frmPetHistory
     Friend WithEvents txtTreatment As TextBox
     Friend WithEvents dtpHistoryDate As DateTimePicker
     Friend WithEvents lblHistoryID As Label
-    Friend WithEvents lblPet As Label
+    Friend WithEvents lblPetID As Label
     Friend WithEvents btnSave As Button
     Friend WithEvents btnClear As Button
     Friend WithEvents btnDeleteRecord As Button
+    Friend WithEvents lblPetName As Label
+    Friend WithEvents lblPetNameLabel As Label
+    Friend WithEvents chkActiveRecord As CheckBox
 End Class
