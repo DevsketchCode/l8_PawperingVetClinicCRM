@@ -12,6 +12,7 @@ Imports System.Data.SqlClient
 
 Public Class clsDBConnection
 
+    ' Create the connection to the database
     Public Function OpenDBConnection() As SqlConnection
         'Create the connection string (db from the main project folder instead of the debug folder)
         Dim strPath As String = Application.StartupPath
@@ -35,6 +36,35 @@ Public Class clsDBConnection
 
         Return dbConnection
     End Function
+
+
+    ' Generates query and returns the result as a DataTable
+    Public Function GetSearchTable(ByVal strSearchQuerySQL As String) As DataTable
+
+        'Open Database
+        Dim dbConnection As SqlConnection = OpenDBConnection()
+
+        Dim command As New SqlCommand(strSearchQuerySQL, dbConnection)
+        Dim adapter As New SqlDataAdapter(command)
+        Dim table As New DataTable()
+
+        Try
+            ' Fill the table with the results
+            adapter.Fill(table)
+        Catch ex As Exception
+            MessageBox.Show("Filling the DataTable Failed: " & Environment.NewLine & ex.Message & Environment.NewLine &
+                            "SQL: " & strSearchQuerySQL, "Filling DataTable Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+        'Close database
+        dbConnection.Close()
+        dbConnection.Dispose()
+
+        Return table
+    End Function
+
+
+    ' -------------------------- CUSTOMER DATABASE CONNECTIONS ------------------------
 
     ' Handle the Customer, ByRef to allow the actual new object to be updated
     Public Sub InsertCustomer(ByRef objCustomer As clsCustomer)
@@ -263,29 +293,8 @@ Public Class clsDBConnection
 
     End Sub
 
-    Public Function GetSearchTable(ByVal strSearchQuerySQL As String) As DataTable
 
-        'Open Database
-        Dim dbConnection As SqlConnection = OpenDBConnection()
-
-        Dim command As New SqlCommand(strSearchQuerySQL, dbConnection)
-        Dim adapter As New SqlDataAdapter(command)
-        Dim table As New DataTable()
-
-        Try
-            ' Fill the table with the results
-            adapter.Fill(table)
-        Catch ex As Exception
-            MessageBox.Show("Filling the DataTable Failed: " & Environment.NewLine & ex.Message & Environment.NewLine &
-                            "SQL: " & strSearchQuerySQL, "Filling DataTable Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-
-        'Close database
-        dbConnection.Close()
-        dbConnection.Dispose()
-
-        Return table
-    End Function
+    ' -------------------------- PET DATABASE CONNECTIONS ------------------------
 
     'Handle the Pet, ByRef to allow the actual new object to be updated
     Public Sub InsertPet(ByRef objPet As clsPet)
@@ -837,5 +846,6 @@ Public Class clsDBConnection
         dbConnection.Dispose()
 
     End Sub
+
 
 End Class

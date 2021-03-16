@@ -12,6 +12,9 @@ Public Class frmPawperingMain
     ' Module Level Objects
     Public objSelectedCustomer As New clsCustomer()
     Public objSelectedPet As New clsPet()
+
+    ' -------------------- Customer INFORMATION ------------------------------
+
     Private Sub mstNewCustomerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mstNewCustomerToolStripMenuItem.Click
 
         'Open New Customer Form
@@ -102,6 +105,44 @@ Public Class frmPawperingMain
 
     End Sub
 
+    Private Sub DeleteCustomerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeleteCustomerToolStripMenuItem.Click
+
+        'Check if the form is created and open already
+        If frmCustomer.IsHandleCreated Then
+            'Focus on the already opened form
+            frmCustomer.Focus()
+        Else
+            'Create and show the form
+            frmCustomer.Show(Me)
+        End If
+
+        ' Fill the customer form with the selected Customer, set to Delete
+        frmCustomer.FillFormWithSelectedCustomer(objSelectedCustomer, "Delete")
+
+    End Sub
+
+    ' -------------------- PET INFORMATION ------------------------------
+
+    Private Sub btnNewPet_Click(sender As Object, e As EventArgs) Handles btnNewPet.Click
+
+        'Open New Pet Form
+        OpenForm(frmPet)
+
+        'If Customer Currently Selected, Add them to the Owners ListBox
+        frmPet.LoadCustomerAsOwner(objSelectedCustomer)
+
+    End Sub
+
+    Private Sub mstNewPetToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mstNewPetToolStripMenuItem.Click
+
+        'Open New Pet Form
+        OpenForm(frmPet)
+
+        'If Customer Currently Selected, Add them to the Owners ListBox
+        frmPet.LoadCustomerAsOwner(objSelectedCustomer)
+
+    End Sub
+
     Public Sub LoadPet(ByVal objPet As clsPet)
 
         ' Access the dbConnection class to retrieve names instead of ids
@@ -158,12 +199,54 @@ Public Class frmPawperingMain
 
     End Sub
 
+
+    Private Sub lbxPetsList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lbxPetsList.SelectedIndexChanged
+        'Get the pet data from the database to display
+
+        ' Dim dbConnection As new clsDBConnection
+        Dim dbConnection As New clsDBConnection
+        Dim intSelectedPet As Integer
+        Dim blnIsInteger As Boolean
+
+        ' If a selection on the pets list box has been made, then get the value
+        If lbxPetsList.SelectedIndex > -1 Then
+            Try
+                blnIsInteger = Integer.TryParse(lbxPetsList.SelectedValue.ToString, intSelectedPet)
+            Catch ex As Exception
+                MessageBox.Show("Error getting selected pet." & Environment.NewLine & ex.Message, "Error: Pet List", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+
+        End If
+
+        ' If Selection is not an integer or the listbox has not loaded yet, load it.
+        If Not blnIsInteger Then
+            LoadPetsList()
+        End If
+
+        ' Get the selected Pet object from the database.
+        If lbxPetsList.Items.Count > 0 And blnIsInteger And lbxPetsList.SelectedIndex > -1 Then
+            ' Get the selected pet object
+            Try
+                objSelectedPet = dbConnection.GetSelectedPet(CInt(lbxPetsList.SelectedValue))
+            Catch ex As Exception
+                MessageBox.Show("Unable to load selected pet." & Environment.NewLine & "Error: " & ex.Message, "Error Loading Pet", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+
+            ' Load the pet object into the form
+            LoadPet(objSelectedPet)
+
+            ' Load the pet history 
+            LoadPetHistory()
+        End If
+
+    End Sub
+
     Public Sub LoadPetsList()
         Dim dbConnection As New clsDBConnection
         Dim strQuery As String
         Dim dtPets As DataTable
 
-        strQuery = "SELECT [Ownership].PetID, CONCAT([Ownership].PetID, ' ', Pet.Name) As IdAndName " &
+        strQuery = "SELECT [Ownership].PetID, CONCAT('Id ', [Ownership].PetID, ': ', Pet.Name) As IdAndName " &
                     "FROM [Ownership] INNER JOIN Pet ON [Ownership].PetID = Pet.PetID " &
                     "WHERE [Ownership].CustomerID = " & objSelectedCustomer.CustomerID & " " &
                     "ORDER BY [Ownership].PetID;"
@@ -179,6 +262,45 @@ Public Class frmPawperingMain
         Else
             lbxPetsList.DataSource = Nothing
         End If
+    End Sub
+
+    Private Sub btnSelectOwner_Click(sender As Object, e As EventArgs) Handles btnSelectOwner.Click
+
+        ' Validate that there are owners listed
+        If lbxPOwners.Items.Count > 0 Then
+            ' Create the dbConnection Object to get the customer
+            Dim dbConnection As New clsDBConnection
+
+            ' Get the selected owner object
+            objSelectedCustomer = dbConnection.GetSelectedCustomer(CInt(lbxPOwners.SelectedValue))
+
+            ' Load the customer object into the form
+            LoadCustomer(objSelectedCustomer)
+
+        Else
+            MessageBox.Show("No owner was selected.", "Owner", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End If
+
+    End Sub
+
+    Private Sub lbxPOwners_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles lbxPOwners.MouseDoubleClick
+        ' Allow to select an owner by double clicking
+
+        ' Validate that there are owners listed
+        If lbxPOwners.Items.Count > 0 Then
+            ' Create the dbConnection Object to get the customer
+            Dim dbConnection As New clsDBConnection
+
+            ' Get the selected owner object
+            objSelectedCustomer = dbConnection.GetSelectedCustomer(CInt(lbxPOwners.SelectedValue))
+
+            ' Load the customer object into the form
+            LoadCustomer(objSelectedCustomer)
+
+        Else
+            MessageBox.Show("No owner was selected.", "Owner", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End If
+
     End Sub
 
     Public Sub LoadOwners()
@@ -210,217 +332,16 @@ Public Class frmPawperingMain
 
     End Sub
 
-    Private Sub frmPawperingMain_Load(sender As Object, e As EventArgs) Handles Me.Load
-
-        'Clear the form
-        ClearForm("All")
-
-    End Sub
-
-    Private Sub mstFileClearToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mstFileClearToolStripMenuItem.Click
-
-        'Clear the whole form
-        ClearForm("All")
-
-    End Sub
-
-    Public Sub ClearForm(ByVal strAllOrPet As String)
-
-        If strAllOrPet = "Pet" Then
-
-            'Pet Data
-            lblPetID.Text = ""
-            lblPName.Text = "*"
-            lblPSpecies.Text = "*"
-            lblPBreed.Text = "*"
-            lblPColor.Text = "*"
-            lblPGender.Text = "*"
-            lblPBirthDate.Text = "*"
-            lblPStatus.Text = "*"
-            lblPDeceased.Text = "*"
-            picPetPhoto.ImageLocation = ""
-
-            'Clear the Pet Owners List Box
-            lbxPOwners.SelectedIndex = -1
-            lbxPOwners.DataSource = Nothing
-            lbxPOwners.Items.Clear()
-
-        Else
-            'Clear the entire form
-
-            ' Customer data
-            lblCustomerID.Text = ""
-            lblCustomerName.Text = "*"
-            lblAddress1.Text = "*"
-            lblAddress2.Text = "*"
-            lblCity.Text = "*"
-            lblState.Text = "*"
-            lblZipCode.Text = "*"
-            lblPhoneNumber1.Text = "*"
-            lblPhoneNumber2.Text = "*"
-            lblEmail.Text = "*"
-            lblCustomerSince.Text = "*"
-
-            ' Clear Customer Pets
-
-            lbxPetsList.SelectedIndex = -1
-            lbxPetsList.DataSource = Nothing
-            lbxPetsList.Items.Clear()
-
-            'Pet Data
-            lblPetID.Text = ""
-            lblPName.Text = "*"
-            lblPSpecies.Text = "*"
-            lblPBreed.Text = "*"
-            lblPColor.Text = "*"
-            lblPGender.Text = "*"
-            lblPBirthDate.Text = "*"
-            lblPStatus.Text = "*"
-            lblPDeceased.Text = "*"
-            picPetPhoto.ImageLocation = ""
-
-            'Clear the Pet Owners List Box
-            lbxPOwners.SelectedIndex = -1
-            lbxPOwners.DataSource = Nothing
-            lbxPOwners.Items.Clear()
-
-            'Clear the Pet History
-            dgvPetHistory.DataSource = Nothing
-
-        End If
-
-    End Sub
-
-    Private Sub mstFileAboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mstFileAboutToolStripMenuItem.Click
-
-        ' Show Project information in message box
-        MessageBox.Show("VB.Net Module 8" & Environment.NewLine & Environment.NewLine &
-                        "Developer: David Oberlander" & Environment.NewLine & "Date: 03/15/2021" & Environment.NewLine &
-                        "Version: 1.0", "CVTC Final Project", MessageBoxButtons.OK, MessageBoxIcon.Information)
-    End Sub
-
-    Private Sub DeleteCustomerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeleteCustomerToolStripMenuItem.Click
-
-        'Check if the form is created and open already
-        If frmCustomer.IsHandleCreated Then
-            'Focus on the already opened form
-            frmCustomer.Focus()
-        Else
-            'Create and show the form
-            frmCustomer.Show(Me)
-        End If
-
-        ' Fill the customer form with the selected Customer, set to Delete
-        frmCustomer.FillFormWithSelectedCustomer(objSelectedCustomer, "Delete")
-
-    End Sub
-
-    Private Sub btnNewPet_Click(sender As Object, e As EventArgs) Handles btnNewPet.Click
-
-        'Open New Pet Form
-        OpenForm(frmPet)
-
-        'If Customer Currently Selected, Add them to the Owners ListBox
-        frmPet.LoadCustomerAsOwner(objSelectedCustomer)
-
-    End Sub
-
-    Private Sub mstNewPetToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mstNewPetToolStripMenuItem.Click
-
-        'Open New Pet Form
-        OpenForm(frmPet)
-
-        'If Customer Currently Selected, Add them to the Owners ListBox
-        frmPet.LoadCustomerAsOwner(objSelectedCustomer)
-
-    End Sub
-
-
-    Private Sub lbxPetsList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lbxPetsList.SelectedIndexChanged
-
-        ' Dim dbConnection As new clsDBConnection
-        Dim dbConnection As New clsDBConnection
-        Dim intSelectedPet As Integer
-        Dim blnIsInteger As Boolean
-
-        ' If the PetsList has not been loaded yet, load it.
-        If lbxPetsList.SelectedIndex > -1 Then
-            Try
-                blnIsInteger = Integer.TryParse(lbxPetsList.SelectedValue.ToString, intSelectedPet)
-            Catch ex As Exception
-                MessageBox.Show("Error getting selected pet." & Environment.NewLine & ex.Message, "Error: Pet List", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-
-        End If
-
-        If Not blnIsInteger Then
-            LoadPetsList()
-        End If
-
-        ' Get the selected Pet object from the database.
-        If lbxPetsList.Items.Count > 0 And blnIsInteger And lbxPetsList.SelectedIndex > -1 Then
-            ' Get the selected pet object
-            Try
-                objSelectedPet = dbConnection.GetSelectedPet(CInt(lbxPetsList.SelectedValue))
-            Catch ex As Exception
-                MessageBox.Show("Unable to load selected pet." & Environment.NewLine & "Error: " & ex.Message, "Error Loading Pet", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-
-            ' Load the pet object into the form
-            LoadPet(objSelectedPet)
-
-            ' Load the pet history 
-            LoadPetHistory()
-        End If
-
-    End Sub
-
-    Private Sub btnSelectOwner_Click(sender As Object, e As EventArgs) Handles btnSelectOwner.Click
-
-        ' Validate that there are owners listed
-        If lbxPOwners.Items.Count > 0 Then
-            ' Create the dbConnection Object to get the customer
-            Dim dbConnection As New clsDBConnection
-
-            ' Get the selected owner object
-            objSelectedCustomer = dbConnection.GetSelectedCustomer(CInt(lbxPOwners.SelectedValue))
-
-            ' Load the customer object into the form
-            LoadCustomer(objSelectedCustomer)
-
-        Else
-            MessageBox.Show("No owner was selected.", "Owner", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-        End If
-
-    End Sub
-
-    Private Sub lbxPOwners_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles lbxPOwners.MouseDoubleClick
-
-        ' Validate that there are owners listed
-        If lbxPOwners.Items.Count > 0 Then
-            ' Create the dbConnection Object to get the customer
-            Dim dbConnection As New clsDBConnection
-
-            ' Get the selected owner object
-            objSelectedCustomer = dbConnection.GetSelectedCustomer(CInt(lbxPOwners.SelectedValue))
-
-            ' Load the customer object into the form
-            LoadCustomer(objSelectedCustomer)
-
-        Else
-            MessageBox.Show("No owner was selected.", "Owner", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-        End If
-
-    End Sub
-
     Private Sub btnEditPet_Click(sender As Object, e As EventArgs) Handles btnEditPet.Click
 
+        ' Open the edit form and populate pet data
         EditPet()
 
     End Sub
 
     Private Sub mstEditPetToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mstEditPetToolStripMenuItem.Click
 
+        ' Open the edit form and populate pet data
         EditPet()
 
     End Sub
@@ -455,6 +376,9 @@ Public Class frmPawperingMain
 
     End Sub
 
+
+    ' -------------------- PET HISTORY ------------------------------
+
     Private Sub chkShowInactiveRecords_CheckedChanged(sender As Object, e As EventArgs) Handles chkShowInactiveRecords.CheckedChanged
 
         ' Load pet history with the new inactive or active parameter
@@ -464,8 +388,10 @@ Public Class frmPawperingMain
 
     Public Sub LoadPetHistory()
 
+        ' Load pet history from the database
         If lbxPetsList.Items.Count > 0 Then
 
+            'Determine if active or inactive records should be shown
             Dim intActive As Integer
             If chkShowInactiveRecords.Checked Then
                 intActive = 0
@@ -528,12 +454,14 @@ Public Class frmPawperingMain
 
     Private Sub btnEditRecord_Click(sender As Object, e As EventArgs) Handles btnEditRecord.Click
 
+        ' Edit the selected history record
         EditHistoryRecord()
 
     End Sub
 
     Private Sub dgvPetHistory_DoubleClick(sender As Object, e As EventArgs) Handles dgvPetHistory.DoubleClick
 
+        ' Edit the selected history record
         EditHistoryRecord()
 
     End Sub
@@ -576,6 +504,99 @@ Public Class frmPawperingMain
             MessageBox.Show("Error Deletion Record" & Environment.NewLine & "Error: " & ex.Message, "Error Deleting Record", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
+    End Sub
+
+
+
+
+
+    Private Sub frmPawperingMain_Load(sender As Object, e As EventArgs) Handles Me.Load
+
+        'Clear the form
+        ClearForm("All")
+
+    End Sub
+
+    Private Sub mstFileClearToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mstFileClearToolStripMenuItem.Click
+
+        'Clear the whole form
+        ClearForm("All")
+
+    End Sub
+
+    Public Sub ClearForm(ByVal strAllOrPet As String)
+
+        If strAllOrPet = "Pet" Then
+
+            'Clear Pet Data on the form
+            lblPetID.Text = ""
+            lblPName.Text = "*"
+            lblPSpecies.Text = "*"
+            lblPBreed.Text = "*"
+            lblPColor.Text = "*"
+            lblPGender.Text = "*"
+            lblPBirthDate.Text = "*"
+            lblPStatus.Text = "*"
+            lblPDeceased.Text = "*"
+            picPetPhoto.ImageLocation = ""
+
+            'Clear the Pet Owners List Box
+            lbxPOwners.SelectedIndex = -1
+            lbxPOwners.DataSource = Nothing
+            lbxPOwners.Items.Clear()
+
+        Else
+            'Clear the entire form
+
+            ' Clear Customer data
+            lblCustomerID.Text = ""
+            lblCustomerName.Text = "*"
+            lblAddress1.Text = "*"
+            lblAddress2.Text = "*"
+            lblCity.Text = "*"
+            lblState.Text = "*"
+            lblZipCode.Text = "*"
+            lblPhoneNumber1.Text = "*"
+            lblPhoneNumber2.Text = "*"
+            lblEmail.Text = "*"
+            lblCustomerSince.Text = "*"
+
+            ' Clear Customer Pet Data
+
+            lbxPetsList.SelectedIndex = -1
+            lbxPetsList.DataSource = Nothing
+            lbxPetsList.Items.Clear()
+
+            'Pet Data
+            lblPetID.Text = ""
+            lblPName.Text = "*"
+            lblPSpecies.Text = "*"
+            lblPBreed.Text = "*"
+            lblPColor.Text = "*"
+            lblPGender.Text = "*"
+            lblPBirthDate.Text = "*"
+            lblPStatus.Text = "*"
+            lblPDeceased.Text = "*"
+            picPetPhoto.ImageLocation = ""
+
+            'Clear the Pet Owners List Box
+            lbxPOwners.SelectedIndex = -1
+            lbxPOwners.DataSource = Nothing
+            lbxPOwners.Items.Clear()
+
+            'Clear the Pet History
+            dgvPetHistory.DataSource = Nothing
+
+        End If
+
+    End Sub
+
+    Private Sub mstFileAboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mstFileAboutToolStripMenuItem.Click
+
+        ' Show Project information in message box
+        MessageBox.Show("VB.Net Module 8" & Environment.NewLine & Environment.NewLine &
+                        "Developer: David Oberlander" & Environment.NewLine & "Date: 03/15/2021" & Environment.NewLine &
+                        "Version: 1.0", "CVTC Final Project", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
 

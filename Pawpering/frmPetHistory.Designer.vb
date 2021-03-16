@@ -74,7 +74,7 @@ Partial Class frmPetHistory
         Me.txtVisitReason.Multiline = True
         Me.txtVisitReason.Name = "txtVisitReason"
         Me.txtVisitReason.Size = New System.Drawing.Size(500, 100)
-        Me.txtVisitReason.TabIndex = 3
+        Me.txtVisitReason.TabIndex = 0
         '
         'lblVisitReason
         '
@@ -101,7 +101,7 @@ Partial Class frmPetHistory
         Me.txtTreatment.Multiline = True
         Me.txtTreatment.Name = "txtTreatment"
         Me.txtTreatment.Size = New System.Drawing.Size(500, 100)
-        Me.txtTreatment.TabIndex = 7
+        Me.txtTreatment.TabIndex = 1
         '
         'dtpHistoryDate
         '
@@ -110,7 +110,7 @@ Partial Class frmPetHistory
         Me.dtpHistoryDate.Location = New System.Drawing.Point(75, 53)
         Me.dtpHistoryDate.Name = "dtpHistoryDate"
         Me.dtpHistoryDate.Size = New System.Drawing.Size(200, 20)
-        Me.dtpHistoryDate.TabIndex = 8
+        Me.dtpHistoryDate.TabIndex = 2
         '
         'lblHistoryID
         '
@@ -135,7 +135,7 @@ Partial Class frmPetHistory
         Me.btnSave.Location = New System.Drawing.Point(459, 362)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(75, 23)
-        Me.btnSave.TabIndex = 11
+        Me.btnSave.TabIndex = 4
         Me.btnSave.Text = "Save"
         Me.btnSave.UseVisualStyleBackColor = True
         '
@@ -144,7 +144,7 @@ Partial Class frmPetHistory
         Me.btnClear.Location = New System.Drawing.Point(34, 362)
         Me.btnClear.Name = "btnClear"
         Me.btnClear.Size = New System.Drawing.Size(75, 23)
-        Me.btnClear.TabIndex = 12
+        Me.btnClear.TabIndex = 5
         Me.btnClear.Text = "Clear"
         Me.btnClear.UseVisualStyleBackColor = True
         '
@@ -155,7 +155,7 @@ Partial Class frmPetHistory
         Me.btnDeleteRecord.Location = New System.Drawing.Point(229, 358)
         Me.btnDeleteRecord.Name = "btnDeleteRecord"
         Me.btnDeleteRecord.Size = New System.Drawing.Size(119, 31)
-        Me.btnDeleteRecord.TabIndex = 17
+        Me.btnDeleteRecord.TabIndex = 6
         Me.btnDeleteRecord.Text = "Delete Record"
         Me.btnDeleteRecord.UseVisualStyleBackColor = False
         Me.btnDeleteRecord.Visible = False
@@ -163,7 +163,7 @@ Partial Class frmPetHistory
         'lblPetName
         '
         Me.lblPetName.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPetName.Location = New System.Drawing.Point(187, 19)
+        Me.lblPetName.Location = New System.Drawing.Point(187, 14)
         Me.lblPetName.Name = "lblPetName"
         Me.lblPetName.Size = New System.Drawing.Size(198, 21)
         Me.lblPetName.TabIndex = 19
@@ -180,7 +180,7 @@ Partial Class frmPetHistory
         Me.chkActiveRecord.Name = "chkActiveRecord"
         Me.chkActiveRecord.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.chkActiveRecord.Size = New System.Drawing.Size(97, 17)
-        Me.chkActiveRecord.TabIndex = 20
+        Me.chkActiveRecord.TabIndex = 3
         Me.chkActiveRecord.Text = "Active Record:"
         Me.chkActiveRecord.UseVisualStyleBackColor = True
         '

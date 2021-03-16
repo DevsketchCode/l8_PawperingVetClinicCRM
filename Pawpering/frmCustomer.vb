@@ -94,24 +94,24 @@ Public Class frmCustomer
 
             'Load the Main Pawpering Form with the new customer data
             Dim frmPawperingMain = DirectCast(Me.Owner, frmPawperingMain)
-                frmPawperingMain.LoadCustomer(objCustomer)
+            frmPawperingMain.LoadCustomer(objCustomer)
 
-                ' Close this form
-                Me.Close()
+            ' Close this form
+            Me.Close()
 
-            Else
+        Else
             MessageBox.Show("Please fill out every field." & Environment.NewLine & Environment.NewLine & "Address2 and Alternate Number are not required.", "Incomplete Form", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         End If
 
     End Sub
-
-
 
     Private Function ValidateTextBoxes() As Boolean
         Dim isValid As Boolean = True
 
         ' Check to see if all the text boxes have data
         For Each tb In grpCustomer.Controls.OfType(Of TextBox)
+
+            ' Excludes the CustomerID, Address2, and PhoneNumber 2 fields
             If tb.Text.Equals("") And Not (tb.Name.Equals("txtCustomerID") Or tb.Name.Equals("txtAddress2") Or tb.Name.Equals("txtPhoneNumber2")) Then
                 isValid = False
             End If
@@ -129,6 +129,7 @@ Public Class frmCustomer
 
     Private Function PopulateCustomer() As clsCustomer
 
+        'Populate the data into the Module level Customer Object
         objCustomer.FirstName = txtFirstName.Text
         objCustomer.LastName = txtLastName.Text
         objCustomer.Address1 = txtAddress1.Text
@@ -138,7 +139,7 @@ Public Class frmCustomer
         objCustomer.ZipCode = txtZipCode.Text
         objCustomer.PhoneNumber1 = txtPhoneNumber1.Text
         objCustomer.PhoneNumber2 = txtPhoneNumber2.Text
-        objCustomer.Email = txtEmail.Text
+        objCustomer.Email = txtEmail.Text.ToLower()
         objCustomer.CustomerSince = dteCustomerSince.Value
         objCustomer.Active = chkActive.Checked
 

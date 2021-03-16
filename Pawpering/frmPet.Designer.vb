@@ -24,6 +24,8 @@ Partial Class frmPet
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPet))
         Me.grpPet = New System.Windows.Forms.GroupBox()
+        Me.lblGender = New System.Windows.Forms.Label()
+        Me.cboGender = New System.Windows.Forms.ComboBox()
         Me.btnSelectImage = New System.Windows.Forms.Button()
         Me.cboStatus = New System.Windows.Forms.ComboBox()
         Me.lblStatus = New System.Windows.Forms.Label()
@@ -53,8 +55,6 @@ Partial Class frmPet
         Me.btnClearForm = New System.Windows.Forms.Button()
         Me.ofdOpenFileDialog = New System.Windows.Forms.OpenFileDialog()
         Me.btnDeletePet = New System.Windows.Forms.Button()
-        Me.cboGender = New System.Windows.Forms.ComboBox()
-        Me.lblGender = New System.Windows.Forms.Label()
         Me.grpPet.SuspendLayout()
         CType(Me.picPetPhoto, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -98,12 +98,30 @@ Partial Class frmPet
         Me.grpPet.TabStop = False
         Me.grpPet.Text = "New Pet"
         '
+        'lblGender
+        '
+        Me.lblGender.AutoSize = True
+        Me.lblGender.Location = New System.Drawing.Point(199, 259)
+        Me.lblGender.Name = "lblGender"
+        Me.lblGender.Size = New System.Drawing.Size(45, 13)
+        Me.lblGender.TabIndex = 18
+        Me.lblGender.Text = "Gender:"
+        '
+        'cboGender
+        '
+        Me.cboGender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboGender.FormattingEnabled = True
+        Me.cboGender.Location = New System.Drawing.Point(247, 256)
+        Me.cboGender.Name = "cboGender"
+        Me.cboGender.Size = New System.Drawing.Size(71, 21)
+        Me.cboGender.TabIndex = 7
+        '
         'btnSelectImage
         '
         Me.btnSelectImage.Location = New System.Drawing.Point(605, 291)
         Me.btnSelectImage.Name = "btnSelectImage"
         Me.btnSelectImage.Size = New System.Drawing.Size(26, 23)
-        Me.btnSelectImage.TabIndex = 16
+        Me.btnSelectImage.TabIndex = 9
         Me.btnSelectImage.Text = "..."
         Me.btnSelectImage.UseVisualStyleBackColor = True
         '
@@ -114,7 +132,7 @@ Partial Class frmPet
         Me.cboStatus.Location = New System.Drawing.Point(118, 256)
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.Size = New System.Drawing.Size(75, 21)
-        Me.cboStatus.TabIndex = 15
+        Me.cboStatus.TabIndex = 6
         '
         'lblStatus
         '
@@ -140,7 +158,7 @@ Partial Class frmPet
         Me.btnAddOwner.Location = New System.Drawing.Point(118, 328)
         Me.btnAddOwner.Name = "btnAddOwner"
         Me.btnAddOwner.Size = New System.Drawing.Size(95, 23)
-        Me.btnAddOwner.TabIndex = 11
+        Me.btnAddOwner.TabIndex = 10
         Me.btnAddOwner.Text = "Add Owner"
         Me.btnAddOwner.UseVisualStyleBackColor = True
         '
@@ -177,7 +195,7 @@ Partial Class frmPet
         Me.dtpDeceasedDate.Location = New System.Drawing.Point(118, 293)
         Me.dtpDeceasedDate.Name = "dtpDeceasedDate"
         Me.dtpDeceasedDate.Size = New System.Drawing.Size(113, 20)
-        Me.dtpDeceasedDate.TabIndex = 6
+        Me.dtpDeceasedDate.TabIndex = 8
         Me.dtpDeceasedDate.Value = New Date(2021, 3, 12, 0, 0, 0, 0)
         Me.dtpDeceasedDate.Visible = False
         '
@@ -187,7 +205,7 @@ Partial Class frmPet
         Me.lbxPetOwners.Location = New System.Drawing.Point(118, 356)
         Me.lbxPetOwners.Name = "lbxPetOwners"
         Me.lbxPetOwners.Size = New System.Drawing.Size(200, 56)
-        Me.lbxPetOwners.TabIndex = 7
+        Me.lbxPetOwners.TabIndex = 11
         '
         'cboSpecies
         '
@@ -208,6 +226,7 @@ Partial Class frmPet
         Me.txtPhoto.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.txtPhoto.Size = New System.Drawing.Size(199, 20)
         Me.txtPhoto.TabIndex = 8
+        Me.txtPhoto.TabStop = False
         '
         'txtName
         '
@@ -247,7 +266,7 @@ Partial Class frmPet
         Me.chkActive.Location = New System.Drawing.Point(583, 411)
         Me.chkActive.Name = "chkActive"
         Me.chkActive.Size = New System.Drawing.Size(56, 17)
-        Me.chkActive.TabIndex = 9
+        Me.chkActive.TabIndex = 13
         Me.chkActive.Text = "Active"
         Me.chkActive.UseVisualStyleBackColor = True
         '
@@ -341,7 +360,7 @@ Partial Class frmPet
         Me.btnSaveAndLoad.Location = New System.Drawing.Point(517, 457)
         Me.btnSaveAndLoad.Name = "btnSaveAndLoad"
         Me.btnSaveAndLoad.Size = New System.Drawing.Size(140, 23)
-        Me.btnSaveAndLoad.TabIndex = 1
+        Me.btnSaveAndLoad.TabIndex = 14
         Me.btnSaveAndLoad.Text = "Save And Load Pet"
         Me.btnSaveAndLoad.UseVisualStyleBackColor = True
         '
@@ -351,7 +370,7 @@ Partial Class frmPet
         Me.btnClearForm.Location = New System.Drawing.Point(12, 457)
         Me.btnClearForm.Name = "btnClearForm"
         Me.btnClearForm.Size = New System.Drawing.Size(75, 23)
-        Me.btnClearForm.TabIndex = 2
+        Me.btnClearForm.TabIndex = 15
         Me.btnClearForm.Text = "Clear Form"
         Me.btnClearForm.UseVisualStyleBackColor = True
         '
@@ -370,24 +389,6 @@ Partial Class frmPet
         Me.btnDeletePet.Text = "Delete Pet"
         Me.btnDeletePet.UseVisualStyleBackColor = False
         Me.btnDeletePet.Visible = False
-        '
-        'cboGender
-        '
-        Me.cboGender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboGender.FormattingEnabled = True
-        Me.cboGender.Location = New System.Drawing.Point(247, 256)
-        Me.cboGender.Name = "cboGender"
-        Me.cboGender.Size = New System.Drawing.Size(71, 21)
-        Me.cboGender.TabIndex = 17
-        '
-        'lblGender
-        '
-        Me.lblGender.AutoSize = True
-        Me.lblGender.Location = New System.Drawing.Point(199, 259)
-        Me.lblGender.Name = "lblGender"
-        Me.lblGender.Size = New System.Drawing.Size(45, 13)
-        Me.lblGender.TabIndex = 18
-        Me.lblGender.Text = "Gender:"
         '
         'frmPet
         '

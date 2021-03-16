@@ -78,7 +78,8 @@ Public Class frmPet
     End Sub
 
     Private Function GetColors() As String()
-        Dim strColors() As String = {"Other", "Mixed", "Blue", "Black", "Brown", "Golden", "Green", "Gray", "Mixed", "Orange", "Purple", "Red", "White", "Yellow"}
+        ' Create an array for use to populate Colors
+        Dim strColors() As String = {"Other", "Mixed", "Blue", "Black", "Brown", "Chocolate", "Cream", "Golden", "Gray", "Green", "Orange", "Purple", "Red", "Tan", "White", "Yellow"}
         Return strColors
     End Function
 
@@ -161,6 +162,18 @@ Public Class frmPet
         frmCustomerSearch.btnLoadSelectedCustomer.Text = "Load as Pet Owner"
     End Sub
 
+    Private Sub OpenForm(ByVal form As Form)
+
+        'Check if the form is created and open already
+        If form.IsHandleCreated Then
+            'Focus on the already opened form
+            form.Focus()
+        Else
+            'Create and show the form
+            form.Show(Me)
+        End If
+    End Sub
+
     Private Sub btnRemoveOwner_Click(sender As Object, e As EventArgs) Handles btnRemoveOwner.Click
 
         'dctOwners.Add(objCustomer.CustomerID, objCustomer.Full_Name)
@@ -174,16 +187,6 @@ Public Class frmPet
         End If
     End Sub
 
-    Private Sub OpenForm(ByVal form As Form)
-        'Check if the form is created and open already
-        If form.IsHandleCreated Then
-            'Focus on the already opened form
-            form.Focus()
-        Else
-            'Create and show the form
-            form.Show(Me)
-        End If
-    End Sub
 
     Public Sub LoadCustomerAsOwner(ByVal objCustomer As clsCustomer)
 
@@ -368,6 +371,7 @@ Public Class frmPet
             txtPhoto.Text = objPet.Photo
             chkActive.Checked = objPet.Active
 
+            ' Retrieve the image
 
             ' Get the application file path
             Dim strAppPath As String = Application.StartupPath
@@ -387,6 +391,7 @@ Public Class frmPet
                 ' Pet does not have a picture
                 picPetPhoto.ImageLocation = strAppPath & "Images\" & "_NoImage.png"
             End If
+
 
             'Get Owners for pet in datatable to put it into the listbox
             Dim dbConnection As New clsDBConnection
@@ -409,7 +414,7 @@ Public Class frmPet
                 lbxPetOwners.DataSource = Nothing
             End If
 
-            ' Deselect all owners
+            ' DeSelect all owners
             lbxPetOwners.SelectedIndex = -1
 
         Else
@@ -418,23 +423,6 @@ Public Class frmPet
 
     End Sub
 
-    Private Sub btnClearForm_Click(sender As Object, e As EventArgs) Handles btnClearForm.Click
-
-        ' Clear the pet form
-        txtName.Text = String.Empty
-        cboSpecies.SelectedIndex = 0
-        cboBreed.SelectedIndex = 0
-        cboColor.SelectedIndex = 0
-        dtpBirthDate.Value = Today()
-        cboGender.SelectedItem = "Male"
-        cboStatus.SelectedItem = "Alive"
-        dtpDeceasedDate.Value = Today()
-        dtpDeceasedDate.Visible = False
-        txtPhoto.Text = String.Empty
-        picPetPhoto.ImageLocation = String.Empty
-        lbxPetOwners.DataSource = Nothing
-
-    End Sub
 
     Private Sub btnDeletePet_Click(sender As Object, e As EventArgs) Handles btnDeletePet.Click
 
@@ -470,5 +458,23 @@ Public Class frmPet
         End If
 
         frmPawperingMain.LoadPetsList()
+    End Sub
+
+    Private Sub btnClearForm_Click(sender As Object, e As EventArgs) Handles btnClearForm.Click
+
+        ' Clear the pet form
+        txtName.Text = String.Empty
+        cboSpecies.SelectedIndex = 0
+        cboBreed.SelectedIndex = 0
+        cboColor.SelectedIndex = 0
+        dtpBirthDate.Value = Today()
+        cboGender.SelectedItem = "Male"
+        cboStatus.SelectedItem = "Alive"
+        dtpDeceasedDate.Value = Today()
+        dtpDeceasedDate.Visible = False
+        txtPhoto.Text = String.Empty
+        picPetPhoto.ImageLocation = String.Empty
+        lbxPetOwners.DataSource = Nothing
+
     End Sub
 End Class
