@@ -230,28 +230,34 @@ Public Class frmPet
         'Only continue if a owner exists
         If lbxPetOwners.Items.Count > 0 Then
 
-            'Populate the Pet Object with data from the user
-            objPet = PopulatePet()
+            ' Make sure the deceased date is after the birth date
+            If dtpDeceasedDate.Value > dtpBirthDate.Value Then
+                'Populate the Pet Object with data from the user
+                objPet = PopulatePet()
 
-            'Create object to connect to the database
-            Dim newConnection As clsDBConnection = New clsDBConnection
+                'Create object to connect to the database
+                Dim newConnection As clsDBConnection = New clsDBConnection
 
-            If objPet.PetID = 0 Then
-                'Insert the data from the form into the database
-                newConnection.InsertPet(objPet)
+                If objPet.PetID = 0 Then
+                    'Insert the data from the form into the database
+                    newConnection.InsertPet(objPet)
+                Else
+                    'Update the new pet data from the form into the database
+                    newConnection.UpdatePet(objPet, dtOwners)
+                End If
+
+                'Load the Main Pawpering Form with the new Pet Data
+                Dim frmPawperingMain = DirectCast(Me.Owner, frmPawperingMain)
+                frmPawperingMain.LoadPet(objPet)
+                frmPawperingMain.LoadPetsList()
+                frmPawperingMain.LoadOwners()
+
+                'Close this form
+                Me.Close()
+
             Else
-                'Update the new pet data from the form into the database
-                newConnection.UpdatePet(objPet, dtOwners)
+                MessageBox.Show("The deceased date must be after the birth date." & Environment.NewLine & "Please correct and try again.", "Invalid Dates", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             End If
-
-            'Load the Main Pawpering Form with the new Pet Data
-            Dim frmPawperingMain = DirectCast(Me.Owner, frmPawperingMain)
-            frmPawperingMain.LoadPet(objPet)
-            frmPawperingMain.LoadPetsList()
-            frmPawperingMain.LoadOwners()
-
-            'Close this form
-            Me.Close()
 
         Else
             MessageBox.Show("An Owner Must Be Selected, please select one.", "No Owner", MessageBoxButtons.OK, MessageBoxIcon.Warning)

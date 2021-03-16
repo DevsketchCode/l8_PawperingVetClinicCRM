@@ -11,7 +11,6 @@ Option Explicit On
 Imports System.Data.SqlClient
 
 Public Class clsDBConnection
-
     ' Create the connection to the database
     Public Function OpenDBConnection() As SqlConnection
         'Create the connection string (db from the main project folder instead of the debug folder)
