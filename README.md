@@ -1,4 +1,4 @@
-# l8_PawperingVetClinicCRM
+# Pawpering Vet Clinic CRM
 CVTC VB.Net Final Project - Develop your own program. 
 
 This is a basic Veterinary Clinic CRM Software (No affiliation to any pawpering clinic)
