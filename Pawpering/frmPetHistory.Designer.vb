@@ -165,7 +165,7 @@ Partial Class frmPetHistory
         Me.lblPetName.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblPetName.Location = New System.Drawing.Point(187, 14)
         Me.lblPetName.Name = "lblPetName"
-        Me.lblPetName.Size = New System.Drawing.Size(198, 21)
+        Me.lblPetName.Size = New System.Drawing.Size(198, 30)
         Me.lblPetName.TabIndex = 19
         Me.lblPetName.Text = "*"
         Me.lblPetName.TextAlign = System.Drawing.ContentAlignment.TopCenter
