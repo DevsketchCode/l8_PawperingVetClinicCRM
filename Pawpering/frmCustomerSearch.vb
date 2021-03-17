@@ -124,6 +124,14 @@ Public Class frmCustomerSearch
         ' Show the results to the data grid view
         dgvCustomers.DataSource = table
 
+        ' Resize columns with the new content
+        dgvCustomers.AutoResizeColumns()
+
+        ' Manually adjust certain columns
+        dgvCustomers.Columns("CustomerID").Width = 70
+        dgvCustomers.Columns("State").Width = 40
+        dgvCustomers.Columns("Active").Width = 40
+
         ' Show and Update the Status Bar with the records now in the table
         stsRecordsReturnedLabel.Visible = True
         stsRecordsReturned.Visible = True

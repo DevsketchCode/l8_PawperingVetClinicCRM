@@ -765,6 +765,9 @@ Partial Class frmPawperingMain
         '
         'grpPetHistory
         '
+        Me.grpPetHistory.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.grpPetHistory.Controls.Add(Me.chkShowInactiveRecords)
         Me.grpPetHistory.Controls.Add(Me.dgvPetHistory)
         Me.grpPetHistory.Controls.Add(Me.btnDeleteRecord)
