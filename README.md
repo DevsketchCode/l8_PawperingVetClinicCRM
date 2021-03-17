@@ -9,7 +9,7 @@ All the images are currently set to run from the debug folder to an "Images" fol
 If you select an image in a different folder, it will make a copy and rename it with a date-time stamp, and put it into the designated images folder.
 
 Below are a few screenshots of the program.
-     <em>(No affiliation to any pawpering clinic, and all records shown in the screenshots are fake, except my name.)</em>
+<br><i>(No affiliation to any pawpering clinic, and all records shown in the screenshots are fake, except my name.)</i>
 
 <b>Main Window</b>
 ![Pawpering_Screenshot_Main](https://user-images.githubusercontent.com/69563324/111421435-f9ec8b00-86ba-11eb-9f26-04983350b32f.png)
