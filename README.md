@@ -4,6 +4,12 @@ CVTC VB.Net Final Project - Develop your own program.
 This is a basic Veterinary Clinic CRM Software 
 It allows you to manage customer and pet information as well as pet history. 
 
+Software: 
+Visual Studio Express 2019
+
+Database Version: 
+Microsoft SQL Server 2017 (RTM) - 14.0.1000.169 (X64)   Aug 22 2017 17:04:49   Copyright (C) 2017 Microsoft Corporation  Express Edition (64-bit) on Windows 10 Pro 10.0 <X64> (Build 18363: ) 
+
 Images: 
 All the images are currently set to run from the debug folder to an "Images" folder in the main project folder. 
 If you select an image in a different folder, it will make a copy and rename it with a date-time stamp, and put it into the designated images folder.
