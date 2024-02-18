@@ -15,10 +15,9 @@ Public Class clsDBConnection
     Public Function OpenDBConnection() As SqlConnection
         'Create the connection string (db from the main project folder instead of the debug folder)
         Dim strPath As String = Application.StartupPath
-        Dim intPathLength As Integer = strPath.Length
 
-        ' Strip off the bin/debug folder, to point to the project folder instead
-        strPath = strPath.Substring(0, intPathLength - 9)
+        'Use path to exe, where the database should be stored as well, but add ending backslash to this path
+        strPath &= "\"
 
         ' The connection String
         Dim strConnection As String = "Server=(LocalDB)\MSSQLLocalDB; Integrated Security=true;AttachDbFileName=" & strPath & "Pawpering.mdf"

@@ -110,7 +110,16 @@ Public Class frmPet
         Dim intPathLength As Integer = strAppPath.Length
 
         ' Strip off the bin/debug folder, to point to the project folder instead
-        strAppPath = strAppPath.Substring(0, intPathLength - 9)
+        If (strAppPath.Substring(intPathLength - 9, 9).ToLower.Equals("bin\debug")) Then
+            ' Strip off the bin/debug folder, to point to the project folder instead
+            strAppPath = strAppPath.Substring(0, intPathLength - 9)
+        ElseIf (strAppPath.Substring(intPathLength - 11, 11).ToLower.Equals("bin\release")) Then
+            ' Strip off the bin/debug folder, to point to the project folder instead
+            strAppPath = strAppPath.Substring(0, intPathLength - 11)
+        Else
+            ' Images should be stored in the Images folder where the Executable is
+            strAppPath &= "\"
+        End If
 
         ' Set to designated images folder
         strNewImageLocation = strAppPath & "Images\"
@@ -384,7 +393,16 @@ Public Class frmPet
             Dim intPathLength As Integer = strAppPath.Length
 
             ' Strip off the bin/debug folder, to point to the project folder instead
-            strAppPath = strAppPath.Substring(0, intPathLength - 9)
+            If (strAppPath.Substring(intPathLength - 9, 9).ToLower.Equals("bin\debug")) Then
+                ' Strip off the bin/debug folder, to point to the project folder instead
+                strAppPath = strAppPath.Substring(0, intPathLength - 9)
+            ElseIf (strAppPath.Substring(intPathLength - 11, 11).ToLower.Equals("bin\release")) Then
+                ' Strip off the bin/debug folder, to point to the project folder instead
+                strAppPath = strAppPath.Substring(0, intPathLength - 11)
+            Else
+                ' Images should be stored in the Images folder where the Executable is
+                strAppPath &= "\"
+            End If
 
             ' Load the pet picture if there is one
             If Not objPet.Photo = "" Then
